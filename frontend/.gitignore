@@ -31,3 +31,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Data files (see deployment strategy in main README.md)
+# Uncomment to ignore data in frontend:
+# /public/data/export/*.json
