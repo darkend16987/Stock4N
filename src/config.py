@@ -51,7 +51,7 @@ RATE_LIMIT = {
 
 # Data sources priority
 DATA_SOURCES = {
-    'price': ['DNSE', 'VCI', 'TCBS'],      # Priority order for price data
+    'price': ['VCI', 'TCBS', 'MSN'],       # Priority order for price data (vnstock v3.x compatible)
     'financial': ['VCI', 'TCBS']            # Priority order for financial data
 }
 

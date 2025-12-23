@@ -177,10 +177,10 @@ class PortfolioManager:
 
             # Risk summary
             logger.info("\nRISK SUMMARY:")
-            logger.info(f"Stop Loss: -{stop_loss_pct*100}% per position")
-            logger.info(f"Target Profit: +{target_profit_pct*100}% per position")
+            logger.info(f"Stop Loss: -{stop_loss_pct*100:.1f}% per position")
+            logger.info(f"Target Profit: +{target_profit_pct*100:.1f}% per position")
             logger.info(f"Risk/Reward Ratio: {risk_reward}")
-            logger.info(f"Max position size: {max_position_pct*100}%")
+            logger.info(f"Max position size: {max_position_pct*100:.1f}%")
 
             return df_rec
         else:
