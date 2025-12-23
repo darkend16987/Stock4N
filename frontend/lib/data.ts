@@ -1,6 +1,3 @@
-import { readFile } from 'fs/promises'
-import { join } from 'path'
-
 export interface StockAnalysis {
   Symbol: string
   Total_Score: number
@@ -38,28 +35,47 @@ export interface StockData {
   }
 }
 
+// Default empty data for fallback
+const emptyData: StockData = {
+  last_updated: new Date().toISOString(),
+  analysis: [],
+  portfolio: [],
+  charts: {},
+  metadata: {
+    total_symbols: 0,
+    total_positions: 0,
+    chart_days: 100,
+    export_timestamp: new Date().toISOString()
+  }
+}
+
+/**
+ * Fetch stock data from public/data/db.json
+ * Works on both client and server side
+ */
 export async function getStockData(): Promise<StockData> {
   try {
-    // Try to read from backend data export
-    const filePath = join(process.cwd(), '..', 'data', 'export', 'db.json')
-    const fileContent = await readFile(filePath, 'utf-8')
-    const data: StockData = JSON.parse(fileContent)
+    // For server-side (build time), use absolute URL or relative path
+    const baseUrl = typeof window === 'undefined'
+      ? process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : 'http://localhost:3000'
+      : ''
+
+    const response = await fetch(`${baseUrl}/data/db.json`, {
+      cache: 'no-store' // Always fetch fresh data
+    })
+
+    if (!response.ok) {
+      console.warn('db.json not found, returning empty data')
+      return emptyData
+    }
+
+    const data: StockData = await response.json()
     return data
   } catch (error) {
     console.error('Error loading stock data:', error)
-    // Return mock data if file not found
-    return {
-      last_updated: new Date().toISOString(),
-      analysis: [],
-      portfolio: [],
-      charts: {},
-      metadata: {
-        total_symbols: 0,
-        total_positions: 0,
-        chart_days: 100,
-        export_timestamp: new Date().toISOString()
-      }
-    }
+    return emptyData
   }
 }
 
