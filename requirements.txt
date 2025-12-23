@@ -1,0 +1,10 @@
+pandas>=2.0.0
+numpy
+openpyxl
+vnstock>=0.2.8
+ta-lib
+scipy
+streamlit
+watchdog
+matplotlib
+plotly

@@ -1,0 +1,16 @@
+services:
+  stock-advisor:
+    build: .
+    container_name: stock4n_app
+    volumes:
+      # Mount mã nguồn: Code ở máy thật -> Container nhận ngay
+      - .:/app
+      # Mount dữ liệu: Dữ liệu tải về sẽ nằm ở folder D:\GitHub\Stock4N\data
+      - ./data:/app/data
+    ports:
+      - "8501:8501" # Port cho Streamlit
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+    restart: unless-stopped
+    # Tăng giới hạn bộ nhớ nếu cần xử lý dữ liệu lớn (optional)
+    mem_limit: 4g
