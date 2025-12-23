@@ -5,6 +5,8 @@ import random
 from datetime import datetime
 import sys
 import vnstock
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from threading import Lock
 
 # Thêm đường dẫn src vào system path để import config
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
@@ -25,6 +27,7 @@ class VNStockLoader:
         self.data_dir = data_dir
         self.use_legacy = hasattr(vnstock, 'stock_historical_data')
         self.validator = DataValidator()
+        self.logger_lock = Lock()  # Thread-safe logging
 
         if not self.use_legacy:
             logger.info("Detected vnstock v3.x (OOP Mode)")
@@ -242,29 +245,30 @@ class VNStockLoader:
 
         return None
 
-    def run_ingestion(self, symbols):
+    def _process_single_symbol(self, symbol, idx, total):
         """
-        Run full ingestion pipeline for list of symbols
+        Process a single symbol (fetch price and financial data)
+        Designed to be called in parallel threads
+
+        Args:
+            symbol: Stock symbol to process
+            idx: Index in the symbols list (for progress tracking)
+            total: Total number of symbols
+
+        Returns:
+            dict: Result with symbol, status, and data availability flags
         """
-        logger.info(f"Starting data ingestion for {len(symbols)} symbols")
-        logger.info(f"Data will be saved to: {self.data_dir}")
-        logger.info("Note: This process may take time due to rate limiting")
+        with self.logger_lock:
+            logger.info(f"[{idx+1}/{total}] Processing {symbol}...")
 
-        results = []
-        success_count = 0
-        partial_count = 0
-        fail_count = 0
+        # Random sleep to avoid rate limiting (distributed across threads)
+        sleep_time = random.uniform(
+            config.RATE_LIMIT['request_delay_min'],
+            config.RATE_LIMIT['request_delay_max']
+        )
+        time.sleep(sleep_time)
 
-        for idx, symbol in enumerate(symbols):
-            logger.info(f"[{idx+1}/{len(symbols)}] Processing {symbol}...")
-
-            # Random sleep to avoid rate limiting
-            sleep_time = random.uniform(
-                config.RATE_LIMIT['request_delay_min'],
-                config.RATE_LIMIT['request_delay_max']
-            )
-            time.sleep(sleep_time)
-
+        try:
             # 1. Fetch price data (most important)
             price = self.get_price_data(symbol)
 
@@ -282,24 +286,113 @@ class VNStockLoader:
             # Determine status
             if price is None:
                 status = "FAILED"
-                fail_count += 1
-                logger.error(f"✗ {symbol}: NO PRICE DATA")
+                with self.logger_lock:
+                    logger.error(f"✗ {symbol}: NO PRICE DATA")
             elif bs is None:
                 status = "PARTIAL"
-                partial_count += 1
-                logger.warning(f"⚠ {symbol}: PRICE ONLY (missing financial data)")
+                with self.logger_lock:
+                    logger.warning(f"⚠ {symbol}: PRICE ONLY (missing financial data)")
             else:
                 status = "SUCCESS"
-                success_count += 1
-                logger.info(f"✓ {symbol}: COMPLETE")
+                with self.logger_lock:
+                    logger.info(f"✓ {symbol}: COMPLETE")
 
-            results.append({
+            return {
                 'Symbol': symbol,
                 'Status': status,
                 'Has_Price': price is not None,
                 'Has_Balance': bs is not None,
                 'Has_Income': inc is not None
-            })
+            }
+
+        except Exception as e:
+            with self.logger_lock:
+                logger.error(f"✗ {symbol}: Exception - {str(e)}")
+            return {
+                'Symbol': symbol,
+                'Status': 'FAILED',
+                'Has_Price': False,
+                'Has_Balance': False,
+                'Has_Income': False,
+                'Error': str(e)
+            }
+
+    def run_ingestion(self, symbols, parallel=True, max_workers=None):
+        """
+        Run full ingestion pipeline for list of symbols
+
+        Args:
+            symbols: List of stock symbols to fetch
+            parallel: Use parallel fetching (default: True)
+            max_workers: Maximum number of parallel workers (default: from config)
+        """
+        logger.info(f"Starting data ingestion for {len(symbols)} symbols")
+        logger.info(f"Data will be saved to: {self.data_dir}")
+
+        # Determine execution mode
+        if parallel:
+            if max_workers is None:
+                max_workers = config.PARALLEL_FETCHING.get('max_workers', 3)
+            logger.info(f"Using PARALLEL mode with {max_workers} workers")
+        else:
+            logger.info("Using SEQUENTIAL mode")
+
+        logger.info("Note: This process may take time due to rate limiting")
+
+        results = []
+        success_count = 0
+        partial_count = 0
+        fail_count = 0
+
+        if parallel:
+            # Parallel execution with ThreadPoolExecutor
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                # Submit all tasks
+                future_to_symbol = {
+                    executor.submit(self._process_single_symbol, symbol, idx, len(symbols)): symbol
+                    for idx, symbol in enumerate(symbols)
+                }
+
+                # Process completed tasks as they finish
+                for future in as_completed(future_to_symbol):
+                    symbol = future_to_symbol[future]
+                    try:
+                        result = future.result()
+                        results.append(result)
+
+                        # Update counters
+                        if result['Status'] == 'SUCCESS':
+                            success_count += 1
+                        elif result['Status'] == 'PARTIAL':
+                            partial_count += 1
+                        else:
+                            fail_count += 1
+
+                    except Exception as e:
+                        logger.error(f"Thread exception for {symbol}: {e}")
+                        fail_count += 1
+                        results.append({
+                            'Symbol': symbol,
+                            'Status': 'FAILED',
+                            'Has_Price': False,
+                            'Has_Balance': False,
+                            'Has_Income': False,
+                            'Error': str(e)
+                        })
+
+        else:
+            # Sequential execution (original behavior)
+            for idx, symbol in enumerate(symbols):
+                result = self._process_single_symbol(symbol, idx, len(symbols))
+                results.append(result)
+
+                # Update counters
+                if result['Status'] == 'SUCCESS':
+                    success_count += 1
+                elif result['Status'] == 'PARTIAL':
+                    partial_count += 1
+                else:
+                    fail_count += 1
 
         # Summary
         logger.info("=" * 60)
