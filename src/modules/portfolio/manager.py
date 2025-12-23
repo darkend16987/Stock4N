@@ -20,7 +20,7 @@ class PortfolioManager:
         # Load config
         self.portfolio_config = config.PORTFOLIO_CONFIG
         self.risk_config = config.RISK_MANAGEMENT
-        self.price_unit_config = config.PRICE_UNIT
+        self.price_unit_config = config.PRICE_UNIT_CONFIG
 
         logger.info(f"PortfolioManager initialized: Max position={self.portfolio_config['max_position_pct']*100}%, Stop loss={self.risk_config['stop_loss_pct']*100}%")
 

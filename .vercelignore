@@ -1,0 +1,19 @@
+# Backend Python files - not needed for frontend deployment
+/src
+/tests
+/data
+/logs
+*.py
+__pycache__
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# Python dependencies
+requirements*.txt
+pytest.ini
+
+# Documentation (optional, can remove if you want on Vercel)
+# README.md
+# *.md

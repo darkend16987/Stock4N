@@ -2,6 +2,7 @@ import pandas as pd
 import time
 import os
 import random
+import re
 from datetime import datetime
 import sys
 import vnstock
@@ -53,6 +54,22 @@ class VNStockLoader:
             df.to_csv(file_path, index=False)
             logger.debug(f"Saved to cache: {file_path}")
 
+    def _parse_rate_limit_wait_time(self, error_message):
+        """
+        Parse wait time from Vietnamese rate limit message.
+        Example: "Bạn đã gửi quá nhiều request tới VCI. Vui lòng thử lại sau 43 giây."
+        
+        Args:
+            error_message: Error message string
+            
+        Returns:
+            int: Wait time in seconds
+        """
+        match = re.search(r'sau (\d+) giây', error_message)
+        if match:
+            return int(match.group(1))
+        return config.RATE_LIMIT['cooldown_on_limit']
+
     def _retry_with_backoff(self, func, symbol, max_attempts=None, *args, **kwargs):
         """
         Retry a function with exponential backoff
@@ -83,10 +100,11 @@ class VNStockLoader:
             except Exception as e:
                 error_str = str(e)
 
-                # Check for rate limit
-                if "rate limit" in error_str.lower() or "429" in error_str:
-                    logger.warning(f"Rate limit hit for {symbol}, cooling down...")
-                    time.sleep(config.RATE_LIMIT['cooldown_on_limit'])
+                # Check for rate limit (English and Vietnamese)
+                if "rate limit" in error_str.lower() or "429" in error_str or "quá nhiều request" in error_str.lower():
+                    wait_time = self._parse_rate_limit_wait_time(error_str)
+                    logger.warning(f"⏳ Rate limit hit for {symbol}, waiting {wait_time + 5}s before retry...")
+                    time.sleep(wait_time + 5)  # Add 5s buffer
                     continue
 
                 # Check for not found (404) - don't retry

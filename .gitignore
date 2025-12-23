@@ -34,7 +34,7 @@ data/export/*.csv
 
 # EXCEPTION: Uncomment below to commit db.json for Vercel (Strategy 1)
 # This allows frontend to have initial data, but needs manual updates
-# !data/export/db.json
+!data/export/db.json
 
 # BUT keep the directory structure
 !data/raw/.gitkeep
