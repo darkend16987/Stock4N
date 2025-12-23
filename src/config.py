@@ -51,8 +51,15 @@ RATE_LIMIT = {
 
 # Data sources priority
 DATA_SOURCES = {
-    'price': ['DNSE', 'VCI', 'TCBS'],      # Priority order for price data
+    'price': ['VCI', 'TCBS', 'MSN'],       # Priority order for price data (vnstock v3.x compatible)
     'financial': ['VCI', 'TCBS']            # Priority order for financial data
+}
+
+# Parallel data fetching (Priority 3 improvement)
+PARALLEL_FETCHING = {
+    'enabled': True,           # Enable parallel fetching by default
+    'max_workers': 3,          # Max 3 concurrent workers (to avoid rate limiting)
+    'timeout': 60              # Timeout per symbol (seconds)
 }
 
 # --- CẤU HÌNH SCORING ---
@@ -120,7 +127,7 @@ RISK_MANAGEMENT = {
 }
 
 # Price unit detection
-PRICE_UNIT = {
+PRICE_UNIT_CONFIG = {
     'threshold': 100,             # If price < 100, assume it's in thousands VND
     'multiplier': 1000            # Multiply by 1000 to get actual price
 }
