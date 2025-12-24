@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-23 17:25:52",
+  "last_updated": "2025-12-24 09:03:10",
   "analysis": [
     {
       "Symbol": "VRE",
@@ -2804,7 +2804,7 @@
         "high": 35.55,
         "low": 34.65,
         "close": 35.0,
-        "volume": 9893700
+        "volume": 9908591
       }
     ],
     "FRT": [
@@ -24466,6 +24466,6 @@
     "total_symbols": 30,
     "total_positions": 8,
     "chart_days": 100,
-    "export_timestamp": "2025-12-23T17:25:52.785542"
+    "export_timestamp": "2025-12-24T09:03:10.825041"
   }
 }
