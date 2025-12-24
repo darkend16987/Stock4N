@@ -15,11 +15,38 @@ PROCESSED_DIR = os.path.join(DATA_DIR, "processed")
 os.makedirs(RAW_DIR, exist_ok=True)
 os.makedirs(PROCESSED_DIR, exist_ok=True)
 
-# --- DANH SÁCH CỔ PHIẾU (VN100 MẪU) ---
+# --- DANH SÁCH CỔ PHIẾU (VN TOP 50 - Blue Chip & Mid-Cap Uy Tín) ---
+# Danh sách dựa trên VN30 (30 mã) + VNMidCap top (20 mã) theo vốn hóa và thanh khoản
+# Nguồn: HOSE VN30 Index (kỳ 1/2025) + Top vốn hóa thị trường 2025
 VN100_SYMBOLS = [
-    'VCB', 'HPG', 'VHM', 'MWG', 'FPT', 'TCB', 'VPB', 'MBB', 'ACB', 'MSN',
-    'VIC', 'VRE', 'VNM', 'GAS', 'SAB', 'GVR', 'BID', 'CTG', 'SSI', 'VND',
-    'DGW', 'FRT', 'PNJ', 'REE', 'VHC', 'NVL', 'PDR', 'DIG', 'DXG', 'KDH'
+    # === VN30 - Blue Chip Stocks (30 mã) ===
+    # Ngân hàng (15 mã)
+    'VCB', 'BID', 'CTG', 'TCB', 'MBB', 'VPB', 'ACB', 'HDB', 'STB', 'TPB',
+    'VIB', 'SHB', 'SSB', 'LPB', 'EIB',
+    # Bất động sản & Tập đoàn (5 mã)
+    'VIC', 'VHM', 'VRE', 'BCM', 'VGI',
+    # Năng lượng & Công nghiệp (4 mã)
+    'GAS', 'PLX', 'HPG', 'GVR',
+    # Hàng tiêu dùng & Bán lẻ (4 mã)
+    'VNM', 'MSN', 'MWG', 'SAB',
+    # Chứng khoán & Tài chính (1 mã)
+    'SSI',
+    # Công nghệ (1 mã)
+    'FPT',
+
+    # === VN MidCap & Large Cap - Top 20 mã bổ sung ===
+    # Bất động sản & Xây dựng (6 mã)
+    'KDH', 'DXG', 'NVL', 'PDR', 'DIG', 'BCG',
+    # Năng lượng & Công nghiệp (5 mã)
+    'POW', 'REE', 'DGW', 'NT2', 'BSR',
+    # Hàng tiêu dùng & Dịch vụ (4 mã)
+    'PNJ', 'FRT', 'VHC', 'DGC',
+    # Hàng không & Logistics (2 mã)
+    'VJC', 'HVN',
+    # Nông nghiệp & Thủy sản (2 mã)
+    'VND', 'HNG',
+    # Công nghệ & Viễn thông (1 mã)
+    'VGC'
 ]
 
 # --- CẤU HÌNH THỜI GIAN ---
