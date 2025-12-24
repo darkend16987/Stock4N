@@ -25,15 +25,16 @@ wheels/
 
 # Data files (Generated - can be recreated)
 data/raw/*.csv
+data/raw/*.json
 data/processed/*.csv
+data/processed/*.json
 data/logs/*.log
 
-# Export files (Generated daily)
+# Export files (Generated daily - ignored by default)
 data/export/*.json
 data/export/*.csv
 
-# EXCEPTION: Uncomment below to commit db.json for Vercel (Strategy 1)
-# This allows frontend to have initial data, but needs manual updates
+# EXCEPTION: Keep db.json for reference (but frontend uses its own copy)
 !data/export/db.json
 
 # BUT keep the directory structure
