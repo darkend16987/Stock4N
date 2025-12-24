@@ -1,31 +1,51 @@
 Symbol,Total_Score,Recommendation,Fund_Score,Tech_Score,Fund_Reason,Tech_Reason,Price
-VRE,7.6,MUA MẠNH,6,10,ROE Khá (10.66%); Tăng trưởng mạnh (51.86%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (58.7) - Vùng mua an toàn; Volume đột biến (>120% TB),34.25
-SAB,7.4,MUA THĂM DÒ,7,8,ROE Tốt (17.66%); Tăng trưởng mạnh (21.57%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (50.1) - Vùng mua an toàn,49.5
-CTG,7.4,MUA THĂM DÒ,7,8,ROE Tốt (19.62%); Tăng trưởng mạnh (61.67%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (53.5) - Vùng mua an toàn,35.0
-FRT,7.4,MUA THĂM DÒ,7,8,ROE Tốt (16.92%); Tăng trưởng mạnh (55.23%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (52.4) - Vùng mua an toàn,147.5
-MWG,7.0,MUA THĂM DÒ,7,7,ROE Tốt (18.28%); Tăng trưởng mạnh (121.32%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); Volume đột biến (>120% TB),87.5
-BID,6.8,MUA THĂM DÒ,6,8,ROE Tốt (15.69%); Tăng trưởng tốt (15.56%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (52.5) - Vùng mua an toàn,38.0
-GAS,6.4,MUA THĂM DÒ,4,10,ROE Tốt (18.23%); Tăng trưởng dương,Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (58.4) - Vùng mua an toàn; Volume đột biến (>120% TB),65.3
-VND,6.4,MUA THĂM DÒ,4,10,ROE Thấp (9.39%); Tăng trưởng mạnh (83.92%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (58.0) - Vùng mua an toàn; Volume đột biến (>120% TB),19.95
-PNJ,6.2,MUA THĂM DÒ,7,5,ROE Tốt (19.52%); Tăng trưởng mạnh (129.67%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn),93.4
-VNM,6.2,MUA THĂM DÒ,5,8,ROE Rất cao (22.91%); Tăng trưởng dương,Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (51.0) - Vùng mua an toàn,62.6
-TCB,5.8,THEO DÕI,5,7,ROE Khá (12.25%); Tăng trưởng tốt (11.88%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (54.9) - Vùng mua an toàn; Volume đột biến (>120% TB),34.8
-VPB,5.6,THEO DÕI,6,5,ROE Khá (12.94%); Tăng trưởng mạnh (80.63%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (50.0) - Vùng mua an toàn,28.7
-ACB,5.6,THEO DÕI,6,5,ROE Tốt (19.02%); Tăng trưởng tốt (10.6%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (48.0) - Vùng mua an toàn,24.2
+CTG,7.4,MUA THĂM DÒ,7,8,ROE Tốt (19.62%); Tăng trưởng mạnh (61.67%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (53.9) - Vùng mua an toàn,35.05
+SAB,7.4,MUA THĂM DÒ,7,8,ROE Tốt (17.66%); Tăng trưởng mạnh (21.57%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (47.8) - Vùng mua an toàn,49.0
+FRT,7.4,MUA THĂM DÒ,7,8,ROE Tốt (16.92%); Tăng trưởng mạnh (55.23%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (49.6) - Vùng mua an toàn,145.9
+VPB,6.8,MUA THĂM DÒ,6,8,ROE Khá (12.94%); Tăng trưởng mạnh (80.63%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (53.4) - Vùng mua an toàn,29.2
+VRE,6.8,MUA THĂM DÒ,6,8,ROE Khá (10.66%); Tăng trưởng mạnh (51.86%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (56.8) - Vùng mua an toàn,33.85
+BID,6.8,MUA THĂM DÒ,6,8,ROE Tốt (15.69%); Tăng trưởng tốt (15.56%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (55.8) - Vùng mua an toàn,38.35
+NT2,6.8,MUA THĂM DÒ,6,8,ROE Khá (14.46%); Tăng trưởng mạnh (383.54%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (57.9) - Vùng mua an toàn,24.15
+STB,6.6,MUA THĂM DÒ,7,6,ROE Tốt (19.6%); Tăng trưởng mạnh (31.81%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Quá mua (74.9) - Cẩn trọng điều chỉnh; Volume đột biến (>120% TB),58.0
+TCB,6.2,MUA THĂM DÒ,5,8,ROE Khá (12.25%); Tăng trưởng tốt (11.88%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (56.0) - Vùng mua an toàn,35.0
+SHB,6.2,MUA THĂM DÒ,7,5,ROE Tốt (18.0%); Tăng trưởng mạnh (49.82%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn),17.05
+VNM,6.2,MUA THĂM DÒ,5,8,ROE Rất cao (22.91%); Tăng trưởng dương,Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (49.0) - Vùng mua an toàn,62.1
+MWG,6.2,MUA THĂM DÒ,7,5,ROE Tốt (18.28%); Tăng trưởng mạnh (121.32%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn),87.6
+PNJ,6.2,MUA THĂM DÒ,7,5,ROE Tốt (19.52%); Tăng trưởng mạnh (129.67%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn),93.7
+DGW,6.2,MUA THĂM DÒ,7,5,ROE Tốt (16.06%); Tăng trưởng mạnh (36.71%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (44.8) - Vùng mua an toàn,40.2
+LPB,6.2,MUA THĂM DÒ,7,5,ROE Rất cao (23.84%); Tăng trưởng tốt (18.5%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (40.7) - Vùng mua an toàn,43.6
+VGI,5.6,THEO DÕI,8,2,ROE Rất cao (23.35%); Tăng trưởng mạnh (1933.38%),Price < MA50 (Yếu); RSI Oversold nhẹ (39.9) - Canh hồi phục,69.5
+ACB,5.6,THEO DÕI,6,5,ROE Tốt (19.02%); Tăng trưởng tốt (10.6%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (50.8) - Vùng mua an toàn,24.35
+TPB,5.6,THEO DÕI,4,8,ROE Tốt (16.35%); Tăng trưởng dương,Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (58.2) - Vùng mua an toàn,17.55
 HPG,5.6,THEO DÕI,6,5,ROE Khá (11.29%); Tăng trưởng mạnh (31.93%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (50.2) - Vùng mua an toàn,26.75
-SSI,5.6,THEO DÕI,6,5,ROE Khá (11.89%); Tăng trưởng mạnh (85.66%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (52.7) - Vùng mua an toàn,30.8
+VND,5.6,THEO DÕI,4,8,ROE Thấp (9.39%); Tăng trưởng mạnh (83.92%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (59.3) - Vùng mua an toàn,20.1
+POW,5.6,THEO DÕI,4,8,ROE Thấp (5.22%); Tăng trưởng mạnh (104.19%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (58.9) - Vùng mua an toàn,12.75
+BSR,5.6,THEO DÕI,4,8,ROE Thấp (3.6%); Tăng trưởng mạnh (174.99%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (58.3) - Vùng mua an toàn,16.3
+GAS,5.6,THEO DÕI,4,8,ROE Tốt (18.23%); Tăng trưởng dương,Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (56.9) - Vùng mua an toàn,65.0
+SSI,5.6,THEO DÕI,6,5,ROE Khá (11.89%); Tăng trưởng mạnh (85.66%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (54.1) - Vùng mua an toàn,31.05
 FPT,5.4,THEO DÕI,7,3,ROE Rất cao (20.92%); Tăng trưởng tốt (16.56%),Price < MA50 (Yếu); RSI Neutral (42.7) - Vùng mua an toàn,94.0
-DGW,5.4,THEO DÕI,7,3,ROE Tốt (16.06%); Tăng trưởng mạnh (36.71%),Price < MA50 (Yếu); RSI Neutral (42.6) - Vùng mua an toàn,39.8
-VHC,5.0,THEO DÕI,7,2,ROE Tốt (15.33%); Tăng trưởng mạnh (35.05%),Price < MA50 (Yếu); RSI Oversold nhẹ (38.1) - Canh hồi phục,54.3
-MBB,5.0,THEO DÕI,3,8,ROE Tốt (18.26%); Tăng trưởng âm (-3.78%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (57.0) - Vùng mua an toàn,25.1
-KDH,4.4,THEO DÕI,4,5,ROE Thấp (4.69%); Tăng trưởng mạnh (235.1%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (49.7) - Vùng mua an toàn,33.0
+HDB,5.0,THEO DÕI,5,5,ROE Rất cao (21.21%); Tăng trưởng dương,Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn),27.6
+VHC,5.0,THEO DÕI,7,2,ROE Tốt (15.33%); Tăng trưởng mạnh (35.05%),Price < MA50 (Yếu); RSI Oversold nhẹ (36.0) - Canh hồi phục,53.9
+PLX,4.8,THEO DÕI,4,6,ROE Thấp (9.19%); Tăng trưởng mạnh (827.07%),Price > MA50 (Uptrend ngắn hạn); RSI Neutral (57.7) - Vùng mua an toàn,35.4
+BCM,4.6,THEO DÕI,7,1,ROE Tốt (16.76%); Tăng trưởng mạnh (20.7%),Price < MA50 (Yếu); RSI Quá bán (26.2) - Bắt đáy mạo hiểm,60.6
 REE,4.4,THEO DÕI,6,2,ROE Khá (10.7%); Tăng trưởng mạnh (40.51%),Price < MA50 (Yếu); RSI Oversold nhẹ (35.9) - Canh hồi phục,61.4
-MSN,4.4,THEO DÕI,4,5,ROE Thấp (7.74%); Tăng trưởng mạnh (72.4%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (46.6) - Vùng mua an toàn,76.1
-DXG,4.4,THEO DÕI,4,5,ROE Thấp (2.02%); Tăng trưởng mạnh (202.26%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (46.8) - Vùng mua an toàn,17.9
-PDR,4.4,THEO DÕI,4,5,ROE Thấp (1.7%); Tăng trưởng mạnh (67.45%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (42.6) - Vùng mua an toàn,20.15
-VCB,3.6,BÁN / CƠ CẤU,4,3,ROE Tốt (15.76%); Tăng trưởng dương,Price < MA50 (Yếu); RSI Neutral (41.4) - Vùng mua an toàn,57.2
-GVR,3.6,BÁN / CƠ CẤU,4,3,ROE Thấp (9.82%); Tăng trưởng mạnh (101.03%),Price < MA50 (Yếu); RSI Neutral (43.4) - Vùng mua an toàn,26.25
-DIG,3.2,BÁN / CƠ CẤU,4,2,ROE Thấp (4.15%); Tăng trưởng mạnh (2888.48%),Price < MA50 (Yếu); RSI Oversold nhẹ (37.8) - Canh hồi phục,18.05
-VHM,2.8,BÁN / CƠ CẤU,0,7,ROE Khá (11.3%); Suy thoái nghiêm trọng (-46.81%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); Volume đột biến (>120% TB),114.9
-VIC,1.6,BÁN / CƠ CẤU,0,4,ROE Thấp (5.48%); Suy thoái nghiêm trọng (-87.91%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Quá mua (79.1) - Cẩn trọng điều chỉnh,169.9
-NVL,1.2,BÁN / CƠ CẤU,0,3,ROE Thấp (-7.54%); Suy thoái nghiêm trọng (-128.15%),Price < MA50 (Yếu); RSI Neutral (40.8) - Vùng mua an toàn,13.45
+MSN,4.4,THEO DÕI,4,5,ROE Thấp (7.74%); Tăng trưởng mạnh (72.4%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (44.9) - Vùng mua an toàn,75.7
+PDR,4.4,THEO DÕI,4,5,ROE Thấp (1.7%); Tăng trưởng mạnh (67.45%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (41.2) - Vùng mua an toàn,19.95
+VIB,4.4,THEO DÕI,4,5,ROE Tốt (16.7%); Tăng trưởng dương,Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (49.6) - Vùng mua an toàn,18.1
+KDH,4.4,THEO DÕI,4,5,ROE Thấp (4.69%); Tăng trưởng mạnh (235.1%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (48.7) - Vùng mua an toàn,32.85
+DXG,4.4,THEO DÕI,4,5,ROE Thấp (2.02%); Tăng trưởng mạnh (202.26%),Price < MA50 (Yếu); Price > MA200 (Uptrend dài hạn); RSI Neutral (48.7) - Vùng mua an toàn,18.1
+MBB,3.8,BÁN / CƠ CẤU,3,5,ROE Tốt (18.26%); Tăng trưởng âm (-3.78%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn),25.5
+BCG,3.6,BÁN / CƠ CẤU,4,3,ROE Thấp (1.89%); Tăng trưởng mạnh (296.91%),Price < MA50 (Yếu); RSI Quá bán (19.3) - Bắt đáy mạo hiểm; Volume đột biến (>120% TB),2.53
+GVR,3.6,BÁN / CƠ CẤU,4,3,ROE Thấp (9.82%); Tăng trưởng mạnh (101.03%),Price < MA50 (Yếu); RSI Neutral (45.0) - Vùng mua an toàn,26.4
+VCB,3.6,BÁN / CƠ CẤU,4,3,ROE Tốt (15.76%); Tăng trưởng dương,Price < MA50 (Yếu); RSI Neutral (42.5) - Vùng mua an toàn,57.3
+DIG,3.6,BÁN / CƠ CẤU,4,3,ROE Thấp (4.15%); Tăng trưởng mạnh (2888.48%),Price < MA50 (Yếu); RSI Neutral (41.7) - Vùng mua an toàn,18.4
+HNG,3.6,BÁN / CƠ CẤU,4,3,ROE Thấp (-69.57%); Tăng trưởng mạnh (34.78%),Price < MA50 (Yếu); RSI Neutral (48.2) - Vùng mua an toàn,5.8
+HVN,3.2,BÁN / CƠ CẤU,4,2,ROE Rất cao (133.08%); Tăng trưởng âm (-19.62%),Price < MA50 (Yếu); RSI Oversold nhẹ (35.9) - Canh hồi phục,26.2
+VJC,3.2,BÁN / CƠ CẤU,0,8,ROE Thấp (6.61%); Suy thoái nghiêm trọng (-44.14%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Neutral (54.8) - Vùng mua an toàn,201.4
+DGC,2.8,BÁN / CƠ CẤU,4,1,ROE Tốt (19.68%); Tăng trưởng dương,Price < MA50 (Yếu); RSI Quá bán (23.2) - Bắt đáy mạo hiểm,67.3
+EIB,2.4,BÁN / CƠ CẤU,0,6,ROE Khá (11.47%); Suy thoái nghiêm trọng (-38.34%),Price > MA50 (Uptrend ngắn hạn); RSI Neutral (55.6) - Vùng mua an toàn,22.75
+SSB,1.8,BÁN / CƠ CẤU,1,3,ROE Tốt (16.46%); Suy thoái nghiêm trọng (-22.97%),Price < MA50 (Yếu); RSI Neutral (49.8) - Vùng mua an toàn,17.5
+VHM,1.6,BÁN / CƠ CẤU,0,4,ROE Khá (11.3%); Suy thoái nghiêm trọng (-46.81%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Quá mua (70.4) - Cẩn trọng điều chỉnh,119.5
+VIC,1.6,BÁN / CƠ CẤU,0,4,ROE Thấp (5.48%); Suy thoái nghiêm trọng (-87.91%),Price > MA50 (Uptrend ngắn hạn); Price > MA200 (Uptrend dài hạn); RSI Quá mua (78.8) - Cẩn trọng điều chỉnh,169.7
+NVL,1.2,BÁN / CƠ CẤU,0,3,ROE Thấp (-7.54%); Suy thoái nghiêm trọng (-128.15%),Price < MA50 (Yếu); RSI Neutral (41.6) - Vùng mua an toàn,13.5
+VGC,1.2,BÁN / CƠ CẤU,0,3,ROE Khá (12.74%); Suy thoái nghiêm trọng (-55.08%),Price < MA50 (Yếu); RSI Neutral (41.6) - Vùng mua an toàn,41.55
