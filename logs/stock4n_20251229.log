@@ -437,3 +437,26 @@ RISK SUMMARY:
 2025-12-29 09:37:55 - modules.utils.exporter - INFO - Last updated: 2025-12-29 09:37:55
 2025-12-29 09:37:55 - modules.utils.exporter - INFO - ============================================================
 2025-12-29 09:37:55 - modules.utils.exporter - INFO - ✓ Export completed successfully!
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-29 10:19:20.352714 to 2025-12-29 10:19:20.352714
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - Found 9 buy signals
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY CTG: 374800 shares @ 27 = 9,999,664 VND
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL CTG: 374800 shares @ 25 | P&L: -745,852 (STOP_LOSS)
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY SAB: 188000 shares @ 53 = 9,920,760 VND
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL SAB: 188000 shares @ 49 | P&L: -795,240 (STOP_LOSS)
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY MWG: 163700 shares @ 60 = 9,843,281 VND
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL MWG: 163700 shares @ 56 | P&L: -741,561 (STOP_LOSS)
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY HPG: 438300 shares @ 22 = 9,769,707 VND
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL HPG: 438300 shares @ 20 | P&L: -784,557 (STOP_LOSS)
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY BID: 256200 shares @ 38 = 9,692,046 VND
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL BID: 256200 shares @ 33 | P&L: -1,204,140 (STOP_LOSS)
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY SHB: 1216300 shares @ 8 = 9,572,281 VND
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL SHB: 1216300 shares @ 9 | P&L: 1,520,375 (TAKE_PROFIT)
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY VNM: 166500 shares @ 58 = 9,723,600 VND
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL VNM: 166500 shares @ 52 | P&L: -1,045,620 (STOP_LOSS)
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY FRT: 65000 shares @ 148 = 9,620,000 VND
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL FRT: 65000 shares @ 138 | P&L: -676,000 (STOP_LOSS)
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY PNJ: 100100 shares @ 95 = 9,543,534 VND
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL PNJ: 100100 shares @ 89 | P&L: -680,680 (STOP_LOSS)
+2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - Backtest completed: 18 total trades
