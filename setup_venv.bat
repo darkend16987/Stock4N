@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 REM ==========================================
 REM Stock4N - Setup Python Virtual Environment
 REM ==========================================
