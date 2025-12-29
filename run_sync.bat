@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 REM ==========================================
 REM Stock4N - Chỉ đồng bộ db.json sang frontend
 REM ==========================================
