@@ -241,7 +241,7 @@ with col4:
 st.markdown("---")
 
 # Tabs
-tab1, tab2, tab3 = st.tabs(["💼 Danh Mục Đầu Tư", "📊 Phân Tích Thị Trường", "📈 Biểu Đồ"])
+tab1, tab2, tab3, tab4 = st.tabs(["💼 Danh Mục Đầu Tư", "📊 Phân Tích Thị Trường", "📈 Biểu Đồ", "🔬 Backtest"])
 
 # === TAB 1: Portfolio ===
 with tab1:
@@ -394,6 +394,220 @@ with tab3:
             }
         )
         st.plotly_chart(fig, use_container_width=True)
+
+# === TAB 4: Backtest ===
+with tab4:
+    st.header("🔬 Backtest Chiến Lược")
+
+    st.markdown("""
+    Backtest mô phỏng giao dịch dựa trên chiến lược scoring của Stock4N.
+
+    **Chiến lược**:
+    - 🟢 **Mua**: Score >= min_score + Khuyến nghị "MUA"
+    - 🔴 **Bán**: Stop loss (-7%), Take profit (+15%), hoặc hết kỳ
+    - 💼 **Quản lý vốn**: 10% mỗi vị thế, tối đa 10 vị thế
+    """)
+
+    st.markdown("---")
+
+    # Backtest parameters
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        lookback_days = st.number_input(
+            "📅 Số ngày quay lại",
+            min_value=30,
+            max_value=730,
+            value=365,
+            step=30,
+            help="Số ngày lịch sử để test (365 = 1 năm)"
+        )
+
+    with col2:
+        min_score = st.number_input(
+            "⭐ Điểm tối thiểu",
+            min_value=0.0,
+            max_value=10.0,
+            value=6.0,
+            step=0.5,
+            help="Điểm tối thiểu để mua cổ phiếu"
+        )
+
+    with col3:
+        initial_capital = st.number_input(
+            "💰 Vốn ban đầu (VND)",
+            min_value=10_000_000,
+            max_value=10_000_000_000,
+            value=100_000_000,
+            step=10_000_000,
+            help="Vốn khởi đầu (VND)"
+        )
+
+    # Run backtest button
+    if st.button("🚀 Chạy Backtest", type="primary", use_container_width=True):
+        cmd = f"docker exec stock4n_app python src/main.py backtest --days {lookback_days} --score {min_score} --capital {initial_capital}"
+        success, output = run_command(cmd, "Chạy backtest")
+
+        if success:
+            st.code(output, language="text")
+
+    st.markdown("---")
+
+    # Load backtest results
+    backtest_dir = DATA_DIR / "backtest"
+
+    if not backtest_dir.exists():
+        st.info("💡 Chưa có kết quả backtest. Nhấn nút **'Chạy Backtest'** để bắt đầu.")
+    else:
+        # Find latest backtest result
+        result_files = sorted(backtest_dir.glob("backtest_trades_*.csv"), reverse=True)
+
+        if not result_files:
+            st.info("💡 Chưa có kết quả backtest. Nhấn nút **'Chạy Backtest'** để bắt đầu.")
+        else:
+            latest_result = result_files[0]
+
+            try:
+                # Load trades
+                df_trades = pd.read_csv(latest_result)
+
+                # Load summary if exists
+                summary_file = latest_result.with_suffix('.txt')
+                summary_text = ""
+                if summary_file.exists():
+                    with open(summary_file, 'r', encoding='utf-8') as f:
+                        summary_text = f.read()
+
+                st.success(f"✅ Kết quả mới nhất: {latest_result.name}")
+
+                # Display summary
+                if summary_text:
+                    st.subheader("📊 Tổng Kết")
+                    st.text(summary_text)
+
+                st.markdown("---")
+
+                # Performance metrics from summary
+                if not df_trades.empty:
+                    # Calculate basic metrics
+                    total_trades = len(df_trades)
+                    buy_trades = df_trades[df_trades['action'] == 'BUY']
+                    sell_trades = df_trades[df_trades['action'] == 'SELL']
+
+                    if not sell_trades.empty and 'pnl' in sell_trades.columns:
+                        total_pnl = sell_trades['pnl'].sum()
+                        wins = len(sell_trades[sell_trades['pnl'] > 0])
+                        losses = len(sell_trades[sell_trades['pnl'] < 0])
+                        win_rate = (wins / len(sell_trades) * 100) if len(sell_trades) > 0 else 0
+
+                        # Metrics cards
+                        col1, col2, col3, col4 = st.columns(4)
+
+                        with col1:
+                            st.metric("💼 Tổng Giao Dịch", total_trades)
+
+                        with col2:
+                            st.metric("💵 P&L Tổng", f"{total_pnl/1_000_000:.1f}M VND")
+
+                        with col3:
+                            st.metric("🎯 Tỷ Lệ Thắng", f"{win_rate:.1f}%")
+
+                        with col4:
+                            st.metric("✅ Thắng / ❌ Thua", f"{wins} / {losses}")
+
+                st.markdown("---")
+
+                # Trades table
+                st.subheader("📋 Chi Tiết Giao Dịch")
+
+                # Filter trades
+                trade_type = st.radio(
+                    "Lọc theo loại",
+                    ["Tất cả", "Mua (BUY)", "Bán (SELL)"],
+                    horizontal=True
+                )
+
+                df_display = df_trades.copy()
+                if trade_type == "Mua (BUY)":
+                    df_display = df_display[df_display['action'] == 'BUY']
+                elif trade_type == "Bán (SELL)":
+                    df_display = df_display[df_display['action'] == 'SELL']
+
+                st.dataframe(
+                    df_display,
+                    use_container_width=True,
+                    hide_index=True
+                )
+
+                # Download button
+                csv = df_trades.to_csv(index=False, encoding='utf-8-sig')
+                st.download_button(
+                    "⬇️ Tải xuống kết quả CSV",
+                    csv,
+                    f"backtest_trades_{datetime.now().strftime('%Y%m%d')}.csv",
+                    "text/csv",
+                    key='download-backtest'
+                )
+
+                # Visualizations
+                if not sell_trades.empty and 'pnl' in sell_trades.columns:
+                    st.markdown("---")
+                    st.subheader("📈 Trực Quan Hóa")
+
+                    col1, col2 = st.columns(2)
+
+                    with col1:
+                        # P&L distribution
+                        st.markdown("**Phân Bố P&L**")
+                        fig = px.histogram(
+                            sell_trades,
+                            x='pnl',
+                            nbins=20,
+                            title="Histogram P&L các giao dịch",
+                            labels={'pnl': 'P&L (VND)', 'count': 'Số lượng'}
+                        )
+                        st.plotly_chart(fig, use_container_width=True)
+
+                    with col2:
+                        # Win/Loss by stock
+                        st.markdown("**Top P&L Theo Mã**")
+                        pnl_by_symbol = sell_trades.groupby('symbol')['pnl'].sum().sort_values(ascending=False).head(10)
+
+                        fig = go.Figure(data=[
+                            go.Bar(
+                                x=pnl_by_symbol.index,
+                                y=pnl_by_symbol.values / 1_000_000,
+                                marker_color=['green' if x > 0 else 'red' for x in pnl_by_symbol.values]
+                            )
+                        ])
+                        fig.update_layout(
+                            title="Top 10 P&L theo mã CK (triệu VND)",
+                            xaxis_title="Mã CK",
+                            yaxis_title="P&L (triệu VND)",
+                            showlegend=False
+                        )
+                        st.plotly_chart(fig, use_container_width=True)
+
+                    # Cumulative P&L over time
+                    if 'date' in sell_trades.columns:
+                        st.markdown("**Đường Cong P&L Tích Lũy**")
+                        df_cum = sell_trades.copy()
+                        df_cum['date'] = pd.to_datetime(df_cum['date'])
+                        df_cum = df_cum.sort_values('date')
+                        df_cum['cumulative_pnl'] = df_cum['pnl'].cumsum()
+
+                        fig = px.line(
+                            df_cum,
+                            x='date',
+                            y='cumulative_pnl',
+                            title="P&L tích lũy theo thời gian",
+                            labels={'date': 'Ngày', 'cumulative_pnl': 'P&L Tích Lũy (VND)'}
+                        )
+                        fig.add_hline(y=0, line_dash="dash", line_color="gray")
+                        st.plotly_chart(fig, use_container_width=True)
+
+            except Exception as e:
+                st.error(f"❌ Lỗi đọc kết quả backtest: {e}")
 
 # Footer
 st.markdown("---")
