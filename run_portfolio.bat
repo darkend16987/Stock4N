@@ -1,4 +1,5 @@
 @echo off
+chcp 65001 >nul
 REM ==========================================
 REM Stock4N - Chỉ chạy Portfolio Manager
 REM ==========================================
