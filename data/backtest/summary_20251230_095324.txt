@@ -1,0 +1,20 @@
+============================================================
+BACKTEST RESULTS SUMMARY
+============================================================
+
+CAPITAL & RETURNS:
+  Initial Capital:     100,000,000 VND
+  Final Capital:       95,105,106.0 VND
+  Total P&L:           -4,894,894.000000002 VND
+  Total Return:        -4.89%
+
+RISK METRICS:
+  Sharpe Ratio:        nan
+  Max Drawdown:        5.71%
+  Profit Factor:       0.23
+
+TRADING STATISTICS:
+  Total Trades:        9
+  Winning Trades:      1 (11.1%)
+  Losing Trades:       8
+  Win Rate:            11.1%

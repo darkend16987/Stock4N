@@ -460,3 +460,552 @@ RISK SUMMARY:
 2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - BUY PNJ: 100100 shares @ 95 = 9,543,534 VND
 2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - SELL PNJ: 100100 shares @ 89 | P&L: -680,680 (STOP_LOSS)
 2025-12-29 10:19:20 - modules.simulation.backtest_engine - INFO - Backtest completed: 18 total trades
+2025-12-29 11:51:45 - modules.ingestion.loader - INFO - Detected vnstock v3.x (OOP Mode)
+2025-12-29 11:51:45 - modules.ingestion.loader - INFO - Starting data ingestion for 50 symbols
+2025-12-29 11:51:45 - modules.ingestion.loader - INFO - Data will be saved to: /app/data/raw
+2025-12-29 11:51:45 - modules.ingestion.loader - INFO - Using PARALLEL mode with 3 workers
+2025-12-29 11:51:45 - modules.ingestion.loader - INFO - Note: This process may take time due to rate limiting
+2025-12-29 11:51:45 - modules.ingestion.loader - INFO - [1/50] Processing VCB...
+2025-12-29 11:51:45 - modules.ingestion.loader - INFO - [2/50] Processing BID...
+2025-12-29 11:51:45 - modules.ingestion.loader - INFO - [3/50] Processing CTG...
+2025-12-29 11:51:48 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VCB from VCI
+2025-12-29 11:51:49 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for CTG from VCI
+2025-12-29 11:51:49 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for BID from VCI
+2025-12-29 11:51:51 - modules.ingestion.loader - INFO - ✓ VCB: COMPLETE
+2025-12-29 11:51:51 - modules.ingestion.loader - INFO - [4/50] Processing TCB...
+2025-12-29 11:51:52 - modules.ingestion.loader - INFO - ✓ BID: COMPLETE
+2025-12-29 11:51:52 - modules.ingestion.loader - INFO - [5/50] Processing MBB...
+2025-12-29 11:51:52 - modules.ingestion.loader - INFO - ✓ CTG: COMPLETE
+2025-12-29 11:51:52 - modules.ingestion.loader - INFO - [6/50] Processing VPB...
+2025-12-29 11:51:54 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for TCB from VCI
+2025-12-29 11:51:56 - modules.ingestion.loader - INFO - ✓ TCB: COMPLETE
+2025-12-29 11:51:56 - modules.ingestion.loader - INFO - [7/50] Processing ACB...
+2025-12-29 11:51:56 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VPB from VCI
+2025-12-29 11:51:57 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for MBB from VCI
+2025-12-29 11:51:59 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for ACB from VCI
+2025-12-29 11:52:00 - modules.ingestion.loader - INFO - ✓ VPB: COMPLETE
+2025-12-29 11:52:00 - modules.ingestion.loader - INFO - [8/50] Processing HDB...
+2025-12-29 11:52:00 - modules.ingestion.loader - INFO - ✓ MBB: COMPLETE
+2025-12-29 11:52:00 - modules.ingestion.loader - INFO - [9/50] Processing STB...
+2025-12-29 11:52:02 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for HDB from VCI
+2025-12-29 11:52:02 - modules.ingestion.loader - INFO - ✓ ACB: COMPLETE
+2025-12-29 11:52:02 - modules.ingestion.loader - INFO - [10/50] Processing TPB...
+2025-12-29 11:52:03 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for STB from VCI
+2025-12-29 11:52:06 - modules.ingestion.loader - INFO - ✓ STB: COMPLETE
+2025-12-29 11:52:06 - modules.ingestion.loader - INFO - [11/50] Processing VIB...
+2025-12-29 11:52:06 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for TPB from VCI
+2025-12-29 11:52:06 - modules.ingestion.loader - INFO - ✓ HDB: COMPLETE
+2025-12-29 11:52:06 - modules.ingestion.loader - INFO - [12/50] Processing SHB...
+2025-12-29 11:52:09 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for SHB from VCI
+2025-12-29 11:52:09 - modules.ingestion.loader - INFO - ✓ TPB: COMPLETE
+2025-12-29 11:52:09 - modules.ingestion.loader - INFO - [13/50] Processing SSB...
+2025-12-29 11:52:10 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VIB from VCI
+2025-12-29 11:52:12 - modules.ingestion.loader - INFO - ✓ SHB: COMPLETE
+2025-12-29 11:52:12 - modules.ingestion.loader - INFO - [14/50] Processing LPB...
+2025-12-29 11:52:12 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for SSB from VCI
+2025-12-29 11:52:13 - modules.ingestion.loader - INFO - ✓ VIB: COMPLETE
+2025-12-29 11:52:13 - modules.ingestion.loader - INFO - [15/50] Processing EIB...
+2025-12-29 11:52:15 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for LPB from VCI
+2025-12-29 11:52:15 - modules.ingestion.loader - INFO - ✓ SSB: COMPLETE
+2025-12-29 11:52:15 - modules.ingestion.loader - INFO - [16/50] Processing VIC...
+2025-12-29 11:52:16 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for EIB from VCI
+2025-12-29 11:52:18 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VIC from VCI
+2025-12-29 11:52:19 - modules.ingestion.loader - INFO - ✓ LPB: COMPLETE
+2025-12-29 11:52:19 - modules.ingestion.loader - INFO - [17/50] Processing VHM...
+2025-12-29 11:52:20 - modules.ingestion.loader - INFO - ✓ EIB: COMPLETE
+2025-12-29 11:52:20 - modules.ingestion.loader - INFO - [18/50] Processing VRE...
+2025-12-29 11:52:22 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VHM from VCI
+2025-12-29 11:52:22 - modules.ingestion.loader - INFO - ✓ VIC: COMPLETE
+2025-12-29 11:52:22 - modules.ingestion.loader - INFO - [19/50] Processing BCM...
+2025-12-29 11:52:24 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VRE from VCI
+2025-12-29 11:52:25 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for BCM from VCI
+2025-12-29 11:52:25 - modules.ingestion.loader - INFO - ✓ VHM: COMPLETE
+2025-12-29 11:52:25 - modules.ingestion.loader - INFO - [20/50] Processing VGI...
+2025-12-29 11:52:27 - modules.ingestion.loader - INFO - ✓ VRE: COMPLETE
+2025-12-29 11:52:27 - modules.ingestion.loader - INFO - [21/50] Processing GAS...
+2025-12-29 11:52:28 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VGI from VCI
+2025-12-29 11:52:29 - modules.ingestion.loader - INFO - ✓ BCM: COMPLETE
+2025-12-29 11:52:29 - modules.ingestion.loader - INFO - [22/50] Processing PLX...
+2025-12-29 11:52:30 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for GAS from VCI
+2025-12-29 11:52:31 - modules.ingestion.loader - INFO - ✓ VGI: COMPLETE
+2025-12-29 11:52:31 - modules.ingestion.loader - INFO - [23/50] Processing HPG...
+2025-12-29 11:52:32 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for PLX from VCI
+2025-12-29 11:52:33 - modules.ingestion.loader - INFO - ✓ GAS: COMPLETE
+2025-12-29 11:52:33 - modules.ingestion.loader - INFO - [24/50] Processing GVR...
+2025-12-29 11:52:34 - modules.ingestion.loader - INFO - ✓ PLX: COMPLETE
+2025-12-29 11:52:34 - modules.ingestion.loader - INFO - [25/50] Processing VNM...
+2025-12-29 11:52:34 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for HPG from VCI
+2025-12-29 11:52:36 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for GVR from VCI
+2025-12-29 11:52:37 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VNM from VCI
+2025-12-29 11:52:38 - modules.ingestion.loader - INFO - ✓ HPG: COMPLETE
+2025-12-29 11:52:38 - modules.ingestion.loader - INFO - [26/50] Processing MSN...
+2025-12-29 11:52:39 - modules.ingestion.loader - INFO - ✓ GVR: COMPLETE
+2025-12-29 11:52:39 - modules.ingestion.loader - INFO - [27/50] Processing MWG...
+2025-12-29 11:52:40 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for MSN from VCI
+2025-12-29 11:52:40 - modules.ingestion.loader - INFO - ✓ VNM: COMPLETE
+2025-12-29 11:52:40 - modules.ingestion.loader - INFO - [28/50] Processing SAB...
+2025-12-29 11:52:42 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for SAB from VCI
+2025-12-29 11:52:43 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for MWG from VCI
+2025-12-29 11:52:43 - modules.ingestion.loader - INFO - ✓ MSN: COMPLETE
+2025-12-29 11:52:43 - modules.ingestion.loader - INFO - [29/50] Processing SSI...
+2025-12-29 11:52:45 - modules.ingestion.loader - INFO - ✓ SAB: COMPLETE
+2025-12-29 11:52:45 - modules.ingestion.loader - INFO - [30/50] Processing FPT...
+2025-12-29 11:52:46 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for SSI from VCI
+2025-12-29 11:52:46 - modules.ingestion.loader - INFO - ✓ MWG: COMPLETE
+2025-12-29 11:52:46 - modules.ingestion.loader - INFO - [31/50] Processing KDH...
+2025-12-29 11:52:47 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for FPT from VCI
+2025-12-29 11:52:48 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for KDH from VCI
+2025-12-29 11:52:49 - modules.ingestion.loader - INFO - ✓ SSI: COMPLETE
+2025-12-29 11:52:49 - modules.ingestion.loader - INFO - [32/50] Processing DXG...
+2025-12-29 11:52:50 - modules.ingestion.loader - INFO - ✓ FPT: COMPLETE
+2025-12-29 11:52:50 - modules.ingestion.loader - INFO - [33/50] Processing NVL...
+2025-12-29 11:52:51 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for DXG from VCI
+2025-12-29 11:52:52 - modules.ingestion.loader - INFO - ✓ KDH: COMPLETE
+2025-12-29 11:52:52 - modules.ingestion.loader - INFO - [34/50] Processing PDR...
+2025-12-29 11:52:54 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for NVL from VCI
+2025-12-29 11:52:54 - modules.ingestion.loader - INFO - ✓ DXG: COMPLETE
+2025-12-29 11:52:54 - modules.ingestion.loader - INFO - [35/50] Processing DIG...
+2025-12-29 11:52:55 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for PDR from VCI
+2025-12-29 11:52:58 - modules.ingestion.loader - INFO - ✓ NVL: COMPLETE
+2025-12-29 11:52:58 - modules.ingestion.loader - INFO - [36/50] Processing BCG...
+2025-12-29 11:52:58 - modules.ingestion.loader - INFO - ✓ PDR: COMPLETE
+2025-12-29 11:52:58 - modules.ingestion.loader - INFO - [37/50] Processing POW...
+2025-12-29 11:52:58 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for DIG from VCI
+2025-12-29 11:53:00 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for BCG from VCI
+2025-12-29 11:53:00 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for POW from VCI
+2025-12-29 11:53:02 - modules.ingestion.loader - INFO - ✓ DIG: COMPLETE
+2025-12-29 11:53:02 - modules.ingestion.loader - INFO - [38/50] Processing REE...
+2025-12-29 11:53:03 - modules.ingestion.loader - INFO - ✓ BCG: COMPLETE
+2025-12-29 11:53:03 - modules.ingestion.loader - INFO - [39/50] Processing DGW...
+2025-12-29 11:53:03 - modules.ingestion.loader - INFO - ✓ POW: COMPLETE
+2025-12-29 11:53:03 - modules.ingestion.loader - INFO - [40/50] Processing NT2...
+2025-12-29 11:53:06 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for NT2 from VCI
+2025-12-29 11:53:06 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for REE from VCI
+2025-12-29 11:53:07 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for DGW from VCI
+2025-12-29 11:53:09 - modules.ingestion.loader - INFO - ✓ NT2: COMPLETE
+2025-12-29 11:53:09 - modules.ingestion.loader - INFO - [41/50] Processing BSR...
+2025-12-29 11:53:10 - modules.ingestion.loader - INFO - ✓ REE: COMPLETE
+2025-12-29 11:53:10 - modules.ingestion.loader - INFO - [42/50] Processing PNJ...
+2025-12-29 11:53:10 - modules.ingestion.loader - INFO - ✓ DGW: COMPLETE
+2025-12-29 11:53:10 - modules.ingestion.loader - INFO - [43/50] Processing FRT...
+2025-12-29 11:53:11 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for BSR from VCI
+2025-12-29 11:53:12 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for FRT from VCI
+2025-12-29 11:53:13 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for PNJ from VCI
+2025-12-29 11:53:14 - modules.ingestion.loader - INFO - ✓ BSR: COMPLETE
+2025-12-29 11:53:14 - modules.ingestion.loader - INFO - [44/50] Processing VHC...
+2025-12-29 11:53:15 - modules.ingestion.loader - INFO - ✓ FRT: COMPLETE
+2025-12-29 11:53:15 - modules.ingestion.loader - INFO - [45/50] Processing DGC...
+2025-12-29 11:53:16 - modules.ingestion.loader - INFO - ✓ PNJ: COMPLETE
+2025-12-29 11:53:16 - modules.ingestion.loader - INFO - [46/50] Processing VJC...
+2025-12-29 11:53:17 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VHC from VCI
+2025-12-29 11:53:18 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for DGC from VCI
+2025-12-29 11:53:20 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VJC from VCI
+2025-12-29 11:53:20 - modules.ingestion.loader - INFO - ✓ VHC: COMPLETE
+2025-12-29 11:53:20 - modules.ingestion.loader - INFO - [47/50] Processing HVN...
+2025-12-29 11:53:21 - modules.ingestion.loader - INFO - ✓ DGC: COMPLETE
+2025-12-29 11:53:21 - modules.ingestion.loader - INFO - [48/50] Processing VND...
+2025-12-29 11:53:22 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for HVN from VCI
+2025-12-29 11:53:23 - modules.ingestion.loader - INFO - ✓ VJC: COMPLETE
+2025-12-29 11:53:23 - modules.ingestion.loader - INFO - [49/50] Processing HNG...
+2025-12-29 11:53:24 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VND from VCI
+2025-12-29 11:53:25 - modules.ingestion.loader - INFO - ✓ HVN: COMPLETE
+2025-12-29 11:53:25 - modules.ingestion.loader - INFO - [50/50] Processing VGC...
+2025-12-29 11:53:26 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for HNG from VCI
+2025-12-29 11:53:27 - modules.ingestion.loader - INFO - ✓ VND: COMPLETE
+2025-12-29 11:53:29 - modules.ingestion.loader - INFO - ✓ HNG: COMPLETE
+2025-12-29 11:53:29 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VGC from VCI
+2025-12-29 11:53:32 - modules.ingestion.loader - INFO - ✓ VGC: COMPLETE
+2025-12-29 11:53:32 - modules.ingestion.loader - INFO - ============================================================
+2025-12-29 11:53:32 - modules.ingestion.loader - INFO - INGESTION SUMMARY
+2025-12-29 11:53:32 - modules.ingestion.loader - INFO - ============================================================
+2025-12-29 11:53:32 - modules.ingestion.loader - INFO - Total: 50 symbols
+2025-12-29 11:53:32 - modules.ingestion.loader - INFO - Success: 50 (100.0%)
+2025-12-29 11:53:32 - modules.ingestion.loader - INFO - Partial: 0 (0.0%)
+2025-12-29 11:53:32 - modules.ingestion.loader - INFO - Failed: 0 (0.0%)
+2025-12-29 11:53:32 - modules.ingestion.loader - INFO - ============================================================
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - Starting processing for 50 symbols...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [1/50] Processing VCB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ VCB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [2/50] Processing BID...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ BID: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [3/50] Processing CTG...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ CTG: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [4/50] Processing TCB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ TCB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [5/50] Processing MBB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ MBB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [6/50] Processing VPB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ VPB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [7/50] Processing ACB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ ACB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [8/50] Processing HDB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ HDB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [9/50] Processing STB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ STB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [10/50] Processing TPB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ TPB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [11/50] Processing VIB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ VIB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [12/50] Processing SHB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ SHB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [13/50] Processing SSB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ SSB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [14/50] Processing LPB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ LPB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [15/50] Processing EIB...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ EIB: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [16/50] Processing VIC...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ VIC: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [17/50] Processing VHM...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ VHM: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [18/50] Processing VRE...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ VRE: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [19/50] Processing BCM...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ BCM: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [20/50] Processing VGI...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ VGI: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [21/50] Processing GAS...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ GAS: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [22/50] Processing PLX...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ PLX: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [23/50] Processing HPG...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ HPG: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [24/50] Processing GVR...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ GVR: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [25/50] Processing VNM...
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - ✓ VNM: Metrics calculated successfully
+2025-12-29 11:53:32 - modules.processing.calculator - INFO - [26/50] Processing MSN...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ MSN: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [27/50] Processing MWG...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ MWG: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [28/50] Processing SAB...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ SAB: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [29/50] Processing SSI...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ SSI: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [30/50] Processing FPT...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ FPT: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [31/50] Processing KDH...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ KDH: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [32/50] Processing DXG...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ DXG: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [33/50] Processing NVL...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ NVL: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [34/50] Processing PDR...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ PDR: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [35/50] Processing DIG...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ DIG: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [36/50] Processing BCG...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ BCG: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [37/50] Processing POW...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ POW: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [38/50] Processing REE...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ REE: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [39/50] Processing DGW...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ DGW: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [40/50] Processing NT2...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ NT2: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [41/50] Processing BSR...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ BSR: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [42/50] Processing PNJ...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ PNJ: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [43/50] Processing FRT...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ FRT: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [44/50] Processing VHC...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ VHC: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [45/50] Processing DGC...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ DGC: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [46/50] Processing VJC...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ VJC: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [47/50] Processing HVN...
+2025-12-29 11:53:33 - modules.utils.validator - WARNING - Suspicious ROE value for HVN: 133.08%
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ HVN: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [48/50] Processing VND...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ VND: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [49/50] Processing HNG...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ HNG: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - [50/50] Processing VGC...
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ✓ VGC: Metrics calculated successfully
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ============================================================
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - PROCESSING SUMMARY
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ============================================================
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - Total: 50 symbols
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - Success: 50 (100.0%)
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - Failed: 0 (0.0%)
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - Output saved to: /app/data/processed/financial_metrics.csv
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - ============================================================
+2025-12-29 11:53:33 - modules.processing.calculator - INFO - 
+PREVIEW - Top 10 Results:
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - StockScorer initialized with weights: F=0.6, T=0.4
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - Starting stock analysis and scoring...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - Loaded 50 symbols for analysis
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [1/50] Analyzing VCB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VCB: Score=3.6 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [2/50] Analyzing BID...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ BID: Score=6.8 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [3/50] Analyzing CTG...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ CTG: Score=7.4 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [4/50] Analyzing TCB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ TCB: Score=5.0 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [5/50] Analyzing MBB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ MBB: Score=5.0 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [6/50] Analyzing VPB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VPB: Score=5.6 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [7/50] Analyzing ACB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ ACB: Score=5.6 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [8/50] Analyzing HDB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ HDB: Score=5.0 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [9/50] Analyzing STB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ STB: Score=6.6 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [10/50] Analyzing TPB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ TPB: Score=4.4 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [11/50] Analyzing VIB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VIB: Score=3.6 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [12/50] Analyzing SHB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ SHB: Score=6.2 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [13/50] Analyzing SSB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ SSB: Score=1.8 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [14/50] Analyzing LPB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ LPB: Score=5.8 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [15/50] Analyzing EIB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ EIB: Score=1.2 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [16/50] Analyzing VIC...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VIC: Score=2.0 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [17/50] Analyzing VHM...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VHM: Score=2.0 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [18/50] Analyzing VRE...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VRE: Score=6.8 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [19/50] Analyzing BCM...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ BCM: Score=5.0 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [20/50] Analyzing VGI...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VGI: Score=5.6 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [21/50] Analyzing GAS...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ GAS: Score=4.8 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [22/50] Analyzing PLX...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ PLX: Score=4.4 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [23/50] Analyzing HPG...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ HPG: Score=6.8 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [24/50] Analyzing GVR...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ GVR: Score=3.6 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [25/50] Analyzing VNM...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VNM: Score=6.2 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [26/50] Analyzing MSN...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ MSN: Score=4.4 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [27/50] Analyzing MWG...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ MWG: Score=7.4 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [28/50] Analyzing SAB...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ SAB: Score=7.4 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [29/50] Analyzing SSI...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ SSI: Score=5.6 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [30/50] Analyzing FPT...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ FPT: Score=5.4 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [31/50] Analyzing KDH...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ KDH: Score=4.4 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [32/50] Analyzing DXG...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ DXG: Score=3.6 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [33/50] Analyzing NVL...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ NVL: Score=1.2 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [34/50] Analyzing PDR...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ PDR: Score=3.2 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [35/50] Analyzing DIG...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ DIG: Score=3.2 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [36/50] Analyzing BCG...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ BCG: Score=3.6 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [37/50] Analyzing POW...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ POW: Score=4.4 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [38/50] Analyzing REE...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ REE: Score=4.4 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [39/50] Analyzing DGW...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ DGW: Score=5.0 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [40/50] Analyzing NT2...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ NT2: Score=5.6 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [41/50] Analyzing BSR...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ BSR: Score=5.6 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [42/50] Analyzing PNJ...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ PNJ: Score=6.2 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [43/50] Analyzing FRT...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ FRT: Score=6.2 → MUA THĂM DÒ
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [44/50] Analyzing VHC...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VHC: Score=5.4 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [45/50] Analyzing DGC...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ DGC: Score=2.8 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [46/50] Analyzing VJC...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VJC: Score=3.2 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [47/50] Analyzing HVN...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ HVN: Score=3.2 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [48/50] Analyzing VND...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VND: Score=5.6 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [49/50] Analyzing HNG...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ HNG: Score=4.8 → THEO DÕI
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - [50/50] Analyzing VGC...
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ✓ VGC: Score=0.8 → BÁN / CƠ CẤU
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ============================================================
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ANALYSIS SUMMARY
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ============================================================
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - Total analyzed: 50 symbols
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - MUA MẠNH: 0
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - MUA THĂM DÒ: 11
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - THEO DÕI: 23
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - BÁN / CƠ CẤU: 16
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - Output saved to: /app/data/processed/analysis_report.csv
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - ============================================================
+2025-12-29 11:53:33 - modules.analysis.scorer - INFO - 
+TOP 10 CỔ PHIẾU TIỀM NĂNG:
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - PortfolioManager initialized: Max position=40.0%, Stop loss=7.000000000000001%
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Generating portfolio recommendations with capital: 100,000,000 VND
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Found 11 stocks with BUY recommendations
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Available for investment: 80,000,000 VND (80%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ✓ CTG: 200 shares @ 35,100 = 7,020,000 VND (7.0%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ✓ SAB: 100 shares @ 49,150 = 4,915,000 VND (4.9%)
+2025-12-29 11:53:33 - modules.portfolio.manager - WARNING - Skipping MWG: Insufficient capital for 1 lot (price=86,400)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ✓ HPG: 200 shares @ 26,900 = 5,380,000 VND (5.4%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ✓ VRE: 200 shares @ 33,600 = 6,720,000 VND (6.7%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ✓ BID: 100 shares @ 38,750 = 3,875,000 VND (3.9%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ✓ STB: 100 shares @ 59,200 = 5,920,000 VND (5.9%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ✓ VNM: 100 shares @ 61,900 = 6,190,000 VND (6.2%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ✓ SHB: 400 shares @ 16,250 = 6,500,000 VND (6.5%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ✓ FRT: 46500 shares @ 144 = 6,696,000 VND (6.7%)
+2025-12-29 11:53:33 - modules.portfolio.manager - WARNING - Skipping PNJ: Insufficient capital for 1 lot (price=95,600)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ============================================================
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - PORTFOLIO ALLOCATION
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ============================================================
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Total capital: 100,000,000 VND
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Invested: 53,216,000 VND (53.2%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Cash reserve: 46,784,000 VND (46.8%)
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Number of positions: 9
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Output saved to: /app/data/processed/portfolio_recommendation.csv
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - ============================================================
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - 
+PORTFOLIO DETAILS:
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - 
+RISK SUMMARY:
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Stop Loss: -7.0% per position
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Target Profit: +15.0% per position
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Risk/Reward Ratio: 1:2.0
+2025-12-29 11:53:33 - modules.portfolio.manager - INFO - Max position size: 40.0%
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - DataExporter initialized: Export to /app/data/export
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - Starting data export to JSON...
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - Exporting analysis report...
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - ✓ Exported 50 analysis records
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - Exporting portfolio recommendations...
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - ✓ Exported 9 portfolio positions
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - Exporting price charts (last 100 days)...
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - ✓ Exported 50/50 price charts
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - ============================================================
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - EXPORT SUMMARY
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - ============================================================
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - Output file: /app/data/export/db.json
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - File size: 816.6 KB
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - Analysis records: 50
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - Portfolio positions: 9
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - Price charts: 50
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - Last updated: 2025-12-29 11:53:33
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - ============================================================
+2025-12-29 11:53:33 - modules.utils.exporter - INFO - ✓ Export completed successfully!
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-29 11:56:28.778980 to 2025-12-29 11:56:28.778980
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - Found 11 buy signals
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY CTG: 374800 shares @ 27 = 9,999,664 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL CTG: 374800 shares @ 25 | P&L: -745,852 (STOP_LOSS)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY SAB: 188000 shares @ 53 = 9,920,760 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL SAB: 188000 shares @ 49 | P&L: -795,240 (STOP_LOSS)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY MWG: 163700 shares @ 60 = 9,843,281 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL MWG: 163700 shares @ 56 | P&L: -741,561 (STOP_LOSS)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY HPG: 438300 shares @ 22 = 9,769,707 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL HPG: 438300 shares @ 20 | P&L: -784,557 (STOP_LOSS)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY VRE: 565200 shares @ 17 = 9,693,180 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL VRE: 565200 shares @ 20 | P&L: 1,497,780 (TAKE_PROFIT)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY BID: 260100 shares @ 38 = 9,839,583 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL BID: 260100 shares @ 33 | P&L: -1,222,470 (STOP_LOSS)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY STB: 256800 shares @ 38 = 9,719,880 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL STB: 256800 shares @ 35 | P&L: -680,520 (STOP_LOSS)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY VNM: 165200 shares @ 58 = 9,647,680 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL VNM: 165200 shares @ 52 | P&L: -1,037,456 (STOP_LOSS)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY SHB: 1213300 shares @ 8 = 9,548,671 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL SHB: 1213300 shares @ 9 | P&L: 1,516,625 (TAKE_PROFIT)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY FRT: 65500 shares @ 148 = 9,694,000 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL FRT: 65500 shares @ 138 | P&L: -681,200 (STOP_LOSS)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - BUY PNJ: 101000 shares @ 95 = 9,629,340 VND
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - SELL PNJ: 101000 shares @ 89 | P&L: -686,800 (STOP_LOSS)
+2025-12-29 11:56:28 - modules.simulation.backtest_engine - INFO - Backtest completed: 22 total trades
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-29 11:56:38.514065 to 2025-12-29 11:56:38.514065
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - Found 11 buy signals
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY CTG: 374800 shares @ 27 = 9,999,664 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL CTG: 374800 shares @ 25 | P&L: -745,852 (STOP_LOSS)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY SAB: 188000 shares @ 53 = 9,920,760 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL SAB: 188000 shares @ 49 | P&L: -795,240 (STOP_LOSS)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY MWG: 163700 shares @ 60 = 9,843,281 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL MWG: 163700 shares @ 56 | P&L: -741,561 (STOP_LOSS)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY HPG: 438300 shares @ 22 = 9,769,707 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL HPG: 438300 shares @ 20 | P&L: -784,557 (STOP_LOSS)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY VRE: 565200 shares @ 17 = 9,693,180 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL VRE: 565200 shares @ 20 | P&L: 1,497,780 (TAKE_PROFIT)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY BID: 260100 shares @ 38 = 9,839,583 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL BID: 260100 shares @ 33 | P&L: -1,222,470 (STOP_LOSS)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY STB: 256800 shares @ 38 = 9,719,880 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL STB: 256800 shares @ 35 | P&L: -680,520 (STOP_LOSS)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY VNM: 165200 shares @ 58 = 9,647,680 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL VNM: 165200 shares @ 52 | P&L: -1,037,456 (STOP_LOSS)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY SHB: 1213300 shares @ 8 = 9,548,671 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL SHB: 1213300 shares @ 9 | P&L: 1,516,625 (TAKE_PROFIT)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY FRT: 65500 shares @ 148 = 9,694,000 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL FRT: 65500 shares @ 138 | P&L: -681,200 (STOP_LOSS)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - BUY PNJ: 101000 shares @ 95 = 9,629,340 VND
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - SELL PNJ: 101000 shares @ 89 | P&L: -686,800 (STOP_LOSS)
+2025-12-29 11:56:38 - modules.simulation.backtest_engine - INFO - Backtest completed: 22 total trades
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-29 11:56:50.268489 to 2025-12-29 11:56:50.268489
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - Found 11 buy signals
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY CTG: 374800 shares @ 27 = 9,999,664 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL CTG: 374800 shares @ 25 | P&L: -745,852 (STOP_LOSS)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY SAB: 188000 shares @ 53 = 9,920,760 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL SAB: 188000 shares @ 49 | P&L: -795,240 (STOP_LOSS)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY MWG: 163700 shares @ 60 = 9,843,281 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL MWG: 163700 shares @ 56 | P&L: -741,561 (STOP_LOSS)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY HPG: 438300 shares @ 22 = 9,769,707 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL HPG: 438300 shares @ 20 | P&L: -784,557 (STOP_LOSS)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY VRE: 565200 shares @ 17 = 9,693,180 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL VRE: 565200 shares @ 20 | P&L: 1,497,780 (TAKE_PROFIT)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY BID: 260100 shares @ 38 = 9,839,583 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL BID: 260100 shares @ 33 | P&L: -1,222,470 (STOP_LOSS)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY STB: 256800 shares @ 38 = 9,719,880 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL STB: 256800 shares @ 35 | P&L: -680,520 (STOP_LOSS)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY VNM: 165200 shares @ 58 = 9,647,680 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL VNM: 165200 shares @ 52 | P&L: -1,037,456 (STOP_LOSS)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY SHB: 1213300 shares @ 8 = 9,548,671 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL SHB: 1213300 shares @ 9 | P&L: 1,516,625 (TAKE_PROFIT)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY FRT: 65500 shares @ 148 = 9,694,000 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL FRT: 65500 shares @ 138 | P&L: -681,200 (STOP_LOSS)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - BUY PNJ: 101000 shares @ 95 = 9,629,340 VND
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - SELL PNJ: 101000 shares @ 89 | P&L: -686,800 (STOP_LOSS)
+2025-12-29 11:56:50 - modules.simulation.backtest_engine - INFO - Backtest completed: 22 total trades
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-29 11:56:56.660050 to 2025-12-29 11:56:56.660050
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - Found 11 buy signals
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY CTG: 374800 shares @ 27 = 9,999,664 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL CTG: 374800 shares @ 25 | P&L: -745,852 (STOP_LOSS)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY SAB: 188000 shares @ 53 = 9,920,760 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL SAB: 188000 shares @ 49 | P&L: -795,240 (STOP_LOSS)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY MWG: 163700 shares @ 60 = 9,843,281 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL MWG: 163700 shares @ 56 | P&L: -741,561 (STOP_LOSS)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY HPG: 438300 shares @ 22 = 9,769,707 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL HPG: 438300 shares @ 20 | P&L: -784,557 (STOP_LOSS)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY VRE: 565200 shares @ 17 = 9,693,180 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL VRE: 565200 shares @ 20 | P&L: 1,497,780 (TAKE_PROFIT)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY BID: 260100 shares @ 38 = 9,839,583 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL BID: 260100 shares @ 33 | P&L: -1,222,470 (STOP_LOSS)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY STB: 256800 shares @ 38 = 9,719,880 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL STB: 256800 shares @ 35 | P&L: -680,520 (STOP_LOSS)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY VNM: 165200 shares @ 58 = 9,647,680 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL VNM: 165200 shares @ 52 | P&L: -1,037,456 (STOP_LOSS)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY SHB: 1213300 shares @ 8 = 9,548,671 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL SHB: 1213300 shares @ 9 | P&L: 1,516,625 (TAKE_PROFIT)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY FRT: 65500 shares @ 148 = 9,694,000 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL FRT: 65500 shares @ 138 | P&L: -681,200 (STOP_LOSS)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - BUY PNJ: 101000 shares @ 95 = 9,629,340 VND
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - SELL PNJ: 101000 shares @ 89 | P&L: -686,800 (STOP_LOSS)
+2025-12-29 11:56:56 - modules.simulation.backtest_engine - INFO - Backtest completed: 22 total trades
