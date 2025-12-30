@@ -289,10 +289,10 @@ def run_ml_predict(mode='train', model_type='random_forest', horizon=5, threshol
                         'P(DOWN)': f"{pred['probabilities']['DOWN']:.2%}"
                     })
 
-                    logger.info(f"{symbol}: {pred['prediction_label']} ({pred['confidence']:.2%})")
+                    print(f"  ✓ {symbol}: {pred['prediction_label']} ({pred['confidence']:.2%})")
 
             except Exception as e:
-                logger.error(f"Error predicting {symbol}: {e}")
+                print(f"  ⚠️  Error predicting {symbol}: {e}")
 
         # Save predictions
         import pandas as pd
