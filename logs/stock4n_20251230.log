@@ -1530,3 +1530,185 @@ Top 10 Important Features:
 2025-12-30 10:39:47 - modules.ml_prediction.model_manager - INFO - Loaded model from /app/data/ml_models/trend_classifier/latest
 2025-12-30 10:39:47 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VCB...
 2025-12-30 10:39:47 - modules.ml_prediction.feature_engineer - INFO - VCB: 735 samples, 66 features
+2025-12-30 10:43:32 - modules.ml_prediction.model_manager - INFO - Loaded model from /app/data/ml_models/trend_classifier/latest
+2025-12-30 10:43:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VCB...
+2025-12-30 10:43:32 - modules.ml_prediction.feature_engineer - INFO - VCB: 735 samples, 66 features
+2025-12-30 10:43:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BID...
+2025-12-30 10:43:32 - modules.ml_prediction.feature_engineer - INFO - BID: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for CTG...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - CTG: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for TCB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - TCB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for MBB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - MBB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VPB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - VPB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for ACB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - ACB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HDB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - HDB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for STB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - STB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for TPB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - TPB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VIB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - VIB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SHB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - SHB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SSB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - SSB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for LPB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - LPB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for EIB...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - EIB: 735 samples, 66 features
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VIC...
+2025-12-30 10:43:33 - modules.ml_prediction.feature_engineer - INFO - VIC: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VHM...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - VHM: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VRE...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - VRE: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BCM...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - BCM: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VGI...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - VGI: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for GAS...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - GAS: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for PLX...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - PLX: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HPG...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - HPG: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for GVR...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - GVR: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VNM...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - VNM: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for MSN...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - MSN: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for MWG...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - MWG: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SAB...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - SAB: 735 samples, 66 features
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SSI...
+2025-12-30 10:43:34 - modules.ml_prediction.feature_engineer - INFO - SSI: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for FPT...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - FPT: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for KDH...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - KDH: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DXG...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - DXG: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for NVL...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - NVL: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for PDR...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - PDR: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DIG...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - DIG: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BCG...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - BCG: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for POW...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - POW: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for REE...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - REE: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DGW...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - DGW: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for NT2...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - NT2: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BSR...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - BSR: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for PNJ...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - PNJ: 735 samples, 66 features
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for FRT...
+2025-12-30 10:43:35 - modules.ml_prediction.feature_engineer - INFO - FRT: 735 samples, 66 features
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VHC...
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - VHC: 735 samples, 66 features
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DGC...
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - DGC: 735 samples, 66 features
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VJC...
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - VJC: 735 samples, 66 features
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HVN...
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - HVN: 735 samples, 66 features
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VND...
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - VND: 735 samples, 66 features
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HNG...
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - HNG: 735 samples, 66 features
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VGC...
+2025-12-30 10:43:36 - modules.ml_prediction.feature_engineer - INFO - VGC: 735 samples, 66 features
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-30 10:44:03.553012 to 2025-12-30 10:44:03.553012
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - Found 11 buy signals
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY CTG: 385600 shares @ 26 = 9,998,608 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL CTG: 385600 shares @ 23 | P&L: -1,060,400 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY SAB: 189500 shares @ 52 = 9,893,795 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL SAB: 189500 shares @ 49 | P&L: -695,465 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY NT2: 504000 shares @ 19 = 9,822,960 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL NT2: 504000 shares @ 18 | P&L: -750,960 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY BID: 262500 shares @ 37 = 9,749,250 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL BID: 262500 shares @ 33 | P&L: -1,052,625 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY SHB: 1225400 shares @ 8 = 9,643,898 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL SHB: 1225400 shares @ 9 | P&L: 1,531,750 (TAKE_PROFIT)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY STB: 265500 shares @ 37 = 9,796,950 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL STB: 265500 shares @ 33 | P&L: -1,008,900 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY VNM: 165700 shares @ 58 = 9,691,793 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL VNM: 165700 shares @ 52 | P&L: -1,055,509 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY MWG: 159500 shares @ 60 = 9,590,735 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL MWG: 159500 shares @ 56 | P&L: -722,535 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY FRT: 64100 shares @ 148 = 9,517,568 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL FRT: 64100 shares @ 138 | P&L: -697,408 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY PNJ: 98700 shares @ 96 = 9,448,551 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL PNJ: 98700 shares @ 89 | P&L: -709,653 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - BUY VGI: 103200 shares @ 91 = 9,369,528 VND
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - SELL VGI: 103200 shares @ 84 | P&L: -663,576 (STOP_LOSS)
+2025-12-30 10:44:03 - modules.simulation.backtest_engine - INFO - Backtest completed: 22 total trades
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-30 10:44:50.213162 to 2025-12-30 10:44:50.213162
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - Found 11 buy signals
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY CTG: 385600 shares @ 26 = 9,998,608 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL CTG: 385600 shares @ 23 | P&L: -1,060,400 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY SAB: 189500 shares @ 52 = 9,893,795 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL SAB: 189500 shares @ 49 | P&L: -695,465 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY NT2: 504000 shares @ 19 = 9,822,960 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL NT2: 504000 shares @ 18 | P&L: -750,960 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY BID: 262500 shares @ 37 = 9,749,250 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL BID: 262500 shares @ 33 | P&L: -1,052,625 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY SHB: 1225400 shares @ 8 = 9,643,898 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL SHB: 1225400 shares @ 9 | P&L: 1,531,750 (TAKE_PROFIT)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY STB: 265500 shares @ 37 = 9,796,950 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL STB: 265500 shares @ 33 | P&L: -1,008,900 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY VNM: 165700 shares @ 58 = 9,691,793 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL VNM: 165700 shares @ 52 | P&L: -1,055,509 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY MWG: 159500 shares @ 60 = 9,590,735 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL MWG: 159500 shares @ 56 | P&L: -722,535 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY FRT: 64100 shares @ 148 = 9,517,568 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL FRT: 64100 shares @ 138 | P&L: -697,408 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY PNJ: 98700 shares @ 96 = 9,448,551 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL PNJ: 98700 shares @ 89 | P&L: -709,653 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - BUY VGI: 103200 shares @ 91 = 9,369,528 VND
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - SELL VGI: 103200 shares @ 84 | P&L: -663,576 (STOP_LOSS)
+2025-12-30 10:44:50 - modules.simulation.backtest_engine - INFO - Backtest completed: 22 total trades
+2025-12-30 15:18:56 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-30 15:18:56 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-30 15:18:56.888186 to 2025-12-30 15:18:56.888186
+2025-12-30 15:18:56 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-30 15:18:56 - modules.simulation.backtest_engine - INFO - Found 11 buy signals
+2025-12-30 15:18:56 - modules.simulation.backtest_engine - INFO - BUY CTG: 385600 shares @ 26 = 9,998,608 VND
+2025-12-30 15:18:56 - modules.simulation.backtest_engine - INFO - SELL CTG: 385600 shares @ 23 | P&L: -1,060,400 (STOP_LOSS)
+2025-12-30 15:18:56 - modules.simulation.backtest_engine - INFO - BUY SAB: 189500 shares @ 52 = 9,893,795 VND
+2025-12-30 15:18:56 - modules.simulation.backtest_engine - INFO - SELL SAB: 189500 shares @ 49 | P&L: -695,465 (STOP_LOSS)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - BUY NT2: 504000 shares @ 19 = 9,822,960 VND
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - SELL NT2: 504000 shares @ 18 | P&L: -750,960 (STOP_LOSS)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - BUY BID: 262500 shares @ 37 = 9,749,250 VND
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - SELL BID: 262500 shares @ 33 | P&L: -1,052,625 (STOP_LOSS)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - BUY SHB: 1225400 shares @ 8 = 9,643,898 VND
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - SELL SHB: 1225400 shares @ 9 | P&L: 1,531,750 (TAKE_PROFIT)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - BUY STB: 265500 shares @ 37 = 9,796,950 VND
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - SELL STB: 265500 shares @ 33 | P&L: -1,008,900 (STOP_LOSS)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - BUY VNM: 165700 shares @ 58 = 9,691,793 VND
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - SELL VNM: 165700 shares @ 52 | P&L: -1,055,509 (STOP_LOSS)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - BUY MWG: 159500 shares @ 60 = 9,590,735 VND
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - SELL MWG: 159500 shares @ 56 | P&L: -722,535 (STOP_LOSS)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - BUY FRT: 64100 shares @ 148 = 9,517,568 VND
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - SELL FRT: 64100 shares @ 138 | P&L: -697,408 (STOP_LOSS)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - BUY PNJ: 98700 shares @ 96 = 9,448,551 VND
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - SELL PNJ: 98700 shares @ 89 | P&L: -709,653 (STOP_LOSS)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - BUY VGI: 103200 shares @ 91 = 9,369,528 VND
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - SELL VGI: 103200 shares @ 84 | P&L: -663,576 (STOP_LOSS)
+2025-12-30 15:18:57 - modules.simulation.backtest_engine - INFO - Backtest completed: 22 total trades
