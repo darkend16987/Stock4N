@@ -450,6 +450,8 @@ with tab4:
 
         if success:
             st.code(output, language="text")
+            st.success("🎉 Backtest hoàn tất! Đang tải kết quả...")
+            st.rerun()  # Reload to show results
 
     st.markdown("---")
 

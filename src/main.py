@@ -18,6 +18,9 @@ try:
     from modules.learning.pattern_analyzer import PatternAnalyzer
     from modules.learning.weight_optimizer import WeightOptimizer
     from modules.learning.parameter_manager import ParameterManager
+    from modules.ml_prediction.feature_engineer import FeatureEngineer
+    from modules.ml_prediction.trend_classifier import TrendClassifier
+    from modules.ml_prediction.model_manager import ModelManager
     import config
 except ImportError as e:
     print(f"❌ Error importing modules: {e}")
@@ -185,11 +188,144 @@ def run_learning(mode='patterns', optimize_weights=False, lookback_days=365):
     print("\n" + param_manager.get_summary())
     print("\n✅ Learning completed!")
 
+def run_ml_predict(mode='train', model_type='random_forest', horizon=5, threshold=0.02):
+    """
+    Chạy ML prediction - Train model hoặc predict trends
+
+    Args:
+        mode: 'train' or 'predict'
+        model_type: 'random_forest' or 'gradient_boosting'
+        horizon: Forecast horizon (days)
+        threshold: Classification threshold (%)
+    """
+    print("🤖 [MODE] ML Prediction")
+
+    model_manager = ModelManager()
+
+    if mode == 'train':
+        print(f"\n🎓 Training {model_type} model...")
+        print(f"Forecast horizon: {horizon} days, Threshold: {threshold*100}%")
+
+        # Feature engineering
+        print("\n📊 Creating features...")
+        engineer = FeatureEngineer()
+
+        datasets = engineer.prepare_batch_datasets(
+            symbols=config.VN100_SYMBOLS,
+            horizon=horizon,
+            threshold=threshold
+        )
+
+        if not datasets:
+            print("❌ No datasets prepared!")
+            return
+
+        print(f"✓ Prepared {len(datasets)} datasets")
+
+        # Get feature names
+        feature_names = engineer.get_feature_names()
+        print(f"✓ Generated {len(feature_names)} features")
+
+        # Train model
+        print("\n🧠 Training model...")
+        classifier = TrendClassifier(model_type=model_type)
+
+        metrics = classifier.train_multi_symbol(
+            datasets=datasets,
+            feature_names=feature_names,
+            test_size=0.2
+        )
+
+        # Save model
+        print("\n💾 Saving model...")
+        metadata = {
+            'horizon': horizon,
+            'threshold': threshold,
+            'symbols': list(datasets.keys()),
+            'n_symbols': len(datasets)
+        }
+
+        model_manager.save_model(
+            model=classifier,
+            model_name='trend_classifier',
+            metadata=metadata
+        )
+
+        # Print summary
+        print("\n" + classifier.get_model_summary())
+
+        print("\n✅ Training completed!")
+
+    elif mode == 'predict':
+        print("\n🔮 Generating predictions...")
+
+        # Load latest model
+        model = model_manager.load_model('trend_classifier', 'latest')
+        if model is None:
+            print("❌ No trained model found! Run 'train' first.")
+            return
+
+        metadata = model_manager.load_metadata('trend_classifier', 'latest')
+        print(f"✓ Loaded model (trained: {metadata.get('saved_at', 'N/A')})")
+
+        # Get latest features for all symbols
+        print("\n📊 Extracting latest features...")
+        engineer = FeatureEngineer()
+
+        predictions = []
+
+        for symbol in config.VN100_SYMBOLS:
+            try:
+                features = engineer.get_latest_features(symbol)
+                if features is not None:
+                    pred = model.predict_single(features)
+
+                    predictions.append({
+                        'Symbol': symbol,
+                        'Prediction': pred['prediction_label'],
+                        'Confidence': f"{pred['confidence']:.2%}",
+                        'P(UP)': f"{pred['probabilities']['UP']:.2%}",
+                        'P(NEUTRAL)': f"{pred['probabilities']['NEUTRAL']:.2%}",
+                        'P(DOWN)': f"{pred['probabilities']['DOWN']:.2%}"
+                    })
+
+                    logger.info(f"{symbol}: {pred['prediction_label']} ({pred['confidence']:.2%})")
+
+            except Exception as e:
+                logger.error(f"Error predicting {symbol}: {e}")
+
+        # Save predictions
+        import pandas as pd
+        pred_df = pd.DataFrame(predictions)
+
+        output_file = os.path.join(config.PROCESSED_DIR, 'ml_predictions.csv')
+        pred_df.to_csv(output_file, index=False)
+
+        print(f"\n✓ Generated {len(predictions)} predictions")
+        print(f"✓ Saved to {output_file}")
+
+        # Summary
+        print("\n📊 Prediction Summary:")
+        pred_counts = pred_df['Prediction'].value_counts()
+        for pred, count in pred_counts.items():
+            print(f"  {pred}: {count} stocks")
+
+        # Top confident predictions
+        print("\n🎯 Top 10 Confident Predictions:")
+        pred_df['Confidence_num'] = pred_df['Confidence'].str.rstrip('%').astype(float)
+        top10 = pred_df.nlargest(10, 'Confidence_num')[['Symbol', 'Prediction', 'Confidence']]
+        print(top10.to_string(index=False))
+
+        print("\n✅ Prediction completed!")
+
+    else:
+        print(f"❌ Unknown mode: {mode}")
+
 def main():
     parser = argparse.ArgumentParser(description="VN-Stock Intelligent Advisor CLI")
     parser.add_argument(
         'mode',
-        choices=['ingestion', 'processing', 'analysis', 'portfolio', 'export', 'backtest', 'learn', 'all'],
+        choices=['ingestion', 'processing', 'analysis', 'portfolio', 'export', 'backtest', 'learn', 'ml_predict', 'all'],
         help="Chế độ chạy"
     )
     parser.add_argument('--days', type=int, default=365, help="Backtest/Learning lookback days (default: 365)")
@@ -198,6 +334,13 @@ def main():
     parser.add_argument('--learn-mode', type=str, default='all', choices=['patterns', 'optimize', 'all'],
                         help="Learning mode: patterns, optimize, or all (default: all)")
     parser.add_argument('--optimize-weights', action='store_true', help="Run weight optimization in learning mode")
+    parser.add_argument('--ml-mode', type=str, default='train', choices=['train', 'predict'],
+                        help="ML mode: train or predict (default: train)")
+    parser.add_argument('--model-type', type=str, default='random_forest',
+                        choices=['random_forest', 'gradient_boosting'],
+                        help="ML model type (default: random_forest)")
+    parser.add_argument('--horizon', type=int, default=5, help="Forecast horizon in days (default: 5)")
+    parser.add_argument('--threshold', type=float, default=0.02, help="Classification threshold (default: 0.02 = 2%)")
 
     if len(sys.argv) < 2:
         parser.print_help()
@@ -212,6 +355,7 @@ def main():
     elif args.mode == 'export': run_export()
     elif args.mode == 'backtest': run_backtest(args.days, args.score, args.capital)
     elif args.mode == 'learn': run_learning(args.learn_mode, args.optimize_weights, args.days)
+    elif args.mode == 'ml_predict': run_ml_predict(args.ml_mode, args.model_type, args.horizon, args.threshold)
     elif args.mode == 'all':
         run_ingestion()
         run_processing()
