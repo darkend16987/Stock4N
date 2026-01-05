@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-02 10:11:39",
+  "last_updated": "2026-01-05 08:52:33",
   "analysis": [
     {
       "Symbol": "NT2",
@@ -29494,7 +29494,7 @@
         "high": 68.8,
         "low": 66.1,
         "close": 68.5,
-        "volume": 11101300
+        "volume": 11132279
       }
     ],
     "BCG": [
@@ -40730,6 +40730,6 @@
     "total_symbols": 50,
     "total_positions": 10,
     "chart_days": 100,
-    "export_timestamp": "2026-01-02T10:11:39.544744"
+    "export_timestamp": "2026-01-05T08:52:33.407711"
   }
 }
