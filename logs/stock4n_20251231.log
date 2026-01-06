@@ -1,0 +1,1092 @@
+2025-12-31 10:21:13 - modules.ingestion.loader - INFO - Detected vnstock v3.x (OOP Mode)
+2025-12-31 10:21:13 - modules.ingestion.loader - INFO - Starting data ingestion for 50 symbols
+2025-12-31 10:21:13 - modules.ingestion.loader - INFO - Data will be saved to: /app/data/raw
+2025-12-31 10:21:13 - modules.ingestion.loader - INFO - Using PARALLEL mode with 3 workers
+2025-12-31 10:21:13 - modules.ingestion.loader - INFO - Note: This process may take time due to rate limiting
+2025-12-31 10:21:13 - modules.ingestion.loader - INFO - [1/50] Processing VCB...
+2025-12-31 10:21:13 - modules.ingestion.loader - INFO - [2/50] Processing BID...
+2025-12-31 10:21:13 - modules.ingestion.loader - INFO - [3/50] Processing CTG...
+2025-12-31 10:21:15 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VCB from VCI
+2025-12-31 10:21:15 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for BID from VCI
+2025-12-31 10:21:16 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for CTG from VCI
+2025-12-31 10:21:19 - modules.ingestion.loader - INFO - ✓ CTG: COMPLETE
+2025-12-31 10:21:19 - modules.ingestion.loader - INFO - [4/50] Processing TCB...
+2025-12-31 10:21:19 - modules.ingestion.loader - INFO - ✓ VCB: COMPLETE
+2025-12-31 10:21:19 - modules.ingestion.loader - INFO - [5/50] Processing MBB...
+2025-12-31 10:21:19 - modules.ingestion.loader - INFO - ✓ BID: COMPLETE
+2025-12-31 10:21:19 - modules.ingestion.loader - INFO - [6/50] Processing VPB...
+2025-12-31 10:21:21 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for MBB from VCI
+2025-12-31 10:21:21 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for TCB from VCI
+2025-12-31 10:21:23 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VPB from VCI
+2025-12-31 10:21:24 - modules.ingestion.loader - INFO - ✓ MBB: COMPLETE
+2025-12-31 10:21:24 - modules.ingestion.loader - INFO - [7/50] Processing ACB...
+2025-12-31 10:21:24 - modules.ingestion.loader - INFO - ✓ TCB: COMPLETE
+2025-12-31 10:21:24 - modules.ingestion.loader - INFO - [8/50] Processing HDB...
+2025-12-31 10:21:25 - modules.ingestion.loader - INFO - ✓ VPB: COMPLETE
+2025-12-31 10:21:25 - modules.ingestion.loader - INFO - [9/50] Processing STB...
+2025-12-31 10:21:28 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for HDB from VCI
+2025-12-31 10:21:28 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for ACB from VCI
+2025-12-31 10:21:28 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for STB from VCI
+2025-12-31 10:21:30 - modules.ingestion.loader - INFO - ✓ HDB: COMPLETE
+2025-12-31 10:21:30 - modules.ingestion.loader - INFO - [10/50] Processing TPB...
+2025-12-31 10:21:31 - modules.ingestion.loader - INFO - ✓ ACB: COMPLETE
+2025-12-31 10:21:31 - modules.ingestion.loader - INFO - [11/50] Processing VIB...
+2025-12-31 10:21:32 - modules.ingestion.loader - INFO - ✓ STB: COMPLETE
+2025-12-31 10:21:32 - modules.ingestion.loader - INFO - [12/50] Processing SHB...
+2025-12-31 10:21:33 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for TPB from VCI
+2025-12-31 10:21:34 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VIB from VCI
+2025-12-31 10:21:34 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for SHB from VCI
+2025-12-31 10:21:36 - modules.ingestion.loader - INFO - ✓ TPB: COMPLETE
+2025-12-31 10:21:36 - modules.ingestion.loader - INFO - [13/50] Processing SSB...
+2025-12-31 10:21:37 - modules.ingestion.loader - INFO - ✓ VIB: COMPLETE
+2025-12-31 10:21:37 - modules.ingestion.loader - INFO - [14/50] Processing LPB...
+2025-12-31 10:21:37 - modules.ingestion.loader - INFO - ✓ SHB: COMPLETE
+2025-12-31 10:21:37 - modules.ingestion.loader - INFO - [15/50] Processing EIB...
+2025-12-31 10:21:40 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for SSB from VCI
+2025-12-31 10:21:40 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for LPB from VCI
+2025-12-31 10:21:41 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for EIB from VCI
+2025-12-31 10:21:43 - modules.ingestion.loader - INFO - ✓ LPB: COMPLETE
+2025-12-31 10:21:43 - modules.ingestion.loader - INFO - [16/50] Processing VIC...
+2025-12-31 10:21:43 - modules.ingestion.loader - INFO - ✓ SSB: COMPLETE
+2025-12-31 10:21:43 - modules.ingestion.loader - INFO - [17/50] Processing VHM...
+2025-12-31 10:21:44 - modules.ingestion.loader - INFO - ✓ EIB: COMPLETE
+2025-12-31 10:21:44 - modules.ingestion.loader - INFO - [18/50] Processing VRE...
+2025-12-31 10:21:47 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VHM from VCI
+2025-12-31 10:21:47 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VIC from VCI
+2025-12-31 10:21:47 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VRE from VCI
+2025-12-31 10:21:50 - modules.ingestion.loader - INFO - ✓ VIC: COMPLETE
+2025-12-31 10:21:50 - modules.ingestion.loader - INFO - [19/50] Processing BCM...
+2025-12-31 10:21:50 - modules.ingestion.loader - INFO - ✓ VRE: COMPLETE
+2025-12-31 10:21:50 - modules.ingestion.loader - INFO - [20/50] Processing VGI...
+2025-12-31 10:21:50 - modules.ingestion.loader - INFO - ✓ VHM: COMPLETE
+2025-12-31 10:21:50 - modules.ingestion.loader - INFO - [21/50] Processing GAS...
+2025-12-31 10:21:52 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VGI from VCI
+2025-12-31 10:21:53 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for BCM from VCI
+2025-12-31 10:21:53 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for GAS from VCI
+2025-12-31 10:21:55 - modules.ingestion.loader - INFO - ✓ VGI: COMPLETE
+2025-12-31 10:21:55 - modules.ingestion.loader - INFO - [22/50] Processing PLX...
+2025-12-31 10:21:56 - modules.ingestion.loader - INFO - ✓ BCM: COMPLETE
+2025-12-31 10:21:56 - modules.ingestion.loader - INFO - [23/50] Processing HPG...
+2025-12-31 10:21:57 - modules.ingestion.loader - INFO - ✓ GAS: COMPLETE
+2025-12-31 10:21:57 - modules.ingestion.loader - INFO - [24/50] Processing GVR...
+2025-12-31 10:21:57 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for PLX from VCI
+2025-12-31 10:21:59 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for GVR from VCI
+2025-12-31 10:21:59 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for HPG from VCI
+2025-12-31 10:22:01 - modules.ingestion.loader - INFO - ✓ PLX: COMPLETE
+2025-12-31 10:22:01 - modules.ingestion.loader - INFO - [25/50] Processing VNM...
+2025-12-31 10:22:02 - modules.ingestion.loader - INFO - ✓ HPG: COMPLETE
+2025-12-31 10:22:02 - modules.ingestion.loader - INFO - [26/50] Processing MSN...
+2025-12-31 10:22:03 - modules.ingestion.loader - INFO - ✓ GVR: COMPLETE
+2025-12-31 10:22:03 - modules.ingestion.loader - INFO - [27/50] Processing MWG...
+2025-12-31 10:22:04 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VNM from VCI
+2025-12-31 10:22:05 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for MWG from VCI
+2025-12-31 10:22:06 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for MSN from VCI
+2025-12-31 10:22:08 - modules.ingestion.loader - INFO - ✓ VNM: COMPLETE
+2025-12-31 10:22:08 - modules.ingestion.loader - INFO - [28/50] Processing SAB...
+2025-12-31 10:22:09 - modules.ingestion.loader - INFO - ✓ MWG: COMPLETE
+2025-12-31 10:22:09 - modules.ingestion.loader - INFO - [29/50] Processing SSI...
+2025-12-31 10:22:09 - modules.ingestion.loader - INFO - ✓ MSN: COMPLETE
+2025-12-31 10:22:09 - modules.ingestion.loader - INFO - [30/50] Processing FPT...
+2025-12-31 10:22:11 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for SAB from VCI
+2025-12-31 10:22:12 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for FPT from VCI
+2025-12-31 10:22:12 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for SSI from VCI
+2025-12-31 10:22:14 - modules.ingestion.loader - INFO - ✓ SAB: COMPLETE
+2025-12-31 10:22:14 - modules.ingestion.loader - INFO - [31/50] Processing KDH...
+2025-12-31 10:22:15 - modules.ingestion.loader - INFO - ✓ SSI: COMPLETE
+2025-12-31 10:22:15 - modules.ingestion.loader - INFO - [32/50] Processing DXG...
+2025-12-31 10:22:15 - modules.ingestion.loader - INFO - ✓ FPT: COMPLETE
+2025-12-31 10:22:15 - modules.ingestion.loader - INFO - [33/50] Processing NVL...
+2025-12-31 10:22:17 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for KDH from VCI
+2025-12-31 10:22:18 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for NVL from VCI
+2025-12-31 10:22:18 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for DXG from VCI
+2025-12-31 10:22:21 - modules.ingestion.loader - INFO - ✓ KDH: COMPLETE
+2025-12-31 10:22:21 - modules.ingestion.loader - INFO - [34/50] Processing PDR...
+2025-12-31 10:22:21 - modules.ingestion.loader - INFO - ✓ NVL: COMPLETE
+2025-12-31 10:22:21 - modules.ingestion.loader - INFO - [35/50] Processing DIG...
+2025-12-31 10:22:21 - modules.ingestion.loader - INFO - ✓ DXG: COMPLETE
+2025-12-31 10:22:21 - modules.ingestion.loader - INFO - [36/50] Processing BCG...
+2025-12-31 10:22:24 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for BCG from VCI
+2025-12-31 10:22:24 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for PDR from VCI
+2025-12-31 10:22:25 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for DIG from VCI
+2025-12-31 10:22:27 - modules.ingestion.loader - INFO - ✓ PDR: COMPLETE
+2025-12-31 10:22:27 - modules.ingestion.loader - INFO - [37/50] Processing POW...
+2025-12-31 10:22:27 - modules.ingestion.loader - INFO - ✓ BCG: COMPLETE
+2025-12-31 10:22:27 - modules.ingestion.loader - INFO - [38/50] Processing REE...
+2025-12-31 10:22:27 - modules.ingestion.loader - INFO - ✓ DIG: COMPLETE
+2025-12-31 10:22:27 - modules.ingestion.loader - INFO - [39/50] Processing DGW...
+2025-12-31 10:22:29 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for POW from VCI
+2025-12-31 10:22:29 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for DGW from VCI
+2025-12-31 10:22:31 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for REE from VCI
+2025-12-31 10:22:32 - modules.ingestion.loader - INFO - ✓ POW: COMPLETE
+2025-12-31 10:22:32 - modules.ingestion.loader - INFO - [40/50] Processing NT2...
+2025-12-31 10:22:33 - modules.ingestion.loader - INFO - ✓ DGW: COMPLETE
+2025-12-31 10:22:33 - modules.ingestion.loader - INFO - [41/50] Processing BSR...
+2025-12-31 10:22:34 - modules.ingestion.loader - INFO - ✓ REE: COMPLETE
+2025-12-31 10:22:34 - modules.ingestion.loader - INFO - [42/50] Processing PNJ...
+2025-12-31 10:22:35 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for BSR from VCI
+2025-12-31 10:22:36 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for NT2 from VCI
+2025-12-31 10:22:37 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for PNJ from VCI
+2025-12-31 10:22:38 - modules.ingestion.loader - INFO - ✓ BSR: COMPLETE
+2025-12-31 10:22:38 - modules.ingestion.loader - INFO - [43/50] Processing FRT...
+2025-12-31 10:22:38 - modules.ingestion.loader - INFO - ✓ NT2: COMPLETE
+2025-12-31 10:22:38 - modules.ingestion.loader - INFO - [44/50] Processing VHC...
+2025-12-31 10:22:40 - modules.ingestion.loader - INFO - ✓ PNJ: COMPLETE
+2025-12-31 10:22:40 - modules.ingestion.loader - INFO - [45/50] Processing DGC...
+2025-12-31 10:22:40 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for FRT from VCI
+2025-12-31 10:22:41 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VHC from VCI
+2025-12-31 10:22:44 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for DGC from VCI
+2025-12-31 10:22:44 - modules.ingestion.loader - INFO - ✓ VHC: COMPLETE
+2025-12-31 10:22:44 - modules.ingestion.loader - INFO - [46/50] Processing VJC...
+2025-12-31 10:22:44 - modules.ingestion.loader - INFO - ✓ FRT: COMPLETE
+2025-12-31 10:22:44 - modules.ingestion.loader - INFO - [47/50] Processing HVN...
+2025-12-31 10:22:46 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VJC from VCI
+2025-12-31 10:22:46 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for HVN from VCI
+2025-12-31 10:22:47 - modules.ingestion.loader - INFO - ✓ DGC: COMPLETE
+2025-12-31 10:22:47 - modules.ingestion.loader - INFO - [48/50] Processing VND...
+2025-12-31 10:22:49 - modules.ingestion.loader - INFO - ✓ HVN: COMPLETE
+2025-12-31 10:22:49 - modules.ingestion.loader - INFO - [49/50] Processing HNG...
+2025-12-31 10:22:49 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VND from VCI
+2025-12-31 10:22:49 - modules.ingestion.loader - INFO - ✓ VJC: COMPLETE
+2025-12-31 10:22:49 - modules.ingestion.loader - INFO - [50/50] Processing VGC...
+2025-12-31 10:22:51 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for HNG from VCI
+2025-12-31 10:22:52 - modules.ingestion.loader - INFO - ✓ VND: COMPLETE
+2025-12-31 10:22:53 - modules.ingestion.loader - INFO - ✓ Successfully fetched price for VGC from VCI
+2025-12-31 10:22:55 - modules.ingestion.loader - INFO - ✓ HNG: COMPLETE
+2025-12-31 10:22:56 - modules.ingestion.loader - INFO - ✓ VGC: COMPLETE
+2025-12-31 10:22:56 - modules.ingestion.loader - INFO - ============================================================
+2025-12-31 10:22:56 - modules.ingestion.loader - INFO - INGESTION SUMMARY
+2025-12-31 10:22:56 - modules.ingestion.loader - INFO - ============================================================
+2025-12-31 10:22:56 - modules.ingestion.loader - INFO - Total: 50 symbols
+2025-12-31 10:22:56 - modules.ingestion.loader - INFO - Success: 50 (100.0%)
+2025-12-31 10:22:56 - modules.ingestion.loader - INFO - Partial: 0 (0.0%)
+2025-12-31 10:22:56 - modules.ingestion.loader - INFO - Failed: 0 (0.0%)
+2025-12-31 10:22:56 - modules.ingestion.loader - INFO - ============================================================
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - Starting processing for 50 symbols...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [1/50] Processing VCB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ VCB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [2/50] Processing BID...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ BID: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [3/50] Processing CTG...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ CTG: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [4/50] Processing TCB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ TCB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [5/50] Processing MBB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ MBB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [6/50] Processing VPB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ VPB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [7/50] Processing ACB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ ACB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [8/50] Processing HDB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ HDB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [9/50] Processing STB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ STB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [10/50] Processing TPB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ TPB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [11/50] Processing VIB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ VIB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [12/50] Processing SHB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ SHB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [13/50] Processing SSB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ SSB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [14/50] Processing LPB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ LPB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [15/50] Processing EIB...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ EIB: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [16/50] Processing VIC...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ VIC: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [17/50] Processing VHM...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ VHM: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [18/50] Processing VRE...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ VRE: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [19/50] Processing BCM...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ BCM: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [20/50] Processing VGI...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ VGI: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [21/50] Processing GAS...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ GAS: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [22/50] Processing PLX...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ PLX: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [23/50] Processing HPG...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ HPG: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [24/50] Processing GVR...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ GVR: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [25/50] Processing VNM...
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - ✓ VNM: Metrics calculated successfully
+2025-12-31 10:22:56 - modules.processing.calculator - INFO - [26/50] Processing MSN...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ MSN: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [27/50] Processing MWG...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ MWG: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [28/50] Processing SAB...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ SAB: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [29/50] Processing SSI...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ SSI: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [30/50] Processing FPT...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ FPT: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [31/50] Processing KDH...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ KDH: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [32/50] Processing DXG...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ DXG: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [33/50] Processing NVL...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ NVL: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [34/50] Processing PDR...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ PDR: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [35/50] Processing DIG...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ DIG: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [36/50] Processing BCG...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ BCG: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [37/50] Processing POW...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ POW: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [38/50] Processing REE...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ REE: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [39/50] Processing DGW...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ DGW: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [40/50] Processing NT2...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ NT2: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [41/50] Processing BSR...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ BSR: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [42/50] Processing PNJ...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ PNJ: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [43/50] Processing FRT...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ FRT: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [44/50] Processing VHC...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ VHC: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [45/50] Processing DGC...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ DGC: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [46/50] Processing VJC...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ VJC: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [47/50] Processing HVN...
+2025-12-31 10:22:57 - modules.utils.validator - WARNING - Suspicious ROE value for HVN: 133.08%
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ HVN: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [48/50] Processing VND...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ VND: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [49/50] Processing HNG...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ HNG: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - [50/50] Processing VGC...
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ✓ VGC: Metrics calculated successfully
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ============================================================
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - PROCESSING SUMMARY
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ============================================================
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - Total: 50 symbols
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - Success: 50 (100.0%)
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - Failed: 0 (0.0%)
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - Output saved to: /app/data/processed/financial_metrics.csv
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - ============================================================
+2025-12-31 10:22:57 - modules.processing.calculator - INFO - 
+PREVIEW - Top 10 Results:
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - StockScorer initialized with weights: F=0.6, T=0.4
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - Starting stock analysis and scoring...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - Loaded 50 symbols for analysis
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [1/50] Analyzing VCB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VCB: Score=3.6 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [2/50] Analyzing BID...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ BID: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [3/50] Analyzing CTG...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ CTG: Score=7.4 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [4/50] Analyzing TCB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ TCB: Score=6.2 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [5/50] Analyzing MBB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ MBB: Score=5.0 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [6/50] Analyzing VPB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VPB: Score=6.8 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [7/50] Analyzing ACB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ ACB: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [8/50] Analyzing HDB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ HDB: Score=4.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [9/50] Analyzing STB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ STB: Score=6.2 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [10/50] Analyzing TPB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ TPB: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [11/50] Analyzing VIB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VIB: Score=3.6 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [12/50] Analyzing SHB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ SHB: Score=6.2 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [13/50] Analyzing SSB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ SSB: Score=1.8 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [14/50] Analyzing LPB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ LPB: Score=5.8 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [15/50] Analyzing EIB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ EIB: Score=1.2 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [16/50] Analyzing VIC...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VIC: Score=2.0 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [17/50] Analyzing VHM...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VHM: Score=2.0 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [18/50] Analyzing VRE...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VRE: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [19/50] Analyzing BCM...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ BCM: Score=5.0 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [20/50] Analyzing VGI...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VGI: Score=6.0 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [21/50] Analyzing GAS...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ GAS: Score=4.0 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [22/50] Analyzing PLX...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ PLX: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [23/50] Analyzing HPG...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ HPG: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [24/50] Analyzing GVR...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ GVR: Score=3.6 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [25/50] Analyzing VNM...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VNM: Score=6.2 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [26/50] Analyzing MSN...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ MSN: Score=4.4 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [27/50] Analyzing MWG...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ MWG: Score=6.2 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [28/50] Analyzing SAB...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ SAB: Score=7.4 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [29/50] Analyzing SSI...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ SSI: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [30/50] Analyzing FPT...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ FPT: Score=5.4 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [31/50] Analyzing KDH...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ KDH: Score=4.4 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [32/50] Analyzing DXG...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ DXG: Score=3.6 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [33/50] Analyzing NVL...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ NVL: Score=1.2 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [34/50] Analyzing PDR...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ PDR: Score=3.2 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [35/50] Analyzing DIG...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ DIG: Score=3.2 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [36/50] Analyzing BCG...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ BCG: Score=3.6 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [37/50] Analyzing POW...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ POW: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [38/50] Analyzing REE...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ REE: Score=4.4 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [39/50] Analyzing DGW...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ DGW: Score=5.4 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [40/50] Analyzing NT2...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ NT2: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [41/50] Analyzing BSR...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ BSR: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [42/50] Analyzing PNJ...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ PNJ: Score=6.2 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [43/50] Analyzing FRT...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ FRT: Score=7.4 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [44/50] Analyzing VHC...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VHC: Score=6.2 → MUA THĂM DÒ
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [45/50] Analyzing DGC...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ DGC: Score=3.2 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [46/50] Analyzing VJC...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VJC: Score=3.2 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [47/50] Analyzing HVN...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ HVN: Score=3.2 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [48/50] Analyzing VND...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VND: Score=5.6 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [49/50] Analyzing HNG...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ HNG: Score=4.8 → THEO DÕI
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - [50/50] Analyzing VGC...
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ✓ VGC: Score=1.2 → BÁN / CƠ CẤU
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ============================================================
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ANALYSIS SUMMARY
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ============================================================
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - Total analyzed: 50 symbols
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - MUA MẠNH: 0
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - MUA THĂM DÒ: 12
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - THEO DÕI: 21
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - BÁN / CƠ CẤU: 17
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - Output saved to: /app/data/processed/analysis_report.csv
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - ============================================================
+2025-12-31 10:22:57 - modules.analysis.scorer - INFO - 
+TOP 10 CỔ PHIẾU TIỀM NĂNG:
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - PortfolioManager initialized: Max position=40.0%, Stop loss=7.000000000000001%
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Generating portfolio recommendations with capital: 100,000,000 VND
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Found 12 stocks with BUY recommendations
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Available for investment: 80,000,000 VND (80%)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ✓ CTG: 200 shares @ 35,650 = 7,130,000 VND (7.1%)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ✓ SAB: 100 shares @ 49,200 = 4,920,000 VND (4.9%)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ✓ FRT: 51500 shares @ 146 = 7,544,750 VND (7.5%)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ✓ VPB: 200 shares @ 28,800 = 5,760,000 VND (5.8%)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ✓ SHB: 300 shares @ 16,300 = 4,890,000 VND (4.9%)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ✓ STB: 100 shares @ 59,600 = 5,960,000 VND (6.0%)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ✓ VNM: 100 shares @ 61,700 = 6,170,000 VND (6.2%)
+2025-12-31 10:22:57 - modules.portfolio.manager - WARNING - Skipping MWG: Insufficient capital for 1 lot (price=87,900)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ✓ TCB: 100 shares @ 34,450 = 3,445,000 VND (3.4%)
+2025-12-31 10:22:57 - modules.portfolio.manager - WARNING - Skipping PNJ: Insufficient capital for 1 lot (price=96,900)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ✓ VHC: 100 shares @ 56,500 = 5,650,000 VND (5.7%)
+2025-12-31 10:22:57 - modules.portfolio.manager - WARNING - Skipping VGI: Insufficient capital for 1 lot (price=69,800)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ============================================================
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - PORTFOLIO ALLOCATION
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ============================================================
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Total capital: 100,000,000 VND
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Invested: 51,469,750 VND (51.5%)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Cash reserve: 48,530,250 VND (48.5%)
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Number of positions: 9
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Output saved to: /app/data/processed/portfolio_recommendation.csv
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - ============================================================
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - 
+PORTFOLIO DETAILS:
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - 
+RISK SUMMARY:
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Stop Loss: -7.0% per position
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Target Profit: +15.0% per position
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Risk/Reward Ratio: 1:2.0
+2025-12-31 10:22:57 - modules.portfolio.manager - INFO - Max position size: 40.0%
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - DataExporter initialized: Export to /app/data/export
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - Starting data export to JSON...
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - Exporting analysis report...
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - ✓ Exported 50 analysis records
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - Exporting portfolio recommendations...
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - ✓ Exported 9 portfolio positions
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - Exporting price charts (last 100 days)...
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - ✓ Exported 50/50 price charts
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - ============================================================
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - EXPORT SUMMARY
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - ============================================================
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - Output file: /app/data/export/db.json
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - File size: 816.4 KB
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - Analysis records: 50
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - Portfolio positions: 9
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - Price charts: 50
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - Last updated: 2025-12-31 10:22:57
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - ============================================================
+2025-12-31 10:22:57 - modules.utils.exporter - INFO - ✓ Export completed successfully!
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - DataExporter initialized: Export to /app/data/export
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - Starting data export to JSON...
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - Exporting analysis report...
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - ✓ Exported 50 analysis records
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - Exporting portfolio recommendations...
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - ✓ Exported 9 portfolio positions
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - Exporting price charts (last 100 days)...
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - ✓ Exported 50/50 price charts
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - ============================================================
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - EXPORT SUMMARY
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - ============================================================
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - Output file: /app/data/export/db.json
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - File size: 816.4 KB
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - Analysis records: 50
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - Portfolio positions: 9
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - Price charts: 50
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - Last updated: 2025-12-31 10:23:46
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - ============================================================
+2025-12-31 10:23:46 - modules.utils.exporter - INFO - ✓ Export completed successfully!
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - Analyzing patterns for 50 symbols...
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VCB seasonality: Best months=[8, 2, 7], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VCB momentum: {5: np.float64(0.7), 10: np.float64(1.23), 20: np.float64(-2.38), 60: np.float64(-9.87)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VCB S/R: Support=57.028571428571425, Resistance=58.583333333333336
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ VCB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BID seasonality: Best months=[1, 8, 2], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BID momentum: {5: np.float64(1.42), 10: np.float64(3.55), 20: np.float64(3.01), 60: np.float64(-2.48)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BID S/R: Support=37.9, Resistance=39.705
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ BID patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - CTG seasonality: Best months=[2, 8, 1], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - CTG momentum: {5: np.float64(1.86), 10: np.float64(3.78), 20: np.float64(-0.83), 60: np.float64(-5.49)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - CTG S/R: Support=34.381428571428565, Resistance=36.013333333333335
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ CTG patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - TCB seasonality: Best months=[2, 5, 3], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - TCB momentum: {5: np.float64(1.32), 10: np.float64(4.39), 20: np.float64(-2.68), 60: np.float64(-11.55)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - TCB S/R: Support=34.075, Resistance=34.556250000000006
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ TCB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - MBB seasonality: Best months=[8, 1, 2], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - MBB momentum: {5: np.float64(0.2), 10: np.float64(1.62), 20: np.float64(-2.53), 60: np.float64(-8.41)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - MBB S/R: Support=24.26666666666667, Resistance=25.7
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ MBB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VPB seasonality: Best months=[7, 8, 5], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VPB momentum: {5: np.float64(0.17), 10: np.float64(1.77), 20: np.float64(-4.79), 60: np.float64(-10.28)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VPB S/R: Support=28.3375, Resistance=29.23333333333333
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ VPB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ACB seasonality: Best months=[8, 5, 2], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ACB momentum: {5: np.float64(0.62), 10: np.float64(1.26), 20: np.float64(-3.01), 60: np.float64(-10.39)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ACB S/R: Support=23.928571428571427, Resistance=24.50625
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ ACB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - HDB seasonality: Best months=[7, 12, 8], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - HDB momentum: {5: np.float64(2.36), 10: np.float64(10.16), 20: np.float64(10.98), 60: np.float64(15.53)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - HDB S/R: Support=26.9, Resistance=None
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ HDB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - STB seasonality: Best months=[12, 6, 8], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - STB momentum: {5: np.float64(6.62), 10: np.float64(24.17), 20: np.float64(18.73), 60: np.float64(-0.67)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - STB S/R: Support=59.2, Resistance=60.760000000000005
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ STB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - TPB seasonality: Best months=[8, 7, 2], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - TPB momentum: {5: np.float64(0.88), 10: np.float64(2.69), 20: np.float64(-2.56), 60: np.float64(-9.97)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - TPB S/R: Support=16.715555555555557, Resistance=17.279999999999998
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ TPB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VIB seasonality: Best months=[7, 8, 1], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VIB momentum: {5: np.float64(0.28), 10: np.float64(2.0), 20: np.float64(-5.56), 60: np.float64(-12.5)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VIB S/R: Support=17.525, Resistance=18.97
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ VIB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SHB seasonality: Best months=[7, 3, 8], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SHB momentum: {5: np.float64(-1.21), 10: np.float64(1.24), 20: np.float64(-5.78), 60: np.float64(-8.94)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SHB S/R: Support=16.066666666666666, Resistance=16.375
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ SHB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SSB seasonality: Best months=[7, 8, 1], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SSB momentum: {5: np.float64(-1.15), 10: np.float64(-1.72), 20: np.float64(-3.11), 60: np.float64(-10.21)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SSB S/R: Support=17.025, Resistance=17.56875
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ SSB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - LPB seasonality: Best months=[8, 5, 1], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - LPB momentum: {5: np.float64(-1.07), 10: np.float64(-5.14), 20: np.float64(-16.06), 60: np.float64(-18.85)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - LPB S/R: Support=41.35, Resistance=45.46666666666666
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ LPB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - EIB seasonality: Best months=[5, 7, 8], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - EIB momentum: {5: np.float64(-1.82), 10: np.float64(0.7), 20: np.float64(-4.0), 60: np.float64(-19.25)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - EIB S/R: Support=21.0625, Resistance=21.775
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ EIB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VIC seasonality: Best months=[3, 5, 11], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VIC momentum: {5: np.float64(3.04), 10: np.float64(14.09), 20: np.float64(21.95), 60: np.float64(81.39)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VIC S/R: Support=151.6, Resistance=163.3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ VIC patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VHM seasonality: Best months=[8, 5, 3], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VHM momentum: {5: np.float64(6.12), 10: np.float64(27.82), 20: np.float64(15.3), 60: np.float64(5.48)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VHM S/R: Support=106.3, Resistance=131.4
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ VHM patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VRE seasonality: Best months=[2, 5, 8], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VRE momentum: {5: np.float64(1.71), 10: np.float64(8.07), 20: np.float64(-4.65), 60: np.float64(-13.68)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VRE S/R: Support=31.53333333333333, Resistance=34.125
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ VRE patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BCM seasonality: Best months=[5, 7, 6], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BCM momentum: {5: np.float64(0.83), 10: np.float64(-0.49), 20: np.float64(-7.99), 60: np.float64(-7.99)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BCM S/R: Support=60.4, Resistance=63.7
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ BCM patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VGI seasonality: Best months=[4, 6, 5], Best Q=2
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VGI momentum: {5: np.float64(2.95), 10: np.float64(0.0), 20: np.float64(-5.42), 60: np.float64(1.9)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VGI S/R: Support=69.325, Resistance=71.76666666666667
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ VGI patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - GAS seasonality: Best months=[5, 12, 8], Best Q=4
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - GAS momentum: {5: np.float64(8.38), 10: np.float64(18.48), 20: np.float64(15.38), 60: np.float64(23.15)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - GAS S/R: Support=64.77000000000001, Resistance=None
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ GAS patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - PLX seasonality: Best months=[5, 2, 6], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - PLX momentum: {5: np.float64(2.57), 10: np.float64(3.3), 20: np.float64(2.86), 60: np.float64(5.43)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - PLX S/R: Support=35.81666666666667, Resistance=36.849999999999994
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ PLX patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - HPG seasonality: Best months=[2, 5, 9], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - HPG momentum: {5: np.float64(0.76), 10: np.float64(0.19), 20: np.float64(-3.11), 60: np.float64(-8.64)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - HPG S/R: Support=26.05333333333333, Resistance=26.957692307692305
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ HPG patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - GVR seasonality: Best months=[2, 5, 3], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - GVR momentum: {5: np.float64(3.7), 10: np.float64(0.19), 20: np.float64(-4.49), 60: np.float64(-3.66)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - GVR S/R: Support=25.31, Resistance=26.875
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ GVR patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VNM seasonality: Best months=[7, 11, 2], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VNM momentum: {5: np.float64(0.65), 10: np.float64(-3.44), 20: np.float64(-2.68), 60: np.float64(2.7)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - VNM S/R: Support=61.6, Resistance=63.926
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ VNM patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - MSN seasonality: Best months=[6, 8, 5], Best Q=2
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - MSN momentum: {5: np.float64(-0.13), 10: np.float64(2.97), 20: np.float64(-4.63), 60: np.float64(-8.3)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - MSN S/R: Support=75.01818181818182, Resistance=77.91
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ MSN patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - MWG seasonality: Best months=[8, 5, 4], Best Q=2
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - MWG momentum: {5: np.float64(2.21), 10: np.float64(7.72), 20: np.float64(2.45), 60: np.float64(7.85)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - MWG S/R: Support=82.6, Resistance=88.2
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ MWG patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SAB seasonality: Best months=[12, 5, 6], Best Q=2
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SAB momentum: {5: np.float64(2.07), 10: np.float64(-1.99), 20: np.float64(-3.34), 60: np.float64(7.89)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SAB S/R: Support=48.4, Resistance=50.06666666666666
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ SAB patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SSI seasonality: Best months=[8, 7, 2], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SSI momentum: {5: np.float64(0.0), 10: np.float64(2.18), 20: np.float64(2.07), 60: np.float64(-17.63)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - SSI S/R: Support=29.996, Resistance=31.48333333333333
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ SSI patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - FPT seasonality: Best months=[5, 6, 10], Best Q=2
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - FPT momentum: {5: np.float64(3.44), 10: np.float64(1.91), 20: np.float64(-1.33), 60: np.float64(3.19)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - FPT S/R: Support=96.18555555555557, Resistance=99.66799999999999
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ FPT patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - KDH seasonality: Best months=[8, 5, 2], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - KDH momentum: {5: np.float64(-2.02), 10: np.float64(-1.87), 20: np.float64(-8.56), 60: np.float64(-2.93)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - KDH S/R: Support=31.381249999999998, Resistance=33.18333333333333
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ KDH patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - DXG seasonality: Best months=[8, 5, 2], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - DXG momentum: {5: np.float64(-1.99), 10: np.float64(0.0), 20: np.float64(-9.92), 60: np.float64(-16.06)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - DXG S/R: Support=16.7, Resistance=17.4
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ DXG patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - NVL seasonality: Best months=[2, 5, 11], Best Q=2
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - NVL momentum: {5: np.float64(5.26), 10: np.float64(5.66), 20: np.float64(-6.67), 60: np.float64(-8.5)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - NVL S/R: Support=13.55, Resistance=14.7
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ NVL patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - PDR seasonality: Best months=[8, 5, 2], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - PDR momentum: {5: np.float64(-2.56), 10: np.float64(-0.26), 20: np.float64(-15.93), 60: np.float64(-18.45)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - PDR S/R: Support=18.548, Resistance=19.17
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ PDR patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - DIG seasonality: Best months=[3, 5, 2], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - DIG momentum: {5: np.float64(-5.06), 10: np.float64(-5.59), 20: np.float64(-18.75), 60: np.float64(-18.75)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - DIG S/R: Support=16.89, Resistance=17.51
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ DIG patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BCG seasonality: Best months=[5, 7, 2], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BCG S/R: Support=2.43, Resistance=2.77
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ BCG patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - POW seasonality: Best months=[5, 6, 8], Best Q=2
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - POW momentum: {5: np.float64(1.59), 10: np.float64(4.07), 20: np.float64(2.89), 60: np.float64(6.05)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - POW S/R: Support=12.725, Resistance=13.002857142857142
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ POW patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - REE seasonality: Best months=[2, 5, 6], Best Q=2
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - REE momentum: {5: np.float64(-0.16), 10: np.float64(-0.33), 20: np.float64(-4.07), 60: np.float64(-5.11)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - REE S/R: Support=60.8, Resistance=62.5
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ REE patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - DGW seasonality: Best months=[6, 3, 5], Best Q=1
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - DGW momentum: {5: np.float64(0.0), 10: np.float64(-2.1), 20: np.float64(-10.0), 60: np.float64(-3.18)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - DGW S/R: Support=38.21666666666667, Resistance=40.85
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ DGW patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - NT2 seasonality: Best months=[5, 12, 8], Best Q=4
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - NT2 momentum: {5: np.float64(1.04), 10: np.float64(1.67), 20: np.float64(1.46), 60: np.float64(8.2)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - NT2 S/R: Support=23.95, Resistance=24.633333333333336
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ NT2 patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BSR seasonality: Best months=[8, 5, 12], Best Q=3
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BSR momentum: {5: np.float64(1.89), 10: np.float64(8.36), 20: np.float64(4.85), 60: np.float64(-8.06)}
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - BSR S/R: Support=16.177500000000002, Resistance=16.755
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - ✓ BSR patterns analyzed
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - PNJ seasonality: Best months=[5, 12, 10], Best Q=4
+2025-12-31 10:23:55 - modules.learning.pattern_analyzer - INFO - PNJ momentum: {5: np.float64(1.57), 10: np.float64(5.44), 20: np.float64(7.31), 60: np.float64(14.0)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - PNJ S/R: Support=91.7, Resistance=None
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - ✓ PNJ patterns analyzed
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - FRT seasonality: Best months=[1, 2, 10], Best Q=1
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - FRT momentum: {5: np.float64(0.34), 10: np.float64(2.23), 20: np.float64(-7.57), 60: np.float64(6.7)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - FRT S/R: Support=142.975, Resistance=149.04000000000002
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - ✓ FRT patterns analyzed
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VHC seasonality: Best months=[2, 5, 10], Best Q=1
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VHC momentum: {5: np.float64(6.6), 10: np.float64(3.67), 20: np.float64(-1.91), 60: np.float64(2.36)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VHC S/R: Support=55.168333333333344, Resistance=58.15
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - ✓ VHC patterns analyzed
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - DGC seasonality: Best months=[2, 6, 5], Best Q=1
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - DGC momentum: {5: np.float64(5.73), 10: np.float64(-4.82), 20: np.float64(-26.51), 60: np.float64(-23.76)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - DGC S/R: Support=66.78, Resistance=75.93
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - ✓ DGC patterns analyzed
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VJC seasonality: Best months=[10, 7, 8], Best Q=3
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VJC momentum: {5: np.float64(-2.88), 10: np.float64(6.19), 20: np.float64(-0.05), 60: np.float64(54.7)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VJC S/R: Support=199.8, Resistance=211.45
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - ✓ VJC patterns analyzed
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - HVN seasonality: Best months=[5, 4, 6], Best Q=2
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - HVN momentum: {5: np.float64(0.0), 10: np.float64(-1.72), 20: np.float64(-12.73), 60: np.float64(-25.94)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - HVN S/R: Support=25.575, Resistance=26.05
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - ✓ HVN patterns analyzed
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VND seasonality: Best months=[7, 2, 8], Best Q=3
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VND momentum: {5: np.float64(-2.0), 10: np.float64(1.29), 20: np.float64(1.55), 60: np.float64(-16.6)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VND S/R: Support=19.369999999999997, Resistance=20.33
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - ✓ VND patterns analyzed
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - HNG seasonality: Best months=[12, 8, 1], Best Q=4
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - HNG momentum: {5: np.float64(0.0), 10: np.float64(5.26), 20: np.float64(1.69), 60: np.float64(-3.23)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - HNG S/R: Support=5.9, Resistance=6.05
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - ✓ HNG patterns analyzed
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VGC seasonality: Best months=[5, 7, 2], Best Q=1
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VGC momentum: {5: np.float64(2.43), 10: np.float64(2.43), 20: np.float64(-4.85), 60: np.float64(-17.47)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VGC S/R: Support=40.550000000000004, Resistance=43.45
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - ✓ VGC patterns analyzed
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - Pattern analysis completed for 50 symbols
+2025-12-31 10:23:56 - modules.learning.parameter_manager - INFO - Saved patterns to /app/data/learned_params/patterns_v20251231_102356.json
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VCB seasonality: Best months=[8, 2, 7], Best Q=1
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VCB momentum: {5: np.float64(0.7), 10: np.float64(1.23), 20: np.float64(-2.38), 60: np.float64(-9.87)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - VCB S/R: Support=57.028571428571425, Resistance=58.583333333333336
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - BID seasonality: Best months=[1, 8, 2], Best Q=1
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - BID momentum: {5: np.float64(1.42), 10: np.float64(3.55), 20: np.float64(3.01), 60: np.float64(-2.48)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - BID S/R: Support=37.9, Resistance=39.705
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - CTG seasonality: Best months=[2, 8, 1], Best Q=1
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - CTG momentum: {5: np.float64(1.86), 10: np.float64(3.78), 20: np.float64(-0.83), 60: np.float64(-5.49)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - CTG S/R: Support=34.381428571428565, Resistance=36.013333333333335
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - TCB seasonality: Best months=[2, 5, 3], Best Q=1
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - TCB momentum: {5: np.float64(1.32), 10: np.float64(4.39), 20: np.float64(-2.68), 60: np.float64(-11.55)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - TCB S/R: Support=34.075, Resistance=34.556250000000006
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - MBB seasonality: Best months=[8, 1, 2], Best Q=3
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - MBB momentum: {5: np.float64(0.2), 10: np.float64(1.62), 20: np.float64(-2.53), 60: np.float64(-8.41)}
+2025-12-31 10:23:56 - modules.learning.pattern_analyzer - INFO - MBB S/R: Support=24.26666666666667, Resistance=25.7
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO - Starting weight optimization...
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO - Generated 4 weight combinations
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO - Testing weights: Fund=0.3, Tech=0.7
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-31 10:23:56.280090 to 2025-12-31 10:23:56.280090
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Found 6 buy signals
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY CTG: 382700 shares @ 26 = 9,999,951 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL CTG: 382700 shares @ 23 | P&L: -1,128,965 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY SAB: 189000 shares @ 52 = 9,884,700 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL SAB: 189000 shares @ 49 | P&L: -710,640 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY FRT: 65600 shares @ 149 = 9,803,264 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL FRT: 65600 shares @ 138 | P&L: -776,704 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VPB: 522400 shares @ 19 = 9,737,536 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VPB: 522400 shares @ 17 | P&L: -861,960 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VNM: 165800 shares @ 58 = 9,651,218 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VNM: 165800 shares @ 52 | P&L: -1,009,722 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY TCB: 402600 shares @ 24 = 9,549,672 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL TCB: 402600 shares @ 27 | P&L: 1,433,256 (TAKE_PROFIT)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Backtest completed: 12 total trades
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO -   → Return: -3.05%, Sharpe: nan, Win Rate: 16.7%
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO - Testing weights: Fund=0.4, Tech=0.6
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-31 10:23:56.280090 to 2025-12-31 10:23:56.280090
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Found 6 buy signals
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY CTG: 382700 shares @ 26 = 9,999,951 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL CTG: 382700 shares @ 23 | P&L: -1,128,965 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY SAB: 189000 shares @ 52 = 9,884,700 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL SAB: 189000 shares @ 49 | P&L: -710,640 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY FRT: 65600 shares @ 149 = 9,803,264 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL FRT: 65600 shares @ 138 | P&L: -776,704 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VPB: 522400 shares @ 19 = 9,737,536 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VPB: 522400 shares @ 17 | P&L: -861,960 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VNM: 165800 shares @ 58 = 9,651,218 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VNM: 165800 shares @ 52 | P&L: -1,009,722 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY TCB: 402600 shares @ 24 = 9,549,672 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL TCB: 402600 shares @ 27 | P&L: 1,433,256 (TAKE_PROFIT)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Backtest completed: 12 total trades
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO -   → Return: -3.05%, Sharpe: nan, Win Rate: 16.7%
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO - Testing weights: Fund=0.5, Tech=0.5
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-31 10:23:56.280090 to 2025-12-31 10:23:56.280090
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Found 11 buy signals
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY CTG: 382700 shares @ 26 = 9,999,951 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL CTG: 382700 shares @ 23 | P&L: -1,128,965 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY SAB: 189000 shares @ 52 = 9,884,700 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL SAB: 189000 shares @ 49 | P&L: -710,640 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY FRT: 65600 shares @ 149 = 9,803,264 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL FRT: 65600 shares @ 138 | P&L: -776,704 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VPB: 522400 shares @ 19 = 9,737,536 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VPB: 522400 shares @ 17 | P&L: -861,960 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VNM: 165800 shares @ 58 = 9,651,218 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VNM: 165800 shares @ 52 | P&L: -1,009,722 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY TCB: 402600 shares @ 24 = 9,549,672 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL TCB: 402600 shares @ 27 | P&L: 1,433,256 (TAKE_PROFIT)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY SHB: 1231800 shares @ 8 = 9,694,266 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL SHB: 1231800 shares @ 9 | P&L: 1,539,750 (TAKE_PROFIT)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY STB: 266100 shares @ 37 = 9,845,700 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL STB: 266100 shares @ 33 | P&L: -1,037,790 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY MWG: 163100 shares @ 60 = 9,743,594 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL MWG: 163100 shares @ 54 | P&L: -932,932 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY PNJ: 100800 shares @ 96 = 9,649,584 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL PNJ: 100800 shares @ 89 | P&L: -724,752 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VHC: 139400 shares @ 69 = 9,578,174 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VHC: 139400 shares @ 63 | P&L: -821,066 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Backtest completed: 22 total trades
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO -   → Return: -5.03%, Sharpe: nan, Win Rate: 18.2%
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO - Testing weights: Fund=0.6, Tech=0.4
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-31 10:23:56.280090 to 2025-12-31 10:23:56.280090
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Found 12 buy signals
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY CTG: 382700 shares @ 26 = 9,999,951 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL CTG: 382700 shares @ 23 | P&L: -1,128,965 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY SAB: 189000 shares @ 52 = 9,884,700 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL SAB: 189000 shares @ 49 | P&L: -710,640 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY FRT: 65600 shares @ 149 = 9,803,264 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL FRT: 65600 shares @ 138 | P&L: -776,704 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VPB: 522400 shares @ 19 = 9,737,536 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VPB: 522400 shares @ 17 | P&L: -861,960 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY SHB: 1226400 shares @ 8 = 9,651,768 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL SHB: 1226400 shares @ 9 | P&L: 1,533,000 (TAKE_PROFIT)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY STB: 265000 shares @ 37 = 9,805,000 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL STB: 265000 shares @ 33 | P&L: -1,033,500 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VNM: 166600 shares @ 58 = 9,697,786 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VNM: 166600 shares @ 52 | P&L: -1,014,594 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY MWG: 160700 shares @ 60 = 9,600,218 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL MWG: 160700 shares @ 54 | P&L: -919,204 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY TCB: 400800 shares @ 24 = 9,506,976 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL TCB: 400800 shares @ 27 | P&L: 1,426,848 (TAKE_PROFIT)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY PNJ: 100800 shares @ 96 = 9,649,584 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL PNJ: 100800 shares @ 89 | P&L: -724,752 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VHC: 139400 shares @ 69 = 9,578,174 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VHC: 139400 shares @ 63 | P&L: -821,066 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - BUY VGI: 104100 shares @ 91 = 9,492,879 VND
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - SELL VGI: 104100 shares @ 84 | P&L: -711,003 (STOP_LOSS)
+2025-12-31 10:23:56 - modules.simulation.backtest_engine - INFO - Backtest completed: 24 total trades
+2025-12-31 10:23:56 - modules.learning.weight_optimizer - INFO -   → Return: -5.74%, Sharpe: nan, Win Rate: 16.7%
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing datasets for 50 symbols...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VCB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - VCB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ VCB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BID...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - BID: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ BID: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for CTG...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - CTG: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ CTG: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for TCB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - TCB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ TCB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for MBB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - MBB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ MBB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VPB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - VPB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ VPB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for ACB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ACB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ ACB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HDB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - HDB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ HDB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for STB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - STB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ STB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for TPB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - TPB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ TPB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VIB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - VIB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ VIB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SHB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - SHB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ SHB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SSB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - SSB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ SSB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for LPB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - LPB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ LPB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for EIB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - EIB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ EIB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VIC...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - VIC: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ VIC: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VHM...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - VHM: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ VHM: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VRE...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - VRE: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ VRE: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BCM...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - BCM: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ BCM: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VGI...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - VGI: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ VGI: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for GAS...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - GAS: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ GAS: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for PLX...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - PLX: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ PLX: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HPG...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - HPG: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ HPG: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for GVR...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - GVR: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ GVR: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VNM...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - VNM: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ VNM: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for MSN...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - MSN: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ MSN: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for MWG...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - MWG: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ MWG: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SAB...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - SAB: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ SAB: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SSI...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - SSI: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ SSI: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for FPT...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - FPT: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ FPT: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for KDH...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - KDH: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ KDH: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DXG...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - DXG: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ DXG: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for NVL...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - NVL: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ NVL: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for PDR...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - PDR: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ PDR: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DIG...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - DIG: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ DIG: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BCG...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - BCG: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ BCG: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for POW...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - POW: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ POW: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for REE...
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - REE: 736 samples, 66 features
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - ✓ REE: 736 samples
+2025-12-31 10:24:17 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DGW...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - DGW: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ DGW: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for NT2...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - NT2: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ NT2: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BSR...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - BSR: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ BSR: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for PNJ...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - PNJ: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ PNJ: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for FRT...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - FRT: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ FRT: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VHC...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - VHC: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ VHC: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DGC...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - DGC: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ DGC: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VJC...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - VJC: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ VJC: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HVN...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - HVN: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ HVN: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VND...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - VND: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ VND: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HNG...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - HNG: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ HNG: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VGC...
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - VGC: 736 samples, 66 features
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - ✓ VGC: 736 samples
+2025-12-31 10:24:18 - modules.ml_prediction.feature_engineer - INFO - Prepared 50 datasets
+2025-12-31 10:24:18 - modules.ml_prediction.trend_classifier - INFO - Initialized random_forest classifier
+2025-12-31 10:24:18 - modules.ml_prediction.trend_classifier - INFO - Training on 50 symbols...
+2025-12-31 10:24:18 - modules.ml_prediction.trend_classifier - INFO - Combined dataset: 36800 samples
+2025-12-31 10:24:18 - modules.ml_prediction.trend_classifier - INFO - Training model...
+2025-12-31 10:24:18 - modules.ml_prediction.trend_classifier - INFO - Train samples: 29440, Test samples: 7360
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO - Train Accuracy: 0.602
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO - Test Accuracy: 0.508
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO - 
+Test Set Classification Report:
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -               precision    recall  f1-score   support
+
+        DOWN       0.58      0.11      0.18      1827
+     NEUTRAL       0.50      0.86      0.64      3350
+          UP       0.50      0.31      0.38      2183
+
+    accuracy                           0.51      7360
+   macro avg       0.53      0.42      0.40      7360
+weighted avg       0.52      0.51      0.45      7360
+
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO - 
+Top 10 Important Features:
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   return_1d_std_20: 0.0478
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   return_1d_std_10: 0.0458
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   volatility_20d: 0.0421
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   return_1d_min_10: 0.0388
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   return_1d_min_20: 0.0313
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   return_1d_max_20: 0.0304
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   hl_range: 0.0257
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   sma20_vs_sma50: 0.0242
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   volatility_5d: 0.0233
+2025-12-31 10:24:20 - modules.ml_prediction.trend_classifier - INFO -   price_vs_sma50: 0.0230
+2025-12-31 10:24:20 - modules.ml_prediction.model_manager - INFO - Saved model to /app/data/ml_models/trend_classifier/20251231_102420
+2025-12-31 10:24:29 - modules.ml_prediction.model_manager - INFO - Loaded model from /app/data/ml_models/trend_classifier/latest
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VCB...
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - VCB: 736 samples, 66 features
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BID...
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - BID: 736 samples, 66 features
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for CTG...
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - CTG: 736 samples, 66 features
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for TCB...
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - TCB: 736 samples, 66 features
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for MBB...
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - MBB: 736 samples, 66 features
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VPB...
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - VPB: 736 samples, 66 features
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for ACB...
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - ACB: 736 samples, 66 features
+2025-12-31 10:24:29 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HDB...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - HDB: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for STB...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - STB: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for TPB...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - TPB: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VIB...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - VIB: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SHB...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - SHB: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SSB...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - SSB: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for LPB...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - LPB: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for EIB...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - EIB: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VIC...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - VIC: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VHM...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - VHM: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VRE...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - VRE: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BCM...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - BCM: 736 samples, 66 features
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VGI...
+2025-12-31 10:24:30 - modules.ml_prediction.feature_engineer - INFO - VGI: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for GAS...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - GAS: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for PLX...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - PLX: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HPG...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - HPG: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for GVR...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - GVR: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VNM...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - VNM: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for MSN...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - MSN: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for MWG...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - MWG: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SAB...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - SAB: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for SSI...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - SSI: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for FPT...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - FPT: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for KDH...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - KDH: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DXG...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - DXG: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for NVL...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - NVL: 736 samples, 66 features
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for PDR...
+2025-12-31 10:24:31 - modules.ml_prediction.feature_engineer - INFO - PDR: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DIG...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - DIG: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BCG...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - BCG: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for POW...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - POW: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for REE...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - REE: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DGW...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - DGW: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for NT2...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - NT2: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for BSR...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - BSR: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for PNJ...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - PNJ: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for FRT...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - FRT: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VHC...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - VHC: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for DGC...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - DGC: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VJC...
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - VJC: 736 samples, 66 features
+2025-12-31 10:24:32 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HVN...
+2025-12-31 10:24:33 - modules.ml_prediction.feature_engineer - INFO - HVN: 736 samples, 66 features
+2025-12-31 10:24:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VND...
+2025-12-31 10:24:33 - modules.ml_prediction.feature_engineer - INFO - VND: 736 samples, 66 features
+2025-12-31 10:24:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for HNG...
+2025-12-31 10:24:33 - modules.ml_prediction.feature_engineer - INFO - HNG: 736 samples, 66 features
+2025-12-31 10:24:33 - modules.ml_prediction.feature_engineer - INFO - Preparing ML dataset for VGC...
+2025-12-31 10:24:33 - modules.ml_prediction.feature_engineer - INFO - VGC: 736 samples, 66 features
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BacktestEngine initialized: Capital=100,000,000, Max positions=10
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - Starting backtest: 2024-12-31 10:46:19.836127 to 2025-12-31 10:46:19.836127
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - Buy threshold: Score >= 6.0
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - Found 12 buy signals
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY CTG: 382700 shares @ 26 = 9,999,951 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL CTG: 382700 shares @ 23 | P&L: -1,128,965 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY SAB: 189000 shares @ 52 = 9,884,700 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL SAB: 189000 shares @ 49 | P&L: -710,640 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY FRT: 65600 shares @ 149 = 9,803,264 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL FRT: 65600 shares @ 138 | P&L: -776,704 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY VPB: 522400 shares @ 19 = 9,737,536 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL VPB: 522400 shares @ 17 | P&L: -861,960 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY SHB: 1226400 shares @ 8 = 9,651,768 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL SHB: 1226400 shares @ 9 | P&L: 1,533,000 (TAKE_PROFIT)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY STB: 265000 shares @ 37 = 9,805,000 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL STB: 265000 shares @ 33 | P&L: -1,033,500 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY VNM: 166600 shares @ 58 = 9,697,786 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL VNM: 166600 shares @ 52 | P&L: -1,014,594 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY MWG: 160700 shares @ 60 = 9,600,218 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL MWG: 160700 shares @ 54 | P&L: -919,204 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY TCB: 400800 shares @ 24 = 9,506,976 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL TCB: 400800 shares @ 27 | P&L: 1,426,848 (TAKE_PROFIT)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY PNJ: 100800 shares @ 96 = 9,649,584 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL PNJ: 100800 shares @ 89 | P&L: -724,752 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY VHC: 139400 shares @ 69 = 9,578,174 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL VHC: 139400 shares @ 63 | P&L: -821,066 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - BUY VGI: 104100 shares @ 91 = 9,492,879 VND
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - SELL VGI: 104100 shares @ 84 | P&L: -711,003 (STOP_LOSS)
+2025-12-31 10:46:19 - modules.simulation.backtest_engine - INFO - Backtest completed: 24 total trades
