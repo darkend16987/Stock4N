@@ -7,6 +7,7 @@ import streamlit as st
 import pandas as pd
 import json
 import subprocess
+import sys
 from pathlib import Path
 from datetime import datetime
 import plotly.graph_objects as go
@@ -241,7 +242,10 @@ with col4:
 st.markdown("---")
 
 # Tabs
-tab1, tab2, tab3, tab4 = st.tabs(["💼 Danh Mục Đầu Tư", "📊 Phân Tích Thị Trường", "📈 Biểu Đồ", "🔬 Backtest"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "💼 Danh Mục Đầu Tư", "📊 Phân Tích Thị Trường",
+    "📈 Biểu Đồ", "🔬 Backtest", "🌡️ Market Breadth"
+])
 
 # === TAB 1: Portfolio ===
 with tab1:
@@ -610,6 +614,123 @@ with tab4:
 
             except Exception as e:
                 st.error(f"❌ Lỗi đọc kết quả backtest: {e}")
+
+# === TAB 5: Market Breadth ===
+with tab5:
+    st.header("🌡️ Market Breadth / Sentiment")
+
+    st.markdown("""
+    Đo lường **sức mạnh tổng thể thị trường** bằng cách đếm số mã cổ phiếu
+    đang giao dịch trên/dưới SMA10 & SMA20.
+
+    | Tỷ lệ > SMA10 & SMA20 | Ý nghĩa |
+    |------------------------|---------|
+    | **> 80%** | 🔴 OVERBOUGHT — vùng đỉnh tiềm năng, cẩn thận |
+    | **60–80%** | 🟢 BULLISH — thị trường tích cực |
+    | **40–60%** | 🟡 NEUTRAL — tích lũy |
+    | **20–40%** | 🟠 BEARISH — thị trường tiêu cực |
+    | **< 20%** | 💙 OVERSOLD — vùng đáy, cơ hội tiềm năng |
+    """)
+
+    st.markdown("---")
+
+    if st.button("🔄 Cập Nhật Market Breadth", type="primary", use_container_width=True):
+        success, output = run_command(
+            "docker exec stock4n_app python src/main.py breadth",
+            "Tính toán market breadth"
+        )
+        if success:
+            st.code(output, language="text")
+            st.rerun()
+
+    st.markdown("---")
+
+    # Load adaptive params if available
+    adaptive_file = Path("data/processed/adaptive_params.csv")
+    breadth_col, adaptive_col = st.columns([1, 1])
+
+    with breadth_col:
+        st.subheader("📊 Breadth Snapshot")
+
+        # Try to compute live breadth from price data
+        try:
+            sys.path.insert(0, str(Path(__file__).parent / "src"))
+            from modules.analysis.breadth_analyzer import MarketBreadthAnalyzer
+            import config as cfg
+
+            analyzer = MarketBreadthAnalyzer()
+            mf = analyzer.get_market_filter(cfg.VN100_SYMBOLS)
+
+            # Colour mapping
+            colour = {
+                "OVERBOUGHT": "🔴", "BULLISH": "🟢",
+                "NEUTRAL": "🟡", "BEARISH": "🟠", "OVERSOLD": "💙"
+            }
+            icon = colour.get(mf["sentiment"], "⚪")
+
+            col_a, col_b = st.columns(2)
+            with col_a:
+                st.metric("Sentiment", f"{icon} {mf['sentiment']}")
+                st.metric("% > SMA10", f"{mf['pct_above_sma10']:.1%}")
+            with col_b:
+                st.metric("% > SMA10 & SMA20", f"{mf['pct_above_both']:.1%}")
+                st.metric("% > SMA20", f"{mf['pct_above_sma20']:.1%}")
+
+            st.metric("Allow New Buys", "✅ Có" if mf["allow_new_buys"] else "⛔ Hạn chế")
+            st.metric("Risk Multiplier", f"{mf['risk_multiplier']:.1f}x")
+
+            # Gauge chart
+            pct = mf["pct_above_both"] * 100
+            fig = go.Figure(go.Indicator(
+                mode="gauge+number",
+                value=pct,
+                title={"text": "% Mã > SMA10 & SMA20"},
+                gauge={
+                    "axis": {"range": [0, 100]},
+                    "bar": {"color": "steelblue"},
+                    "steps": [
+                        {"range": [0, 20],  "color": "#93C5FD"},  # oversold
+                        {"range": [20, 40], "color": "#FCD34D"},  # bearish
+                        {"range": [40, 60], "color": "#D1FAE5"},  # neutral
+                        {"range": [60, 80], "color": "#6EE7B7"},  # bullish
+                        {"range": [80, 100],"color": "#FCA5A5"},  # overbought
+                    ],
+                    "threshold": {"line": {"color": "red"}, "value": 80},
+                }
+            ))
+            st.plotly_chart(fig, use_container_width=True)
+
+        except Exception as e:
+            st.warning(f"Không thể load breadth trực tiếp: {e}")
+            st.info("Nhấn **'Cập Nhật Market Breadth'** để tính toán.")
+
+    with adaptive_col:
+        st.subheader("⚙️ Adaptive Parameters")
+
+        if adaptive_file.exists():
+            df_adp = pd.read_csv(adaptive_file)
+
+            n_adaptive = df_adp['Adaptive'].sum() if 'Adaptive' in df_adp.columns else 0
+            st.metric("Mã dùng Adaptive", f"{n_adaptive}/{len(df_adp)}")
+
+            st.dataframe(df_adp, use_container_width=True, hide_index=True)
+
+            csv = df_adp.to_csv(index=False, encoding='utf-8-sig')
+            st.download_button("⬇️ Tải CSV", csv, "adaptive_params.csv", "text/csv",
+                               key="dl-adaptive")
+        else:
+            st.info("Chưa có adaptive params. Chạy analysis với --adaptive:")
+            st.code("docker exec stock4n_app python src/main.py analysis --adaptive")
+
+        st.markdown("---")
+        st.subheader("🚀 Chạy Analysis + Adaptive")
+        if st.button("⚙️ Analysis với Adaptive Params", use_container_width=True):
+            success, output = run_command(
+                "docker exec stock4n_app python src/main.py analysis --adaptive",
+                "Analysis + Adaptive Optimization"
+            )
+            if success:
+                st.rerun()
 
 # Footer
 st.markdown("---")

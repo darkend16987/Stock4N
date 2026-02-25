@@ -39,8 +39,11 @@ RUN pip install --upgrade pip && \
 # Copy toàn bộ mã nguồn vào container
 COPY . .
 
-# Mở port mặc định của Streamlit (cho Phase 2)
-EXPOSE 8501
+# Mở port cho Streamlit + API server
+EXPOSE 8501 8502
 
-# Lệnh mặc định: Giữ container chạy để ta vào gõ lệnh
-CMD ["tail", "-f", "/dev/null"]
+# Make start script executable
+RUN chmod +x /app/start.sh 2>/dev/null || true
+
+# Lệnh mặc định: Khởi động API server + Streamlit + keep alive
+CMD ["bash", "/app/start.sh"]
