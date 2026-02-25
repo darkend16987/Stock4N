@@ -23,7 +23,7 @@ class BacktestEngine:
     def __init__(
         self,
         data_dir=config.RAW_DIR,
-        initial_capital=100_000_000,
+        initial_capital=80_000_000,
         max_positions=10,
         position_size_pct=0.10,
         stop_loss_pct=0.07,

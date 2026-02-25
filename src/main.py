@@ -71,7 +71,7 @@ def run_breadth():
 def run_portfolio():
     print("💼 [MODE] Portfolio Manager")
     manager = PortfolioManager()
-    manager.generate_recommendation(total_capital=100000000)
+    manager.generate_recommendation(total_capital=80000000)
 
 def run_export():
     """Xuất dữ liệu sang JSON cho Web App"""
@@ -79,7 +79,7 @@ def run_export():
     exporter = DataExporter()
     exporter.export_all()
 
-def run_backtest(lookback_days=365, min_score=6.0, capital=100000000):
+def run_backtest(lookback_days=365, min_score=6.0, capital=80000000):
     """
     Chạy backtest chiến lược
 
@@ -196,7 +196,7 @@ def run_learning(mode='patterns', optimize_weights=False, lookback_days=365):
             scores_df=scores_df,
             start_date=start_date,
             end_date=end_date,
-            initial_capital=100_000_000,
+            initial_capital=80_000_000,
             min_score=6.0,
             optimization_metric='sharpe_ratio'
         )
@@ -358,7 +358,7 @@ def main():
     )
     parser.add_argument('--days', type=int, default=365, help="Backtest/Learning lookback days (default: 365)")
     parser.add_argument('--score', type=float, default=6.0, help="Min score to buy (default: 6.0)")
-    parser.add_argument('--capital', type=int, default=100000000, help="Initial capital (default: 100M)")
+    parser.add_argument('--capital', type=int, default=80000000, help="Initial capital (default: 80M)")
     parser.add_argument('--learn-mode', type=str, default='all', choices=['patterns', 'optimize', 'all'],
                         help="Learning mode: patterns, optimize, or all (default: all)")
     parser.add_argument('--optimize-weights', action='store_true', help="Run weight optimization in learning mode")

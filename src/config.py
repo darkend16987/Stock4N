@@ -15,38 +15,65 @@ PROCESSED_DIR = os.path.join(DATA_DIR, "processed")
 os.makedirs(RAW_DIR, exist_ok=True)
 os.makedirs(PROCESSED_DIR, exist_ok=True)
 
-# --- DANH SÁCH CỔ PHIẾU (VN TOP 50 - Blue Chip & Mid-Cap Uy Tín) ---
-# Danh sách dựa trên VN30 (30 mã) + VNMidCap top (20 mã) theo vốn hóa và thanh khoản
-# Nguồn: HOSE VN30 Index (kỳ 1/2025) + Top vốn hóa thị trường 2025
+# --- DANH SÁCH CỔ PHIẾU (VN100 - Top 100 theo vốn hóa & thanh khoản) ---
+# Danh sách dựa trên VN100 Index (HOSE) - cập nhật Q1/2026
+# Nguồn: VN30 (30 mã) + VNMidCap (70 mã) theo FTSE Russell classification
+# Ưu tiên: Blue chips > Large cap > Mid cap theo thanh khoản
 VN100_SYMBOLS = [
-    # === VN30 - Blue Chip Stocks (30 mã) ===
-    # Ngân hàng (15 mã)
+    # ════════════════════════════════════════════════════════════════
+    # VN30 - Blue Chip Stocks (30 mã) - Top tier
+    # ════════════════════════════════════════════════════════════════
+
+    # Ngân hàng (15 mã) - Banking sector dominance
     'VCB', 'BID', 'CTG', 'TCB', 'MBB', 'VPB', 'ACB', 'HDB', 'STB', 'TPB',
     'VIB', 'SHB', 'SSB', 'LPB', 'EIB',
-    # Bất động sản & Tập đoàn (5 mã)
+
+    # Bất động sản & Tập đoàn (5 mã) - Real estate & conglomerates
     'VIC', 'VHM', 'VRE', 'BCM', 'VGI',
-    # Năng lượng & Công nghiệp (4 mã)
+
+    # Năng lượng & Công nghiệp (4 mã) - Energy & industrials
     'GAS', 'PLX', 'HPG', 'GVR',
-    # Hàng tiêu dùng & Bán lẻ (4 mã)
+
+    # Hàng tiêu dùng & Bán lẻ (4 mã) - Consumer & retail
     'VNM', 'MSN', 'MWG', 'SAB',
-    # Chứng khoán & Tài chính (1 mã)
+
+    # Chứng khoán & Tài chính (1 mã) - Securities
     'SSI',
-    # Công nghệ (1 mã)
+
+    # Công nghệ (1 mã) - Technology
     'FPT',
 
-    # === VN MidCap & Large Cap - Top 20 mã bổ sung ===
-    # Bất động sản & Xây dựng (6 mã)
-    'KDH', 'DXG', 'NVL', 'PDR', 'DIG', 'BCG',
-    # Năng lượng & Công nghiệp (5 mã)
-    'POW', 'REE', 'DGW', 'NT2', 'BSR',
-    # Hàng tiêu dùng & Dịch vụ (4 mã)
-    'PNJ', 'FRT', 'VHC', 'DGC',
-    # Hàng không & Logistics (2 mã)
-    'VJC', 'HVN',
-    # Nông nghiệp & Thủy sản (2 mã)
-    'VND', 'HNG',
-    # Công nghệ & Viễn thông (1 mã)
-    'VGC'
+    # ════════════════════════════════════════════════════════════════
+    # VN MidCap & Large Cap - 70 mã bổ sung
+    # ════════════════════════════════════════════════════════════════
+
+    # Bất động sản & Xây dựng (15 mã) - Real estate & construction
+    'KDH', 'DXG', 'NVL', 'PDR', 'DIG', 'BCG', 'HDG', 'CEO', 'SZC', 'NLG',
+    'IDC', 'KBC', 'IJC', 'HDC', 'CII',
+
+    # Ngân hàng & Tài chính bổ sung (10 mã) - Additional banking & finance
+    'BVH', 'VCI', 'HCM', 'AGR', 'BSI', 'FTS', 'MBS', 'VDS', 'ORS', 'CTS',
+
+    # Năng lượng & Điện lực (8 mã) - Energy & power
+    'POW', 'NT2', 'REE', 'DGW', 'BSR', 'PVD', 'PVS', 'PVT',
+
+    # Công nghiệp & Vật liệu (10 mã) - Industrials & materials
+    'DCM', 'DPM', 'DGC', 'BMP', 'CSV', 'DHC', 'NKG', 'PHR', 'AAA', 'GMD',
+
+    # Hàng tiêu dùng & Dịch vụ (8 mã) - Consumer & services
+    'PNJ', 'FRT', 'VHC', 'VCF', 'ASM', 'MSH', 'PHC', 'TLG',
+
+    # Hàng không, Logistics & Vận tải (5 mã) - Aviation, logistics & transport
+    'VJC', 'HVN', 'GMD', 'VSC', 'TCL',
+
+    # Nông nghiệp & Thủy sản (6 mã) - Agriculture & seafood
+    'VND', 'HNG', 'HAG', 'ANV', 'BAF', 'VHG',
+
+    # Công nghệ & Viễn thông (5 mã) - Tech & telecom
+    'VGC', 'CMG', 'VGI', 'ITD', 'ELC',
+
+    # Y tế & Dược phẩm (3 mã) - Healthcare & pharma
+    'DHG', 'DMC', 'IMP'
 ]
 
 # --- CẤU HÌNH THỜI GIAN ---
@@ -69,12 +96,21 @@ API_RETRY = {
     'exponential_base': 2    # wait time = initial_wait * (base ** attempt)
 }
 
-# Rate limiting
+# Rate limiting (optimized for vnstock 3.4.0)
+# API Limits (FREE community tier):
+#   - Guest mode: 20 requests/min
+#   - Free API key: 60 requests/min (3x faster!)
+#   - Sponsor: 180-300 requests/min
+# Strategy: Conservative approach with random delays to avoid bursts
 RATE_LIMIT = {
-    'request_delay_min': 1,  # Min seconds between requests
-    'request_delay_max': 3,  # Max seconds between requests
-    'cooldown_on_limit': 60  # Cooldown seconds when rate limited
+    'request_delay_min': 0.8,  # Min seconds between requests (faster than before)
+    'request_delay_max': 2.0,  # Max seconds between requests (avg ~1.4s)
+    'cooldown_on_limit': 60    # Cooldown seconds when rate limited
 }
+# Expected performance (100 stocks, 3 API calls each):
+#   - Total requests: ~300
+#   - With 60 req/min + delays: ~5-6 minutes
+#   - With 20 req/min (guest): ~15+ minutes
 
 # Data sources priority
 # VNSTOCK 3.4.0: KBS là nguồn mới nhất, ưu tiên #1
@@ -93,11 +129,13 @@ VNSTOCK_CONFIG = {
     'rate_limit_buffer': 5,                         # Buffer seconds between requests
 }
 
-# Parallel data fetching (Priority 3 improvement)
+# Parallel data fetching (optimized for vnstock 3.4.0 - 60 req/min)
+# Strategy: Balance between speed and API limits
+# Math: 4 workers × avg 1.4s delay = ~2.86 req/sec = ~43 req/min (safe buffer)
 PARALLEL_FETCHING = {
     'enabled': True,           # Enable parallel fetching by default
-    'max_workers': 3,          # Max 3 concurrent workers (to avoid rate limiting)
-    'timeout': 60              # Timeout per symbol (seconds)
+    'max_workers': 4,          # 4 concurrent workers (optimized for 60 req/min)
+    'timeout': 90              # Timeout per symbol (increased for 100 stocks)
 }
 
 # --- CẤU HÌNH SCORING ---
