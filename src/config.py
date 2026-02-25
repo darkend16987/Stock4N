@@ -77,9 +77,20 @@ RATE_LIMIT = {
 }
 
 # Data sources priority
+# VNSTOCK 3.4.0: KBS là nguồn mới nhất, ưu tiên #1
+# KBS có dữ liệu tương đương VCI, chuẩn hoá tốt hơn
 DATA_SOURCES = {
-    'price': ['VCI', 'TCBS', 'MSN'],       # Priority order for price data (vnstock v3.x compatible)
-    'financial': ['VCI', 'TCBS']            # Priority order for financial data
+    'price': ['KBS', 'VCI', 'TCBS', 'MSN'],       # Priority: KBS first (vnstock 3.4.0+)
+    'financial': ['KBS', 'VCI', 'TCBS']           # KBS supports 8 quarters with free API key
+}
+
+# Vnstock API Configuration (v3.4.0+)
+# Register free API key at https://vnstocks.com/login
+# Benefits: 60 req/min (vs 20 guest), 8 quarters financial data (vs 4)
+VNSTOCK_CONFIG = {
+    'api_key': os.environ.get('VNSTOCK_API_KEY'),  # Set in .env
+    'auto_register': True,                          # Auto-register API key on startup
+    'rate_limit_buffer': 5,                         # Buffer seconds between requests
 }
 
 # Parallel data fetching (Priority 3 improvement)
@@ -91,9 +102,12 @@ PARALLEL_FETCHING = {
 
 # --- CẤU HÌNH SCORING ---
 # Weight distribution between fundamental and technical analysis
+# Profile: NHÀ ĐẦU TƯ TRUNG HẠN, ƯA THÍCH AN TOÀN
+#   → Ưu tiên cơ bản 65% (chất lượng doanh nghiệp, lợi nhuận bền vững)
+#   → Kỹ thuật 35% (timing, momentum hỗ trợ ra quyết định)
 SCORING_WEIGHTS = {
-    'fundamental': 0.6,  # 60% weight for fundamental analysis
-    'technical': 0.4     # 40% weight for technical analysis
+    'fundamental': 0.65,  # 65% weight — ưu tiên nền tảng vững chắc
+    'technical': 0.35     # 35% weight — hỗ trợ timing entry/exit
 }
 
 # Fundamental scoring thresholds
@@ -130,27 +144,40 @@ TECHNICAL_THRESHOLDS = {
 }
 
 # Score to recommendation mapping
+# Nâng ngưỡng mua lên 6.5 → chỉ mua mã thực sự chất lượng
 RECOMMENDATION_THRESHOLDS = {
-    'strong_buy': 7.5,      # Score >= 7.5: MUA MẠNH
-    'buy': 6.0,             # Score >= 6.0: MUA THĂM DÒ
-    'sell': 4.0             # Score <= 4.0: BÁN / CƠ CẤU
+    'strong_buy': 7.5,      # Score >= 7.5: MUA MẠNH (cơ bản + kỹ thuật đều tốt)
+    'buy': 6.5,             # Score >= 6.5: MUA THĂM DÒ (nâng từ 6.0 → an toàn hơn)
+    'sell': 4.5             # Score <= 4.5: BÁN / CƠ CẤU (nâng từ 4.0)
 }
 
 # --- CẤU HÌNH PORTFOLIO ---
-# Position sizing
+# Position sizing — TRUNG HẠN, AN TOÀN
+# Phân bổ đều, không dồn quá nhiều vào 1 mã
 PORTFOLIO_CONFIG = {
-    'max_position_pct': 0.40,     # Max 40% per position (diversification)
-    'min_position_pct': 0.05,     # Min 5% per position (meaningful size)
-    'max_positions': 10,          # Max number of positions
-    'cash_reserve_pct': 0.20      # Keep 20% cash reserve
+    'max_position_pct': 0.20,     # Max 20% mỗi vị thế (giảm từ 40% → đa dạng hóa)
+    'min_position_pct': 0.05,     # Min 5% (đủ ý nghĩa)
+    'max_positions': 8,           # Tối đa 8 mã (giảm từ 10 → quản lý dễ hơn)
+    'cash_reserve_pct': 0.25      # Giữ 25% tiền mặt (tăng từ 20% → an toàn hơn)
 }
 
-# Risk management
+# Investment horizon
+HOLDING_PERIOD = {
+    'min_months': 1,              # Tối thiểu 1 tháng
+    'target_months': 3,           # Trung bình 3 tháng
+    'max_months': 6,              # Tối đa 6 tháng
+    'expected_return': (0.10, 0.15)  # Lợi nhuận mong đợi 10-15%
+}
+
+# Risk management — AN TOÀN, phù hợp với ĐẶC ĐIỂM THỊ TRƯỜNG VN
+# VN market biến động cao, có "lái" và manipulation
+# → Stop loss 7% (không quá chặt) để tránh bị shake out
+# → Target 15% upper range để match kỳ vọng 1-6 tháng
 RISK_MANAGEMENT = {
-    'stop_loss_pct': 0.07,        # -7% stop loss
-    'target_profit_pct': 0.15,    # +15% target profit
-    'risk_reward_ratio': 2.0,     # 1:2 risk/reward
-    'max_drawdown_pct': 0.15      # Max 15% portfolio drawdown
+    'stop_loss_pct': 0.07,        # -7% stop loss (điều chỉnh từ 5% → phù hợp VN volatility)
+    'target_profit_pct': 0.15,    # +15% target (tăng từ 12% → upper range 10-15%)
+    'risk_reward_ratio': 2.14,    # 1:2.14 risk/reward (7% risk → 15% reward)
+    'max_drawdown_pct': 0.10      # Max 10% drawdown danh mục (siết từ 15%)
 }
 
 # Price unit detection

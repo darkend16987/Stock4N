@@ -35,7 +35,6 @@ export interface StockData {
   }
 }
 
-// Default empty data for fallback
 const emptyData: StockData = {
   last_updated: new Date().toISOString(),
   analysis: [],
@@ -49,21 +48,14 @@ const emptyData: StockData = {
   }
 }
 
-/**
- * Fetch stock data from public/data/db.json
- * Works on both client and server side
- */
 export async function getStockData(): Promise<StockData> {
   try {
-    // For server-side (build time), use absolute URL or relative path
     const baseUrl = typeof window === 'undefined'
-      ? process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : 'http://localhost:3000'
+      ? 'http://localhost:3000'
       : ''
 
     const response = await fetch(`${baseUrl}/data/db.json`, {
-      cache: 'no-store' // Always fetch fresh data
+      cache: 'no-store'
     })
 
     if (!response.ok) {
@@ -80,16 +72,23 @@ export async function getStockData(): Promise<StockData> {
 }
 
 export function getRecommendationColor(recommendation: string): string {
-  if (recommendation.includes('MUA MẠNH')) return 'text-green-600 bg-green-50 dark:bg-green-900/20'
-  if (recommendation.includes('MUA THĂM DÒ')) return 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
-  if (recommendation.includes('THEO DÕI')) return 'text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20'
-  if (recommendation.includes('BÁN')) return 'text-red-600 bg-red-50 dark:bg-red-900/20'
-  return 'text-slate-600 bg-slate-50 dark:bg-slate-900/20'
+  if (recommendation.includes('MUA MẠNH')) return 'text-emerald-400 bg-emerald-500/15 border border-emerald-500/30'
+  if (recommendation.includes('MUA THĂM DÒ')) return 'text-blue-400 bg-blue-500/15 border border-blue-500/30'
+  if (recommendation.includes('THEO DÕI')) return 'text-amber-400 bg-amber-500/15 border border-amber-500/30'
+  if (recommendation.includes('BÁN')) return 'text-red-400 bg-red-500/15 border border-red-500/30'
+  return 'text-slate-400 bg-slate-500/15 border border-slate-500/30'
 }
 
 export function getScoreColor(score: number): string {
-  if (score >= 7.5) return 'text-green-600 font-bold'
-  if (score >= 6.0) return 'text-blue-600 font-semibold'
-  if (score >= 4.0) return 'text-yellow-600'
-  return 'text-red-600'
+  if (score >= 7.5) return 'text-emerald-400'
+  if (score >= 6.0) return 'text-blue-400'
+  if (score >= 4.0) return 'text-amber-400'
+  return 'text-red-400'
+}
+
+export function getScoreBg(score: number): string {
+  if (score >= 7.5) return 'bg-emerald-500/20'
+  if (score >= 6.0) return 'bg-blue-500/20'
+  if (score >= 4.0) return 'bg-amber-500/20'
+  return 'bg-red-500/20'
 }

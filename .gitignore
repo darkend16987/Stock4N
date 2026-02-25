@@ -24,24 +24,29 @@ wheels/
 *.egg
 
 # Data files (Generated - can be recreated)
-data/raw/*.csv
-data/raw/*.json
-data/processed/*.csv
-data/processed/*.json
-data/logs/*.log
+data/raw/
+data/processed/
+data/logs/
+data/export/
+data/backtest/
+data/ml_models/
+data/learned_params/
 
-# Export files (Generated daily - ignored by default)
-data/export/*.json
-data/export/*.csv
-
-# EXCEPTION: Keep db.json for reference (but frontend uses its own copy)
+# EXCEPTION: Keep db.json for frontend
 !data/export/db.json
 
-# BUT keep the directory structure
+# Keep directory structure placeholders
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/export/.gitkeep
 !data/logs/.gitkeep
+!data/backtest/.gitkeep
+!data/ml_models/.gitkeep
+!data/learned_params/.gitkeep
+
+# Log files anywhere
+logs/
+*.log
 
 # IDE
 .vscode/
