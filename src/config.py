@@ -77,9 +77,20 @@ RATE_LIMIT = {
 }
 
 # Data sources priority
+# VNSTOCK 3.4.0: KBS là nguồn mới nhất, ưu tiên #1
+# KBS có dữ liệu tương đương VCI, chuẩn hoá tốt hơn
 DATA_SOURCES = {
-    'price': ['VCI', 'TCBS', 'MSN'],       # Priority order for price data (vnstock v3.x compatible)
-    'financial': ['VCI', 'TCBS']            # Priority order for financial data
+    'price': ['KBS', 'VCI', 'TCBS', 'MSN'],       # Priority: KBS first (vnstock 3.4.0+)
+    'financial': ['KBS', 'VCI', 'TCBS']           # KBS supports 8 quarters with free API key
+}
+
+# Vnstock API Configuration (v3.4.0+)
+# Register free API key at https://vnstocks.com/login
+# Benefits: 60 req/min (vs 20 guest), 8 quarters financial data (vs 4)
+VNSTOCK_CONFIG = {
+    'api_key': os.environ.get('VNSTOCK_API_KEY'),  # Set in .env
+    'auto_register': True,                          # Auto-register API key on startup
+    'rate_limit_buffer': 5,                         # Buffer seconds between requests
 }
 
 # Parallel data fetching (Priority 3 improvement)

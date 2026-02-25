@@ -1,7 +1,8 @@
 pandas>=2.0.0
 numpy
 openpyxl
-vnstock>=0.2.8
+# Vnstock 3.4.0 beta - KBS data source, API authentication, standardized reports
+git+https://github.com/thinh-vu/vnstock@main
 ta-lib
 scipy
 streamlit
