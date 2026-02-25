@@ -21,6 +21,9 @@ try:
     from modules.ml_prediction.feature_engineer import FeatureEngineer
     from modules.ml_prediction.trend_classifier import TrendClassifier
     from modules.ml_prediction.model_manager import ModelManager
+    from modules.analysis.breadth_analyzer import MarketBreadthAnalyzer
+    from modules.analysis.adaptive_params import AdaptiveParamManager
+    from modules.analysis.ai_reasoner import AIReasoner
     import config
 except ImportError as e:
     print(f"❌ Error importing modules: {e}")
@@ -36,10 +39,34 @@ def run_processing():
     calculator = FinancialCalculator()
     calculator.run_processing(config.VN100_SYMBOLS)
 
-def run_analysis():
+def run_analysis(use_adaptive=False):
     print("🧠 [MODE] Market Analysis")
+
+    # Market breadth check (runs before individual scoring)
+    print("\n📊 Checking market breadth...")
+    breadth = MarketBreadthAnalyzer()
+    market_filter = breadth.get_market_filter(config.VN100_SYMBOLS)
+    print(f"  {market_filter['summary']}")
+
+    # Adaptive param optimization (optional)
+    if use_adaptive:
+        print("\n⚙️  Running adaptive parameter optimization...")
+        apm = AdaptiveParamManager()
+        adaptive_params = apm.run_all(config.VN100_SYMBOLS)
+        df_params = apm.get_summary_df(adaptive_params)
+        params_file = os.path.join(config.PROCESSED_DIR, 'adaptive_params.csv')
+        os.makedirs(config.PROCESSED_DIR, exist_ok=True)
+        df_params.to_csv(params_file, index=False)
+        print(f"  ✓ Saved adaptive params to {params_file}")
+
     scorer = StockScorer()
     scorer.run_analysis()
+
+def run_breadth():
+    """Standalone breadth/sentiment check."""
+    print("📊 [MODE] Market Breadth / Sentiment")
+    analyzer = MarketBreadthAnalyzer()
+    analyzer.print_breadth_report(config.VN100_SYMBOLS)
 
 def run_portfolio():
     print("💼 [MODE] Portfolio Manager")
@@ -325,7 +352,8 @@ def main():
     parser = argparse.ArgumentParser(description="VN-Stock Intelligent Advisor CLI")
     parser.add_argument(
         'mode',
-        choices=['ingestion', 'processing', 'analysis', 'portfolio', 'export', 'backtest', 'learn', 'ml_predict', 'all'],
+        choices=['ingestion', 'processing', 'analysis', 'portfolio', 'export',
+                 'backtest', 'learn', 'ml_predict', 'breadth', 'all'],
         help="Chế độ chạy"
     )
     parser.add_argument('--days', type=int, default=365, help="Backtest/Learning lookback days (default: 365)")
@@ -341,6 +369,7 @@ def main():
                         help="ML model type (default: random_forest)")
     parser.add_argument('--horizon', type=int, default=5, help="Forecast horizon in days (default: 5)")
     parser.add_argument('--threshold', type=float, default=0.02, help="Classification threshold (default: 0.02 = 2%)")
+    parser.add_argument('--adaptive', action='store_true', help="Use adaptive parameter optimization in analysis")
 
     if len(sys.argv) < 2:
         parser.print_help()
@@ -350,16 +379,17 @@ def main():
 
     if args.mode == 'ingestion': run_ingestion()
     elif args.mode == 'processing': run_processing()
-    elif args.mode == 'analysis': run_analysis()
+    elif args.mode == 'analysis': run_analysis(use_adaptive=args.adaptive)
     elif args.mode == 'portfolio': run_portfolio()
     elif args.mode == 'export': run_export()
+    elif args.mode == 'breadth': run_breadth()
     elif args.mode == 'backtest': run_backtest(args.days, args.score, args.capital)
     elif args.mode == 'learn': run_learning(args.learn_mode, args.optimize_weights, args.days)
     elif args.mode == 'ml_predict': run_ml_predict(args.ml_mode, args.model_type, args.horizon, args.threshold)
     elif args.mode == 'all':
         run_ingestion()
         run_processing()
-        run_analysis()
+        run_analysis(use_adaptive=args.adaptive)
         run_portfolio()
         run_export()
 
