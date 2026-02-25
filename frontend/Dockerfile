@@ -1,7 +1,7 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci --prefer-offline
+RUN if [ -f package-lock.json ]; then npm ci --prefer-offline; else npm install; fi
 
 FROM node:20-alpine AS builder
 WORKDIR /app
