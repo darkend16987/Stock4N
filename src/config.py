@@ -91,9 +91,12 @@ PARALLEL_FETCHING = {
 
 # --- CẤU HÌNH SCORING ---
 # Weight distribution between fundamental and technical analysis
+# Profile: NHÀ ĐẦU TƯ TRUNG HẠN, ƯA THÍCH AN TOÀN
+#   → Ưu tiên cơ bản 65% (chất lượng doanh nghiệp, lợi nhuận bền vững)
+#   → Kỹ thuật 35% (timing, momentum hỗ trợ ra quyết định)
 SCORING_WEIGHTS = {
-    'fundamental': 0.6,  # 60% weight for fundamental analysis
-    'technical': 0.4     # 40% weight for technical analysis
+    'fundamental': 0.65,  # 65% weight — ưu tiên nền tảng vững chắc
+    'technical': 0.35     # 35% weight — hỗ trợ timing entry/exit
 }
 
 # Fundamental scoring thresholds
@@ -130,27 +133,30 @@ TECHNICAL_THRESHOLDS = {
 }
 
 # Score to recommendation mapping
+# Nâng ngưỡng mua lên 6.5 → chỉ mua mã thực sự chất lượng
 RECOMMENDATION_THRESHOLDS = {
-    'strong_buy': 7.5,      # Score >= 7.5: MUA MẠNH
-    'buy': 6.0,             # Score >= 6.0: MUA THĂM DÒ
-    'sell': 4.0             # Score <= 4.0: BÁN / CƠ CẤU
+    'strong_buy': 7.5,      # Score >= 7.5: MUA MẠNH (cơ bản + kỹ thuật đều tốt)
+    'buy': 6.5,             # Score >= 6.5: MUA THĂM DÒ (nâng từ 6.0 → an toàn hơn)
+    'sell': 4.5             # Score <= 4.5: BÁN / CƠ CẤU (nâng từ 4.0)
 }
 
 # --- CẤU HÌNH PORTFOLIO ---
-# Position sizing
+# Position sizing — TRUNG HẠN, AN TOÀN
+# Phân bổ đều, không dồn quá nhiều vào 1 mã
 PORTFOLIO_CONFIG = {
-    'max_position_pct': 0.40,     # Max 40% per position (diversification)
-    'min_position_pct': 0.05,     # Min 5% per position (meaningful size)
-    'max_positions': 10,          # Max number of positions
-    'cash_reserve_pct': 0.20      # Keep 20% cash reserve
+    'max_position_pct': 0.20,     # Max 20% mỗi vị thế (giảm từ 40% → đa dạng hóa)
+    'min_position_pct': 0.05,     # Min 5% (đủ ý nghĩa)
+    'max_positions': 8,           # Tối đa 8 mã (giảm từ 10 → quản lý dễ hơn)
+    'cash_reserve_pct': 0.25      # Giữ 25% tiền mặt (tăng từ 20% → an toàn hơn)
 }
 
-# Risk management
+# Risk management — AN TOÀN
+# Stop loss chặt hơn, target vừa phải cho trung hạn
 RISK_MANAGEMENT = {
-    'stop_loss_pct': 0.07,        # -7% stop loss
-    'target_profit_pct': 0.15,    # +15% target profit
-    'risk_reward_ratio': 2.0,     # 1:2 risk/reward
-    'max_drawdown_pct': 0.15      # Max 15% portfolio drawdown
+    'stop_loss_pct': 0.05,        # -5% stop loss (siết từ 7% → bảo vệ vốn)
+    'target_profit_pct': 0.12,    # +12% target (giảm từ 15% → thực tế cho trung hạn)
+    'risk_reward_ratio': 2.4,     # 1:2.4 risk/reward (5% risk → 12% reward)
+    'max_drawdown_pct': 0.10      # Max 10% drawdown danh mục (siết từ 15%)
 }
 
 # Price unit detection

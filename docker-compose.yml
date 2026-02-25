@@ -11,8 +11,12 @@ services:
       - ./data:/app/data
     ports:
       - "8501:8501"   # Streamlit dashboard
+      - "8502:8502"   # REST API for frontend
     environment:
       - TZ=Asia/Ho_Chi_Minh
+    env_file:
+      - path: .env
+        required: false
     restart: unless-stopped
     mem_limit: 4g
 
@@ -25,7 +29,7 @@ services:
       dockerfile: Dockerfile
     container_name: stock4n_frontend
     ports:
-      - "3000:3000"   # http://localhost:3000
+      - "4000:3000"   # http://localhost:4000
     volumes:
       # Mount db.json từ backend export → frontend public/data/
       # Khi backend export xong, frontend tự nhận data mới
