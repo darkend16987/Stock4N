@@ -33,12 +33,38 @@ class StockOptionSkill:
     # ── Investor Profile ──────────────────────────────
     PROFILE = {
         'name': 'Nhà đầu tư trung hạn an toàn',
-        'horizon': '3-6 tháng',
+        'horizon': '1-6 tháng (trung bình 3 tháng)',
+        'expected_return': '10-15%',
         'risk_appetite': 'Thấp - Trung bình (Conservative)',
         'focus': 'Blue-chip VN30 + Mid-cap chất lượng',
         'strategy': 'Fundamental-first, Technical timing',
         'weight_fundamental': 0.65,
         'weight_technical': 0.35,
+    }
+
+    # ── VN Market Characteristics ─────────────────────
+    # Đặc điểm thị trường Việt Nam cần lưu ý
+    VN_MARKET_CONTEXT = {
+        'maturity': 'Thị trường mới nổi, thông tin chưa hoàn toàn minh bạch',
+        'behavior': [
+            'Hay theo sóng (trend-following), tâm lý đám đông mạnh',
+            'Có hiện tượng manipulation bởi "lái" (big players)',
+            'Biến động giá cao (volatility), thường có shake-out tactics',
+            'Thanh khoản tập trung vào VN30, mid-cap kém hơn',
+        ],
+        'core_principle': [
+            'HỆ THỐNG CỦA CHÚNG TA: Dựa trên thuật toán khoa học, kiểm chứng',
+            'Fundamental 65% + Technical 35% → lọc noise, không chạy theo tin đồn',
+            'Market Breadth filter → tránh mua khi downtrend rõ ràng',
+            'RSI, Volume, MA → filter manipulation signals',
+            'QUAN TRỌNG: Bỏ qua nhiễu, tuân thủ hệ thống, discipline > emotion',
+        ],
+        'strategic_notes': [
+            'Stop loss 7% (không quá chặt) → tránh bị shake out bởi volatility',
+            'Target 15% cho timeframe 1-6 tháng → realistic & achievable',
+            'Không average down khi sai → cắt lỗ nghiêm túc',
+            'Chỉ mua khi breadth > 35% → tránh đi ngược trend',
+        ]
     }
 
     # ── Hard Rules (không thoả = loại ngay) ───────────
@@ -55,8 +81,8 @@ class StockOptionSkill:
 
     # ── Scoring Preferences ───────────────────────────
     PREFERENCES = {
-        'stop_loss_pct': 0.05,     # Cắt lỗ 5%
-        'target_profit_pct': 0.12, # Chốt lời 12%
+        'stop_loss_pct': 0.07,     # Cắt lỗ 7% (điều chỉnh cho VN volatility)
+        'target_profit_pct': 0.15, # Chốt lời 15% (upper range 10-15%)
         'min_risk_reward': 2.0,    # R:R tối thiểu 1:2
         'prefer_dividend': True,   # Ưu tiên cổ tức
         'avoid_penny': True,       # Tránh penny stock (< 10k)
@@ -71,7 +97,7 @@ class StockOptionSkill:
         "B4: Kiểm tra xu hướng — RSI 40-65 (neutral-bullish), giá trên MA50",
         "B5: Xác nhận Volume — volume trung bình 20 phiên phải đủ thanh khoản",
         "B6: Phân bổ vốn — tối đa 20%/mã, giữ 25% tiền mặt, tối đa 8 mã",
-        "B7: Đặt Stop Loss -5% và Target +12%, R:R >= 1:2",
+        "B7: Đặt Stop Loss -7% và Target +15%, R:R >= 1:2",
         "B8: Review hàng tuần — cắt lỗ nghiêm túc, không trung bình giá xuống",
     ]
 
@@ -79,15 +105,32 @@ class StockOptionSkill:
     AI_CONTEXT_TEMPLATE = """
 ## Hồ sơ Nhà đầu tư
 - Phong cách: {profile_name}
-- Tầm nhìn: {horizon}
+- Tầm nhìn: {horizon} | Lợi nhuận kỳ vọng: {expected_return}
 - Khẩu vị rủi ro: {risk}
 - Chiến lược: Phân tích cơ bản {w_fund}% + Kỹ thuật {w_tech}%
+
+## Đặc điểm Thị trường VN - QUAN TRỌNG
+**Bối cảnh:**
+- Thị trường mới nổi, thông tin chưa minh bạch hoàn toàn
+- Hay theo sóng (trend), tâm lý đám đông mạnh, có "lái" manipulation
+- Biến động cao, thường có shake-out tactics ở support/resistance
+
+**Nguyên tắc Core của Hệ thống:**
+- ✅ Dựa trên THUẬT TOÁN KHOA HỌC, đã kiểm chứng (Fundamental + Technical filter)
+- ✅ Market Breadth + RSI + Volume + MA → LỌC NOISE & MANIPULATION
+- ✅ Không chạy theo tin đồn, không FOMO
+- ✅ DISCIPLINE > EMOTION → tuân thủ hệ thống, bỏ qua nhiễu
+
+**Strategic Adjustments cho VN:**
+- Stop loss 7% (không quá chặt) → tránh bị shake out bởi volatility tự nhiên
+- Target 15% cho 1-6 tháng → realistic với VN growth rate
+- Chỉ mua khi breadth > 35% → tránh đi ngược trend chính
 
 ## Quy tắc cứng
 - Chỉ mua khi Market Breadth > 35%
 - Điểm tổng >= 6.5/10
 - ROE >= 10% | P/E <= 30 | Nợ/Vốn <= 2.0
-- Stop Loss: -5% | Target: +12% | R:R >= 1:2
+- Stop Loss: -7% | Target: +15% | R:R >= 1:2
 - Tối đa 8 vị thế, mỗi vị thế <= 20%, giữ 25% cash
 
 ## Quy trình 8 bước
@@ -96,8 +139,9 @@ class StockOptionSkill:
 ## Yêu cầu phân tích
 - Đánh giá theo đúng khẩu vị AN TOÀN trên
 - Nêu rõ MUA / GIỮ / BÁN kèm lý do
-- Cảnh báo rủi ro cụ thể (nếu có)
-- Gợi ý mức giá entry, stop loss, target
+- Cảnh báo rủi ro cụ thể (manipulation, low liquidity, sector risk)
+- Gợi ý mức giá entry, stop loss -7%, target +15%
+- LƯU Ý: Bỏ qua tin đồn, noise — chỉ tin vào data + system
 """
 
     def get_ai_context(self) -> str:
@@ -106,6 +150,7 @@ class StockOptionSkill:
         return self.AI_CONTEXT_TEMPLATE.format(
             profile_name=self.PROFILE['name'],
             horizon=self.PROFILE['horizon'],
+            expected_return=self.PROFILE['expected_return'],
             risk=self.PROFILE['risk_appetite'],
             w_fund=int(self.PROFILE['weight_fundamental'] * 100),
             w_tech=int(self.PROFILE['weight_technical'] * 100),

@@ -150,12 +150,22 @@ PORTFOLIO_CONFIG = {
     'cash_reserve_pct': 0.25      # Giữ 25% tiền mặt (tăng từ 20% → an toàn hơn)
 }
 
-# Risk management — AN TOÀN
-# Stop loss chặt hơn, target vừa phải cho trung hạn
+# Investment horizon
+HOLDING_PERIOD = {
+    'min_months': 1,              # Tối thiểu 1 tháng
+    'target_months': 3,           # Trung bình 3 tháng
+    'max_months': 6,              # Tối đa 6 tháng
+    'expected_return': (0.10, 0.15)  # Lợi nhuận mong đợi 10-15%
+}
+
+# Risk management — AN TOÀN, phù hợp với ĐẶC ĐIỂM THỊ TRƯỜNG VN
+# VN market biến động cao, có "lái" và manipulation
+# → Stop loss 7% (không quá chặt) để tránh bị shake out
+# → Target 15% upper range để match kỳ vọng 1-6 tháng
 RISK_MANAGEMENT = {
-    'stop_loss_pct': 0.05,        # -5% stop loss (siết từ 7% → bảo vệ vốn)
-    'target_profit_pct': 0.12,    # +12% target (giảm từ 15% → thực tế cho trung hạn)
-    'risk_reward_ratio': 2.4,     # 1:2.4 risk/reward (5% risk → 12% reward)
+    'stop_loss_pct': 0.07,        # -7% stop loss (điều chỉnh từ 5% → phù hợp VN volatility)
+    'target_profit_pct': 0.15,    # +15% target (tăng từ 12% → upper range 10-15%)
+    'risk_reward_ratio': 2.14,    # 1:2.14 risk/reward (7% risk → 15% reward)
     'max_drawdown_pct': 0.10      # Max 10% drawdown danh mục (siết từ 15%)
 }
 
