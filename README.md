@@ -1,393 +1,479 @@
-# Stock4N - AI-Powered Vietnamese Stock Market Advisor
+# 📊 Stock4N - AI-Powered Vietnamese Stock Advisor
 
-An intelligent stock analysis system for the Vietnamese stock market (VN100) using a defensive swing trading strategy with 60% fundamental and 40% technical analysis.
+<div align="center">
 
-## Features
+**Hệ thống phân tích & tư vấn đầu tư chứng khoán Việt Nam thông minh**
 
-- **Automated Stock Analysis**: Analyzes top 30 VN100 stocks automatically
-- **Multi-Source Data**: Fallback mechanism across VCI, TCBS, and MSN sources
-- **Dual Analysis Approach**:
-  - Fundamental: ROE, profit growth, asset growth, equity ratio
-  - Technical: RSI, SMA, price trends, volume analysis
-- **Portfolio Management**: Score-weighted position sizing with risk management
-- **Modern Dashboard**: Next.js frontend with real-time insights
-- **Production-Ready**: Comprehensive logging, validation, and error handling
+[![Python](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
+[![vnstock](https://img.shields.io/badge/vnstock-3.4.0-green.svg)](https://github.com/thinh-vu/vnstock)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)](https://nextjs.org/)
 
-## Trading Strategy
+[Quick Start](#-quick-start) • [Features](#-features) • [Documentation](#-documentation) • [Architecture](#-architecture)
 
-**Defensive Swing Trading (1-3 months holding period)**
-- Risk/Reward: 1:2 ratio (-7% stop loss, +15% target)
-- Position Sizing: Maximum 40% per stock, 20% cash reserve
-- Entry Signal: Score ≥ 7.0 with positive technical indicators
-- Score Weighting: 60% fundamentals + 40% technical
+</div>
 
-## Architecture
+---
 
-```
-VN100 Top 30 Stocks
-    ↓
-[Ingestion] → Multi-source data fetching with retry logic
-    ↓
-[Processing] → Financial metrics calculation (ROE, growth rates)
-    ↓
-[Analysis] → Fundamental + Technical scoring
-    ↓
-[Portfolio] → Position sizing & risk management
-    ↓
-[Export] → JSON output (db.json)
-    ↓
-[Frontend] → Next.js dashboard
-```
+## 🎯 **Overview**
 
-## Tech Stack
+Stock4N phân tích **100 mã cổ phiếu VN100** (VN30 + VNMidcap) với chiến lược **Defensive Swing Trading** (1-3 tháng), kết hợp:
 
-**Backend:**
-- Python 3.10
-- pandas, numpy, TA-Lib
-- vnstock API (v3.x OOP mode)
-- Docker containerization
+- **60% Fundamental Analysis**: ROE, profit growth, financial health
+- **40% Technical Analysis**: RSI, SMA trends, volume patterns
+- **AI-Powered Insights**: Market breadth, pattern recognition, ML predictions
 
-**Frontend:**
-- Next.js 14.1 (App Router)
-- TypeScript
-- Tailwind CSS
-- Recharts for visualizations
+**Target Audience**: Nhà đầu tư cá nhân với khẩu vị rủi ro thấp-trung bình, vốn 50-200 triệu VND.
 
-## Installation
+---
 
-### Prerequisites
+## ✨ **Features**
+
+### **Core Features**
+
+✅ **100 Stock Universe** — VN100 Index coverage (95%+ market cap)
+✅ **Multi-Source Data** — KBS, VCI, TCBS fallback (vnstock 3.4.0)
+✅ **Dual Analysis** — 60% fundamental + 40% technical scoring
+✅ **Smart Portfolio** — Top 8 stocks, 100M capital allocation
+✅ **Risk Management** — -7% stop loss, +15% target (1:2 R/R)
+✅ **Modern Dashboard** — Next.js web UI with real-time charts
+✅ **Production Ready** — Docker, logging, validation, retry logic
+
+### **Advanced Features**
+
+🧠 **Market Breadth Analysis** — Advance/decline ratio, sector strength
+📈 **Backtesting Engine** — Historical performance simulation
+🤖 **ML Predictions** — Random Forest, Gradient Boosting models
+🔄 **Adaptive Learning** — Pattern detection & weight optimization
+
+---
+
+## 🚀 **Quick Start**
+
+### **Prerequisites**
+
 - Docker & Docker Compose
-- Node.js 18+ (for frontend development)
-- Git
+- [FREE Vnstock API Key](https://vnstocks.com/login) (60 req/min)
+- 8GB RAM, 2GB disk space
 
-### Backend Setup (Docker)
+### **Setup (5 minutes)**
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/darkend16987/Stock4N.git
+# 1. Clone repository
+git clone https://github.com/your-username/Stock4N.git
 cd Stock4N
+
+# 2. Configure environment
+cp .env.example .env
+# Edit .env and add your VNSTOCK_API_KEY
+
+# 3. Start services
+docker-compose up -d
+
+# 4. Register Vnstock API key
+docker exec -it stock4n_app python vnstock_register.py
+# Paste your API key when prompted
+
+# 5. Run full pipeline
+docker exec stock4n_app python src/main.py all
+# Takes ~7-8 minutes for 100 stocks
+
+# 6. Access dashboard
+# Frontend: http://localhost:3000
 ```
 
-2. Build and run with Docker:
+### **One-Command Automation**
+
 ```bash
-docker-compose up --build
+# Windows
+run_all.bat
+
+# Linux/Mac
+./run_all.sh
 ```
 
-The system will:
-- Fetch data for 30 VN100 stocks
-- Analyze fundamentals and technicals
-- Generate portfolio recommendations
-- Export results to `/data/export/db.json`
+This will:
+1. Start Docker containers
+2. Run data pipeline (ingestion → analysis → portfolio)
+3. Export results to web dashboard
+4. Git commit & push (optional)
 
-### Frontend Setup
+---
 
-1. Navigate to frontend directory:
+## 📋 **Configuration**
+
+### **Current Setup**
+
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| **Stock Universe** | 100 stocks | VN100 Index (VN30 + VNMidcap) |
+| **Capital** | 100,000,000 VND | 100 triệu (configurable) |
+| **Max Positions** | 8 stocks | 5-20% per position |
+| **Cash Reserve** | 25% | 25 triệu buffer |
+| **Holding Period** | 1-3 months | Swing trading |
+| **Stop Loss** | -7% | Risk management |
+| **Target** | +15% | Risk/reward 1:2.14 |
+
+### **Data Sources (Priority Order)**
+
+1. **KBS** — Primary (vnstock 3.4.0+)
+2. **VCI** — Fallback #1
+3. **TCBS** — Fallback #2
+4. **MSN** — Fallback #3 (price only)
+
+### **API Rate Limits**
+
+| Tier | Requests/min | Financial Data | Cost |
+|------|--------------|----------------|------|
+| Guest | 20 | 4 quarters | Free |
+| **Community** (recommended) | **60** | **8 quarters** | **Free** ✅ |
+| Sponsor | 180-300 | Unlimited | Paid |
+
+**Register FREE Community tier**: https://vnstocks.com/login
+
+---
+
+## 🏗️ **Architecture**
+
+### **Pipeline Flow**
+
+```
+┌─────────────────────────────────────────────────┐
+│         100 VN100 Stocks (HOSE)                 │
+└──────────────────┬──────────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────────────────┐
+│  1. INGESTION (~6 min)                          │
+│  • Fetch price data (KBS/VCI/TCBS)              │
+│  • Fetch financial reports (8 quarters)         │
+│  • Cache & validate                             │
+└──────────────────┬──────────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────────────────┐
+│  2. PROCESSING (~30 sec)                        │
+│  • Calculate ROE, ROA, EPS growth               │
+│  • Debt/Equity, Asset growth                    │
+│  • Technical indicators (RSI, SMA)              │
+└──────────────────┬──────────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────────────────┐
+│  3. ANALYSIS (~45 sec)                          │
+│  • Market breadth check (auto)                  │
+│  • Fundamental scoring (60%)                    │
+│  • Technical scoring (40%)                      │
+│  • Total score: 0-10                            │
+└──────────────────┬──────────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────────────────┐
+│  4. PORTFOLIO (~5 sec)                          │
+│  • Select top 8 stocks (score >= 6.5)           │
+│  • Allocate 100M capital                        │
+│  • Position sizing (5-20%)                      │
+│  • Risk management rules                        │
+└──────────────────┬──────────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────────────────┐
+│  5. EXPORT (~2 sec)                             │
+│  • Generate db.json                             │
+│  • Sync to frontend                             │
+└─────────────────────────────────────────────────┘
+```
+
+**Total Pipeline Time**: ~7-8 minutes (with FREE API key)
+
+### **Tech Stack**
+
+**Backend**:
+- Python 3.10 + pandas, numpy, TA-Lib
+- vnstock 3.4.0 (KBS data source)
+- Docker (stock-advisor service)
+
+**Frontend**:
+- Next.js 15 + React + TypeScript
+- TailwindCSS + Recharts
+- Static generation (SSG)
+
+**Data**:
+- CSV cache (local)
+- JSON export (db.json)
+- No database required
+
+---
+
+## 📚 **Documentation**
+
+### **Root Documentation**
+
+- [README.md](README.md) — This file (main overview)
+- [QUICK_START.md](QUICK_START.md) — Getting started guide
+- [CONFIGURATION.md](CONFIGURATION.md) — Detailed configuration
+- [VNSTOCK_UPGRADE_GUIDE.md](VNSTOCK_UPGRADE_GUIDE.md) — Vnstock 3.4.0 upgrade
+
+### **Advanced Guides** (`docs/`)
+
+- [BACKTESTING_GUIDE.md](docs/BACKTESTING_GUIDE.md) — Strategy backtesting
+- [LEARNING_GUIDE.md](docs/LEARNING_GUIDE.md) — Pattern learning & optimization
+- [ML_PREDICTION_GUIDE.md](docs/ML_PREDICTION_GUIDE.md) — Machine learning models
+- [DEPLOYMENT_STRATEGY.md](docs/DEPLOYMENT_STRATEGY.md) — Production deployment
+- [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) — Common issues & fixes
+- [PROJECT_BLUEPRINT.md](docs/PROJECT_BLUEPRINT.md) — Original architecture design
+
+---
+
+## 🔧 **Usage**
+
+### **Command-Line Interface**
+
 ```bash
-cd frontend
+# Individual stages
+python src/main.py ingestion    # Fetch data
+python src/main.py processing   # Calculate metrics
+python src/main.py analysis     # Score stocks
+python src/main.py portfolio    # Generate recommendations
+python src/main.py export       # Export JSON
+
+# Full pipeline
+python src/main.py all          # Run all stages
+
+# Advanced
+python src/main.py backtest --capital 100000000 --days 365
+python src/main.py learn --learn-mode all
+python src/main.py ml_predict --ml-mode train
 ```
 
-2. Install dependencies:
+### **Automation Scripts**
+
+**Windows**:
 ```bash
-npm install
+run_all.bat          # Full pipeline + deploy
+run_ingestion.bat    # Data only
+run_analysis.bat     # Analysis only
 ```
 
-3. Run development server:
+**Linux/Mac**:
 ```bash
-npm run dev
+./run_all.sh         # Full pipeline + deploy
+./run_ingestion.sh   # Data only
+./run_analysis.sh    # Analysis only
 ```
 
-4. Open http://localhost:3000 in your browser
+---
 
-## Usage
+## 📊 **Portfolio Example**
 
-### Running Analysis
+### **Sample Output (100M VND Capital)**
 
-**Full analysis (all 30 stocks):**
-```bash
-docker-compose run stock4n python src/main.py all
+```
+══════════════════════════════════════════════════════════
+💼 STOCK4N PORTFOLIO RECOMMENDATION
+══════════════════════════════════════════════════════════
+
+Analysis Date: 2026-02-25
+Total Capital: 100,000,000 VND
+Market Breadth: ✅ POSITIVE (60/40 advance/decline)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Top 8 Stocks (from 100 analyzed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Symbol  Score  Sector        Weight   Capital      Stop    Target
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VCB     7.8    Banking       12%      12,000,000   -7%     +15%
+HPG     7.5    Steel         10%      10,000,000   -7%     +15%
+FPT     7.3    Technology    10%      10,000,000   -7%     +15%
+GAS     7.1    Energy         9%       9,000,000   -7%     +15%
+VNM     6.9    Consumer       8%       8,000,000   -7%     +15%
+VHM     6.8    Real Estate    8%       8,000,000   -7%     +15%
+TCB     6.7    Banking        7%       7,000,000   -7%     +15%
+MSN     6.6    Conglomerate   6%       6,000,000   -7%     +15%
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Allocation:
+  Invested:     70,000,000 VND (70%)
+  Cash Reserve: 30,000,000 VND (30%)
+
+Diversification: 6 sectors represented
+Expected R/R: 1:2.14 (risk 7%, reward 15%)
+
+══════════════════════════════════════════════════════════
 ```
 
-**Single stock analysis:**
-```bash
-docker-compose run stock4n python src/main.py single VNM
-```
+---
 
-**Custom stock list:**
-```bash
-docker-compose run stock4n python src/main.py custom VNM,FPT,VHM
-```
+## 🎓 **Trading Strategy**
 
-### Output Files
+### **Defensive Swing Trading**
 
-- `/data/export/db.json` - Complete analysis results
-- `/data/export/portfolio_recommendations.json` - Top recommendations
-- `/data/logs/` - Daily rotating logs
+**Philosophy**: Bảo toàn vốn > Tối đa lợi nhuận
 
-## Configuration
+**Entry Criteria**:
+- ✅ Score >= 6.5 (6.5-7.0: Buy Probe, 7.0+: Strong Buy)
+- ✅ Market breadth positive (advance/decline > 50%)
+- ✅ Sector not overbought
+- ✅ Technical confirmation (RSI, SMA crossover)
 
-Edit `/src/config.py` to customize:
+**Position Sizing**:
+- Max 20% per position (diversification)
+- Min 5% per position (meaningful allocation)
+- 25% cash reserve (opportunities + safety)
 
-**Scoring Thresholds:**
-```python
-FUNDAMENTAL_THRESHOLDS = {
-    'roe': {'excellent': 20, 'good': 15, 'fair': 10},
-    'profit_growth': {'strong': 20, 'good': 10, 'weak': -20}
-}
-```
+**Exit Rules**:
+- **Stop Loss**: -7% (protect capital)
+- **Target**: +15% (lock profits)
+- **Time-based**: Re-evaluate after 3 months
+- **Score-based**: Sell if score drops below 5.0
 
-**Portfolio Settings:**
-```python
-PORTFOLIO_CONFIG = {
-    'max_position_pct': 0.40,  # Max 40% per position
-    'cash_reserve_pct': 0.20   # Keep 20% cash
-}
-```
+**Risk Management**:
+- Portfolio max drawdown: -10%
+- Max correlation between positions: 0.7
+- Sector max allocation: 40%
 
-**Risk Management:**
-```python
-RISK_MANAGEMENT = {
-    'stop_loss_pct': 0.07,      # -7% stop loss
-    'target_profit_pct': 0.15   # +15% target
-}
-```
+---
 
-## Deployment
+## 🛠️ **Development**
 
-### Deploy Frontend to Vercel
-
-1. **Connect GitHub Repository:**
-   - Go to [vercel.com](https://vercel.com)
-   - Click "Import Project"
-   - Select your Stock4N repository
-   - Set root directory to `frontend`
-
-2. **Configure Build Settings:**
-   ```
-   Framework Preset: Next.js
-   Build Command: npm run build
-   Output Directory: .next
-   Install Command: npm install
-   ```
-
-3. **Environment Variables:**
-   No environment variables needed for basic setup.
-
-4. **Deploy:**
-   - Click "Deploy"
-   - Vercel will build and deploy automatically
-   - Get your production URL (e.g., `https://stock4n.vercel.app`)
-
-5. **Data Sync Strategy:**
-
-   **Option A: Manual Upload (Simple)**
-   - Run backend analysis locally/Docker
-   - Copy `/data/export/db.json` to `/frontend/public/data/export/`
-   - Commit and push to trigger Vercel rebuild
-
-   **Option B: API Integration (Advanced)**
-   - Host backend on a server (AWS, DigitalOcean)
-   - Create API endpoint to serve `db.json`
-   - Update `frontend/lib/data.ts` to fetch from API
-   - Set up cron job to run analysis daily
-
-   **Option C: GitHub Actions (Recommended)**
-   ```yaml
-   # .github/workflows/analyze.yml
-   name: Daily Stock Analysis
-   on:
-     schedule:
-       - cron: '0 17 * * 1-5'  # Run at 5 PM weekdays
-   jobs:
-     analyze:
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v3
-         - name: Run Analysis
-           run: docker-compose up
-         - name: Copy Results
-           run: cp data/export/db.json frontend/public/data/export/
-         - name: Commit Results
-           run: |
-             git config user.name "GitHub Actions"
-             git add frontend/public/data/export/db.json
-             git commit -m "Update analysis results"
-             git push
-   ```
-
-### Deploy Backend to Cloud
-
-**Option 1: AWS ECS (Recommended for production)**
-```bash
-# Build and push Docker image
-docker build -t stock4n-backend .
-docker tag stock4n-backend:latest <AWS_ACCOUNT>.dkr.ecr.ap-southeast-1.amazonaws.com/stock4n
-docker push <AWS_ACCOUNT>.dkr.ecr.ap-southeast-1.amazonaws.com/stock4n
-
-# Deploy to ECS with scheduled task (daily at 5 PM)
-```
-
-**Option 2: DigitalOcean App Platform**
-- Connect GitHub repository
-- Select Dockerfile deployment
-- Set up cron job for daily analysis
-
-## Project Structure
+### **Project Structure**
 
 ```
 Stock4N/
 ├── src/
+│   ├── main.py                    # CLI entry point
+│   ├── config.py                  # Configuration
 │   ├── modules/
-│   │   ├── ingestion/
-│   │   │   └── loader.py          # Multi-source data fetching
-│   │   ├── processing/
-│   │   │   └── calculator.py      # Financial metrics calculation
-│   │   ├── analysis/
-│   │   │   └── scorer.py          # Scoring engine
-│   │   ├── portfolio/
-│   │   │   └── manager.py         # Position sizing & risk
-│   │   └── utils/
-│   │       ├── logger.py          # Logging system
-│   │       ├── validator.py       # Data validation
-│   │       ├── exporter.py        # JSON export
-│   │       └── exceptions.py      # Custom exceptions
-│   ├── config.py                  # Centralized configuration
-│   └── main.py                    # Entry point
-├── frontend/
-│   ├── app/
-│   │   ├── layout.tsx             # Root layout
-│   │   ├── page.tsx               # Main dashboard
-│   │   └── globals.css            # Tailwind styles
-│   ├── components/
-│   │   ├── Header.tsx
-│   │   ├── StatsCards.tsx
-│   │   ├── PortfolioTable.tsx
-│   │   └── AnalysisTable.tsx
-│   ├── lib/
-│   │   └── data.ts                # Data fetching logic
-│   └── public/
-│       └── data/export/           # Analysis results
-├── data/
-│   ├── raw/                       # Raw API data cache
+│   │   ├── ingestion/             # Data fetching
+│   │   ├── processing/            # Metrics calculation
+│   │   ├── analysis/              # Stock scoring
+│   │   ├── portfolio/             # Portfolio management
+│   │   ├── simulation/            # Backtesting
+│   │   ├── learning/              # ML & optimization
+│   │   └── utils/                 # Utilities
+├── frontend/                      # Next.js web app
+├── data/                          # Data storage
+│   ├── raw/                       # CSV cache
 │   ├── processed/                 # Processed data
-│   ├── export/                    # JSON outputs
-│   └── logs/                      # Application logs
-├── docker-compose.yml
-├── Dockerfile
-└── README.md
+│   └── export/                    # db.json output
+├── docs/                          # Advanced documentation
+├── scripts/                       # Helper scripts
+├── docker-compose.yml             # Docker orchestration
+└── requirements.txt               # Python dependencies
 ```
 
-## Key Improvements (Production-Ready)
-
-### Priority 1 (Critical) - ✅ COMPLETED
-- ✅ Created `utils/__init__.py` for proper package structure
-- ✅ Comprehensive logging system (daily rotation, auto-cleanup)
-- ✅ Custom exception hierarchy for better error handling
-- ✅ Data validation at every pipeline stage
-- ✅ Parametrized all hard-coded values in config
-
-### Priority 2 (High) - ✅ COMPLETED
-- ✅ Retry logic with exponential backoff for API calls
-- ✅ Fixed YoY growth calculation (proper quarter matching)
-- ✅ Fixed price unit auto-detection (handles both VND formats)
-- ✅ Removed unsupported DNSE source
-- ✅ Added logging throughout all modules
-
-### Priority 3 (Medium) - PENDING
-- ⏳ Unit tests for all modules
-- ⏳ Parallel data fetching with ThreadPoolExecutor
-- ⏳ Database migration (SQLite/PostgreSQL)
-- ⏳ Backtest module for strategy validation
-
-### Priority 4 (Low) - PENDING
-- ⏳ Real-time monitoring dashboard
-- ⏳ Sentiment analysis integration
-- ⏳ Performance optimization
-- ⏳ API documentation
-
-## Testing
+### **Adding New Features**
 
 ```bash
-# Run unit tests (coming soon)
-python -m pytest tests/
+# 1. Create feature branch
+git checkout -b feature/your-feature
 
-# Test single stock
-docker-compose run stock4n python src/main.py single VNM
+# 2. Implement in relevant module
+# src/modules/your_module/
 
-# Test with verbose logging
-docker-compose run stock4n python src/main.py all --verbose
+# 3. Add tests (if applicable)
+# tests/test_your_module.py
+
+# 4. Update documentation
+# docs/YOUR_FEATURE_GUIDE.md
+
+# 5. Test locally
+docker-compose build --no-cache
+docker exec stock4n_app python src/main.py all
+
+# 6. Commit & push
+git add .
+git commit -m "feat: Your feature description"
+git push origin feature/your-feature
 ```
-
-## Monitoring & Logs
-
-**Log Files:**
-- `/data/logs/stock4n_YYYY-MM-DD.log` - Daily logs
-- `/data/logs/stock4n_error_YYYY-MM-DD.log` - Error logs
-- Auto-cleanup after 7 days
-
-**Log Levels:**
-```python
-# In config.py
-LOG_CONFIG = {
-    'level': logging.INFO,  # Change to DEBUG for verbose output
-    'retention_days': 7
-}
-```
-
-## Troubleshooting
-
-**Issue: API rate limit errors**
-```
-Solution: System automatically retries with exponential backoff.
-Check RATE_LIMIT config in config.py for cooldown settings.
-```
-
-**Issue: No data for certain stocks**
-```
-Solution: System tries VCI → TCBS → MSN sources automatically.
-Check logs to see which source succeeded.
-```
-
-**Issue: Floating point display issues**
-```
-Solution: Already fixed with .1f format specifiers in manager.py
-```
-
-**Issue: DNSE source warnings**
-```
-Solution: DNSE removed from config (vnstock v3.x doesn't support it)
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License.
-
-## Disclaimer
-
-**Important:** This system is for educational and research purposes only. It does not constitute financial advice. Always do your own research and consult with a licensed financial advisor before making investment decisions. Past performance does not guarantee future results.
-
-## Support
-
-For issues and questions:
-- GitHub Issues: [https://github.com/darkend16987/Stock4N/issues](https://github.com/darkend16987/Stock4N/issues)
-- Email: support@stock4n.com
-
-## Acknowledgments
-
-- [vnstock](https://github.com/thinh-vu/vnstock) - Vietnamese stock data API
-- [TA-Lib](https://mrjbq7.github.io/ta-lib/) - Technical analysis library
-- [Next.js](https://nextjs.org/) - React framework
-- Vietnamese Stock Market Community
 
 ---
 
-**Last Updated:** December 2025
-**Version:** 1.0.0
-**Status:** Production Ready 🚀
+## 🐛 **Troubleshooting**
+
+### **Common Issues**
+
+**1. API Rate Limit Exceeded**
+```bash
+# Solution: Register FREE API key
+docker exec -it stock4n_app python vnstock_register.py
+```
+
+**2. Docker Build Fails**
+```bash
+# Clear cache and rebuild
+docker-compose down
+docker system prune -a
+docker-compose build --no-cache
+```
+
+**3. Frontend Not Loading**
+```bash
+# Check if db.json exists
+ls -lh frontend/public/data/db.json
+
+# Re-export data
+docker exec stock4n_app python src/main.py export
+python scripts/sync_data.py
+```
+
+**4. Slow Ingestion (15+ minutes)**
+```bash
+# Verify API key is set
+docker exec stock4n_app python -c "import os; print(os.environ.get('VNSTOCK_API_KEY'))"
+
+# Should NOT be None
+```
+
+More troubleshooting: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
+
+---
+
+## 🤝 **Contributing**
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### **Code Style**
+
+- Python: PEP 8 (use `black` formatter)
+- JavaScript/TypeScript: Prettier + ESLint
+- Commits: Conventional Commits format
+
+---
+
+## 📄 **License**
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 **Acknowledgments**
+
+- **vnstock** by [@thinh-vu](https://github.com/thinh-vu) — Vietnamese stock data API
+- **TA-Lib** — Technical analysis library
+- **Next.js** — React framework
+- **Vietnamese Stock Market Community** — Data sources & insights
+
+---
+
+## 📞 **Support**
+
+- 📧 **Issues**: [GitHub Issues](https://github.com/your-username/Stock4N/issues)
+- 📚 **Documentation**: [docs/](docs/)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/your-username/Stock4N/discussions)
+
+---
+
+<div align="center">
+
+**Made with ❤️ for Vietnamese Stock Market Investors**
+
+[⬆ Back to Top](#-stock4n---ai-powered-vietnamese-stock-advisor)
+
+</div>
