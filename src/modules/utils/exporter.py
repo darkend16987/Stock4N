@@ -106,6 +106,65 @@ class DataExporter:
             logger.error(f"Failed to save JSON file: {e}")
             raise
 
+        # 6. Upload to Cloud Storage (if in Cloud Run environment)
+        if os.environ.get('K_SERVICE'):  # Cloud Run environment variable
+            try:
+                self.upload_to_cloud_storage(output_file)
+            except Exception as e:
+                logger.warning(f"Cloud Storage upload failed (continuing anyway): {e}")
+
+    def upload_to_cloud_storage(self, local_file_path):
+        """
+        Upload db.json to Google Cloud Storage
+        Only runs in Cloud Run environment
+        """
+        try:
+            from google.cloud import storage
+        except ImportError:
+            logger.warning("google-cloud-storage not installed, skipping upload")
+            return
+
+        bucket_name = os.environ.get('BUCKET_NAME')
+        if not bucket_name:
+            logger.warning("BUCKET_NAME not set, skipping Cloud Storage upload")
+            return
+
+        logger.info("Uploading to Google Cloud Storage...")
+
+        try:
+            # Initialize client
+            client = storage.Client()
+            bucket = client.bucket(bucket_name)
+
+            # Upload db.json
+            blob = bucket.blob('db.json')
+            blob.upload_from_filename(
+                local_file_path,
+                content_type='application/json'
+            )
+
+            # Set cache control and make public
+            blob.cache_control = 'public, max-age=3600'  # 1 hour cache
+            blob.patch()
+            blob.make_public()
+
+            public_url = blob.public_url
+
+            logger.info("=" * 60)
+            logger.info("CLOUD STORAGE UPLOAD")
+            logger.info("=" * 60)
+            logger.info(f"Bucket: gs://{bucket_name}")
+            logger.info(f"File: db.json")
+            logger.info(f"Public URL: {public_url}")
+            logger.info("=" * 60)
+            logger.info("✓ Cloud Storage upload completed!")
+
+            return public_url
+
+        except Exception as e:
+            logger.error(f"Failed to upload to Cloud Storage: {e}")
+            raise
+
 
 if __name__ == "__main__":
     exporter = DataExporter()
