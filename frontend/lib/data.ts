@@ -54,7 +54,9 @@ export async function getStockData(): Promise<StockData> {
       ? 'http://localhost:3000'
       : ''
 
-    const response = await fetch(`${baseUrl}/data/db.json`, {
+    const dataUrl = process.env.NEXT_PUBLIC_DATA_URL || `${baseUrl}/data/db.json`
+
+    const response = await fetch(dataUrl, {
       cache: 'no-store'
     })
 
