@@ -56,7 +56,7 @@ class WeightOptimizer:
         scores_df,
         start_date,
         end_date,
-        initial_capital=80_000_000,
+        initial_capital=100_000_000,
         min_score=6.0
     ):
         """
@@ -113,7 +113,7 @@ class WeightOptimizer:
         scores_df,
         start_date,
         end_date,
-        initial_capital=80_000_000,
+        initial_capital=100_000_000,
         min_score=6.0,
         optimization_metric='sharpe_ratio'
     ):

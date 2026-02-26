@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 class PerformanceMetrics:
     """Calculate portfolio performance metrics"""
 
-    def __init__(self, trades_df, initial_capital=80_000_000):
+    def __init__(self, trades_df, initial_capital=100_000_000):
         """
         Args:
             trades_df: DataFrame with columns [date, symbol, action, price, shares, pnl]

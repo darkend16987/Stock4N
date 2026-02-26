@@ -46,7 +46,7 @@ class PortfolioManager:
             # Already in VND
             return price
 
-    def generate_recommendation(self, total_capital=80000000):
+    def generate_recommendation(self, total_capital=100000000):
         """
         Generate portfolio allocation recommendations
 
