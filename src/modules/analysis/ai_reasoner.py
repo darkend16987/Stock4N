@@ -45,7 +45,7 @@ class AIReasoner:
         'risk_alert'       – cảnh báo rủi ro từ context
     """
 
-    MODEL = os.environ.get("AI_MODEL", "gemini-2.0-flash")
+    MODEL = os.environ.get("AI_MODEL", "gemini-2.5-flash")
     MAX_TOKENS = 1500
 
     SYSTEM_PROMPT = """Bạn là chuyên gia phân tích cổ phiếu Việt Nam với 15 năm kinh nghiệm.
