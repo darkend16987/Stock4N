@@ -19,6 +19,7 @@ from modules.utils.exceptions import (
     InvalidSymbolException
 )
 from modules.utils.validator import DataValidator
+from modules.utils.rate_limiter import RateLimiter
 
 logger = get_logger(__name__)
 
@@ -29,6 +30,19 @@ class VNStockLoader:
         self.use_legacy = hasattr(vnstock, 'stock_historical_data')
         self.validator = DataValidator()
         self.logger_lock = Lock()  # Thread-safe logging
+
+        # Initialize Rate Limiter for vnstock API
+        # Get API key tier from config or env
+        api_key = config.VNSTOCK_CONFIG.get('api_key') or os.environ.get('VNSTOCK_API_KEY')
+        if api_key and api_key.startswith('vnstock_'):
+            # Community tier: 60 req/min
+            self.rate_limiter = RateLimiter(max_requests=60, time_window=60, buffer=5)
+            logger.info("✓ Rate limiter configured for Community tier (60 req/min)")
+        else:
+            # Guest mode: 20 req/min
+            self.rate_limiter = RateLimiter(max_requests=20, time_window=60, buffer=3)
+            logger.warning("⚠️  Rate limiter configured for Guest mode (20 req/min)")
+            logger.warning("   Register FREE API key for 3x faster: https://vnstocks.com/login")
 
         if not self.use_legacy:
             logger.info("Detected vnstock v3.x (OOP Mode)")
@@ -92,7 +106,10 @@ class VNStockLoader:
 
         for attempt in range(max_attempts):
             try:
-                result = func(*args, **kwargs)
+                # Use rate limiter to prevent hitting API limits
+                with self.rate_limiter:
+                    result = func(*args, **kwargs)
+
                 if result is not None and not result.empty:
                     if attempt > 0:
                         logger.info(f"✓ Retry successful for {symbol} on attempt {attempt + 1}")
@@ -279,12 +296,8 @@ class VNStockLoader:
         with self.logger_lock:
             logger.info(f"[{idx+1}/{total}] Processing {symbol}...")
 
-        # Random sleep to avoid rate limiting (distributed across threads)
-        sleep_time = random.uniform(
-            config.RATE_LIMIT['request_delay_min'],
-            config.RATE_LIMIT['request_delay_max']
-        )
-        time.sleep(sleep_time)
+        # NOTE: Rate limiting is now handled by RateLimiter class
+        # No need for manual sleep delays here
 
         try:
             # 1. Fetch price data (most important)
@@ -294,11 +307,12 @@ class VNStockLoader:
             bs = None
             inc = None
             if price is not None:
-                time.sleep(random.uniform(1, 2))
+                # Small delay between different API call types (not rate-limit related)
+                time.sleep(0.5)
                 bs = self.get_financial_report(symbol, 'BalanceSheet')
 
                 if bs is not None:
-                    time.sleep(random.uniform(1, 2))
+                    time.sleep(0.5)
                     inc = self.get_financial_report(symbol, 'IncomeStatement')
 
             # Determine status
@@ -421,5 +435,8 @@ class VNStockLoader:
         logger.info(f"Partial: {partial_count} ({partial_count/len(symbols)*100:.1f}%)")
         logger.info(f"Failed: {fail_count} ({fail_count/len(symbols)*100:.1f}%)")
         logger.info("=" * 60)
+
+        # Print rate limiter statistics
+        self.rate_limiter.print_stats()
 
         return pd.DataFrame(results)
