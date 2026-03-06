@@ -25,7 +25,8 @@ export function Dashboard({ initialData }: { initialData: StockData }) {
   const refreshData = useCallback(async () => {
     setRefreshing(true)
     try {
-      const res = await fetch('/data/db.json', { cache: 'no-store' })
+      const dataUrl = process.env.NEXT_PUBLIC_DATA_URL || '/data/db.json'
+      const res = await fetch(dataUrl, { cache: 'no-store' })
       if (res.ok) {
         const newData = await res.json()
         setData(newData)

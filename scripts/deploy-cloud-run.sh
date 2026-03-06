@@ -148,17 +148,22 @@ echo ""
 
 # Create bucket
 log_info "Creating bucket: gs://$BUCKET_NAME"
-if gsutil mb -p $PROJECT_ID -c STANDARD -l $REGION gs://$BUCKET_NAME 2>/dev/null; then
-    log_success "Bucket created"
+if gcloud storage ls gs://$BUCKET_NAME >/dev/null 2>&1 || gcloud storage buckets create gs://$BUCKET_NAME --project=$PROJECT_ID --location=$REGION --default-storage-class=STANDARD >/dev/null 2>&1; then
+    log_success "Bucket created or already exists"
 else
     log_warning "Bucket already exists or name taken, trying alternative..."
     BUCKET_NAME="${BUCKET_NAME}-${PROJECT_ID}"
-    gsutil mb -p $PROJECT_ID -c STANDARD -l $REGION gs://$BUCKET_NAME
+    if gcloud storage ls gs://$BUCKET_NAME >/dev/null 2>&1 || gcloud storage buckets create gs://$BUCKET_NAME --project=$PROJECT_ID --location=$REGION --default-storage-class=STANDARD; then
+        log_success "Alternative bucket created or already exists"
+    else
+        log_error "Failed to create bucket"
+        exit 1
+    fi
 fi
 
 # Make bucket publicly readable
 log_info "Setting bucket permissions..."
-gsutil iam ch allUsers:objectViewer gs://$BUCKET_NAME
+gcloud storage buckets add-iam-policy-binding gs://$BUCKET_NAME --member=allUsers --role=roles/storage.objectViewer >/dev/null 2>&1 || true
 
 # Set CORS for web access
 cat > /tmp/cors.json <<EOF
@@ -172,8 +177,8 @@ cat > /tmp/cors.json <<EOF
 ]
 EOF
 
-gsutil cors set /tmp/cors.json gs://$BUCKET_NAME
-rm /tmp/cors.json
+gcloud storage buckets update gs://$BUCKET_NAME --cors-file=/tmp/cors.json >/dev/null 2>&1 || true
+rm -f /tmp/cors.json
 
 log_success "Bucket configured: gs://$BUCKET_NAME"
 
@@ -228,8 +233,8 @@ echo ""
 log_info "This will take 5-10 minutes (building Docker image)..."
 log_info "Building and deploying..."
 
-# Create a temporary entrypoint script
-cat > /tmp/entrypoint.sh <<'EOF'
+# Create a temporary entrypoint script inside the project directory
+cat > cloud_run_entrypoint.sh <<'EOF'
 #!/bin/bash
 set -e
 
@@ -270,7 +275,7 @@ else
 fi
 EOF
 
-chmod +x /tmp/entrypoint.sh
+chmod +x cloud_run_entrypoint.sh
 
 # Deploy to Cloud Run
 gcloud run deploy $SERVICE_NAME \
@@ -284,8 +289,8 @@ gcloud run deploy $SERVICE_NAME \
     --max-instances 1 \
     --set-env-vars "VNSTOCK_API_KEY=${VNSTOCK_API_KEY},GOOGLE_API_KEY=${GOOGLE_API_KEY},BUCKET_NAME=${BUCKET_NAME}" \
     --allow-unauthenticated \
-    --command "/bin/bash" \
-    --args "/tmp/entrypoint.sh"
+    --command "bash" \
+    --args "cloud_run_entrypoint.sh"
 
 # Get service URL
 SERVICE_URL=$(gcloud run services describe $SERVICE_NAME --region $REGION --format='value(status.url)')
