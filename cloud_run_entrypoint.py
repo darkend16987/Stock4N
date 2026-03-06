@@ -17,18 +17,19 @@ CORS(app)  # Enable CORS for all origins
 
 # Whitelist commands for security (matching api_server.py)
 ALLOWED_COMMANDS = {
-    "all":        "python src/main.py all",
-    "ingestion":  "python src/main.py ingestion",
-    "processing": "python src/main.py processing",
-    "analysis":   "python src/main.py analysis",
-    "portfolio":  "python src/main.py portfolio",
-    "export":     "python src/main.py export",
-    "breadth":    "python src/main.py breadth",
-    "backtest":   "python src/main.py backtest",
-    "learn":      "python src/main.py learn",
-    "ml_train":   "python src/main.py ml_predict --ml-mode train",
-    "ml_predict": "python src/main.py ml_predict --ml-mode predict",
-    "adaptive":   "python src/main.py analysis --adaptive",
+    "all":          "python src/main.py all",
+    "ingestion":    "python src/main.py ingestion",
+    "processing":   "python src/main.py processing",
+    "analysis":     "python src/main.py analysis",
+    "portfolio":    "python src/main.py portfolio",
+    "export":       "python src/main.py export",
+    "breadth":      "python src/main.py breadth",
+    "backtest":     "python src/main.py backtest",
+    "learn":        "python src/main.py learn",
+    "ml_train":     "python src/main.py ml_predict --ml-mode train",
+    "ml_predict":   "python src/main.py ml_predict --ml-mode predict",
+    "adaptive":     "python src/main.py analysis --adaptive",
+    "price_filter": "python src/main.py price_filter",
 }
 
 @app.route('/health')

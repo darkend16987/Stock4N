@@ -42,7 +42,7 @@ REGION="asia-southeast1"
 SERVICE_NAME="stock4n-pipeline"
 BUCKET_NAME="stock4n-data"
 MIN_INSTANCES=1
-MEMORY="2Gi"
+MEMORY="4Gi"
 CPU="2"
 TIMEOUT="3600"
 
