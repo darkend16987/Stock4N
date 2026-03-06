@@ -74,15 +74,27 @@ class DataExporter:
 
             logger.info(f"✓ Exported {chart_count}/{len(symbols)} price charts")
 
-        # 4. Add metadata
+        # 4. Export Price Filter Scanner results
+        price_filter_path = os.path.join(self.processed_dir, "price_filter_results.csv")
+        if os.path.exists(price_filter_path):
+            logger.info("Exporting price filter results...")
+            df = pd.read_csv(price_filter_path)
+            data_store["price_filter"] = df.to_dict(orient="records")
+            logger.info(f"✓ Exported {len(df)} price filter results")
+        else:
+            data_store["price_filter"] = []
+            logger.info("No price filter results found (skipping)")
+
+        # 5. Add metadata
         data_store["metadata"] = {
             "total_symbols": len(data_store["analysis"]),
             "total_positions": len(data_store["portfolio"]),
+            "price_filter_matches": len(data_store["price_filter"]),
             "chart_days": self.chart_limit,
             "export_timestamp": pd.Timestamp.now().isoformat()
         }
 
-        # 5. Save to JSON
+        # 6. Save to JSON
         output_file = os.path.join(self.export_dir, "db.json")
         try:
             with open(output_file, "w", encoding='utf-8') as f:
@@ -98,6 +110,7 @@ class DataExporter:
             logger.info(f"Analysis records: {len(data_store['analysis'])}")
             logger.info(f"Portfolio positions: {len(data_store['portfolio'])}")
             logger.info(f"Price charts: {len(data_store['charts'])}")
+            logger.info(f"Price filter matches: {len(data_store['price_filter'])}")
             logger.info(f"Last updated: {data_store['last_updated']}")
             logger.info("=" * 60)
             logger.info("✓ Export completed successfully!")
@@ -106,7 +119,7 @@ class DataExporter:
             logger.error(f"Failed to save JSON file: {e}")
             raise
 
-        # 6. Upload to Cloud Storage (if in Cloud Run environment)
+        # 7. Upload to Cloud Storage (if in Cloud Run environment)
         if os.environ.get('K_SERVICE'):  # Cloud Run environment variable
             try:
                 self.upload_to_cloud_storage(output_file)

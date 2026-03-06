@@ -22,14 +22,27 @@ export interface PortfolioPosition {
   'Risk/Reward': string
 }
 
+export interface PriceFilterResult {
+  Symbol: string
+  Close: number
+  SMA200: number
+  Pct_Below_SMA200: number
+  Avg_Vol_20: number
+  PE: number
+  PB: number
+  Scan_Date: string
+}
+
 export interface StockData {
   last_updated: string
   analysis: StockAnalysis[]
   portfolio: PortfolioPosition[]
+  price_filter: PriceFilterResult[]
   charts: Record<string, any[]>
   metadata?: {
     total_symbols: number
     total_positions: number
+    price_filter_matches: number
     chart_days: number
     export_timestamp: string
   }
@@ -39,10 +52,12 @@ const emptyData: StockData = {
   last_updated: new Date().toISOString(),
   analysis: [],
   portfolio: [],
+  price_filter: [],
   charts: {},
   metadata: {
     total_symbols: 0,
     total_positions: 0,
+    price_filter_matches: 0,
     chart_days: 100,
     export_timestamp: new Date().toISOString()
   }
