@@ -409,6 +409,7 @@ def main():
         run_ingestion()
         run_processing()
         run_analysis(use_adaptive=args.adaptive)
+        run_breadth()
         run_portfolio()
         run_export()
 

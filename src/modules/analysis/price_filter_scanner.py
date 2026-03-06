@@ -42,9 +42,11 @@ class PriceFilterScanner:
     DEFAULT_MAX_PE = 20
     DEFAULT_MAX_PB = 5
 
-    # Batch config
-    BATCH_SIZE = 15          # Symbols per batch (conservative for rate limit)
-    BATCH_DELAY = 62         # Seconds between batches (> 60s for rate limit reset)
+    # Batch config — tuned for 55 req/min API key
+    # Each symbol = ~2 API calls (price + ratio), safe_limit = 45/min
+    # → batch 20 symbols = ~40 calls, fits within 1 minute window
+    BATCH_SIZE = 20          # Symbols per batch
+    BATCH_DELAY = 5          # Seconds between batches (RateLimiter handles throttling)
     RETRY_DELAY = 65         # Seconds to wait on rate limit error
     MAX_RETRIES = 3          # Max retries per symbol
 

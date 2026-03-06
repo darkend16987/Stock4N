@@ -7,12 +7,14 @@ import { StatsCards } from './StatsCards'
 import { CommandCenter } from './CommandCenter'
 import { PortfolioTable } from './PortfolioTable'
 import { AnalysisTable } from './AnalysisTable'
+import { PriceFilterTable } from './PriceFilterTable'
 
-type TabId = 'portfolio' | 'analysis'
+type TabId = 'portfolio' | 'analysis' | 'price_filter'
 
 const tabs: { id: TabId; label: string; icon: string }[] = [
-  { id: 'portfolio', label: 'Danh Muc', icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' },
-  { id: 'analysis',  label: 'Phan Tich', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
+  { id: 'portfolio',     label: 'Danh Muc',    icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' },
+  { id: 'analysis',      label: 'Phan Tich',   icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
+  { id: 'price_filter',  label: 'Loc Gia',     icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' },
 ]
 
 export function Dashboard({ initialData }: { initialData: StockData }) {
@@ -84,6 +86,15 @@ export function Dashboard({ initialData }: { initialData: StockData }) {
                 <p className="text-sm text-slate-400 mt-1">Fundamental 65% + Technical 35% | Buy threshold: 6.5/10</p>
               </div>
               <AnalysisTable data={data.analysis} />
+            </div>
+          )}
+          {activeTab === 'price_filter' && (
+            <div>
+              <div className="px-6 py-4 border-b border-slate-700/50">
+                <h2 className="text-lg font-semibold text-white">Loc Co Phieu: Gia &lt; SMA200</h2>
+                <p className="text-sm text-slate-400 mt-1">Quet toan thi truong VN | Background scan voi auto-resume</p>
+              </div>
+              <PriceFilterTable data={data.price_filter || []} />
             </div>
           )}
         </div>
