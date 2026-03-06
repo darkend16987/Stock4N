@@ -42,12 +42,12 @@ class PriceFilterScanner:
     DEFAULT_MAX_PE = 20
     DEFAULT_MAX_PB = 5
 
-    # Batch config — tuned for 55 req/min API key
-    # Each symbol = ~2 API calls (price + ratio), safe_limit = 45/min
-    # → batch 20 symbols = ~40 calls, fits within 1 minute window
-    BATCH_SIZE = 20          # Symbols per batch
-    BATCH_DELAY = 5          # Seconds between batches (RateLimiter handles throttling)
-    RETRY_DELAY = 65         # Seconds to wait on rate limit error
+    # Batch config — tuned for Silver tier (300 req/min)
+    # Each symbol = ~2 API calls (price + ratio), safe_limit = 270/min
+    # → batch 100 symbols = ~200 calls, fits within 1 minute window
+    BATCH_SIZE = 100         # Symbols per batch
+    BATCH_DELAY = 2          # Seconds between batches (RateLimiter handles throttling)
+    RETRY_DELAY = 30         # Seconds to wait on rate limit error
     MAX_RETRIES = 3          # Max retries per symbol
 
     def __init__(self):
@@ -57,10 +57,11 @@ class PriceFilterScanner:
         self.progress_file = os.path.join(config.DATA_DIR, 'price_filter_progress.json')
         self.result_file = os.path.join(config.PROCESSED_DIR, 'price_filter_results.csv')
 
-        # Rate limiter: conservative 55 req/min for safety
+        # Rate limiter: detect API tier from key
         api_key = config.VNSTOCK_CONFIG.get('api_key') or os.environ.get('VNSTOCK_API_KEY')
         if api_key and api_key.startswith('vnstock_'):
-            self.rate_limiter = RateLimiter(max_requests=55, time_window=60, buffer=10)
+            # Silver tier: 300 req/min
+            self.rate_limiter = RateLimiter(max_requests=300, time_window=60, buffer=30)
         else:
             self.rate_limiter = RateLimiter(max_requests=18, time_window=60, buffer=5)
 

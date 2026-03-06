@@ -97,20 +97,21 @@ API_RETRY = {
 }
 
 # Rate limiting (optimized for vnstock 3.4.0)
-# API Limits (FREE community tier):
+# API Limits:
 #   - Guest mode: 20 requests/min
-#   - Free API key: 60 requests/min (3x faster!)
+#   - Free API key: 60 requests/min
+#   - Silver tier: 300 requests/min ← current plan
 #   - Sponsor: 180-300 requests/min
-# Strategy: Conservative approach with random delays to avoid bursts
+# Strategy: Faster delays for Silver tier, RateLimiter handles throttling
 RATE_LIMIT = {
-    'request_delay_min': 0.8,  # Min seconds between requests (faster than before)
-    'request_delay_max': 2.0,  # Max seconds between requests (avg ~1.4s)
-    'cooldown_on_limit': 60    # Cooldown seconds when rate limited
+    'request_delay_min': 0.15,  # Min seconds between requests (Silver: 300 req/min = 5 req/s)
+    'request_delay_max': 0.5,   # Max seconds between requests
+    'cooldown_on_limit': 30     # Cooldown seconds when rate limited
 }
 # Expected performance (100 stocks, 3 API calls each):
 #   - Total requests: ~300
-#   - With 60 req/min + delays: ~5-6 minutes
-#   - With 20 req/min (guest): ~15+ minutes
+#   - With Silver 300 req/min: ~1-2 minutes
+#   - With Free 60 req/min: ~5-6 minutes
 
 # Data sources priority
 # VNSTOCK 3.4.0: KBS là nguồn mới nhất, ưu tiên #1
@@ -121,21 +122,20 @@ DATA_SOURCES = {
 }
 
 # Vnstock API Configuration (v3.4.0+)
-# Register free API key at https://vnstocks.com/login
-# Benefits: 60 req/min (vs 20 guest), 8 quarters financial data (vs 4)
+# Silver tier: 300 req/min, 8 quarters financial data
 VNSTOCK_CONFIG = {
     'api_key': os.environ.get('VNSTOCK_API_KEY'),  # Set in .env
     'auto_register': True,                          # Auto-register API key on startup
-    'rate_limit_buffer': 5,                         # Buffer seconds between requests
+    'rate_limit_buffer': 2,                         # Buffer seconds between requests
 }
 
-# Parallel data fetching (optimized for vnstock 3.4.0 - 60 req/min)
-# Strategy: Balance between speed and API limits
-# Math: 4 workers × avg 1.4s delay = ~2.86 req/sec = ~43 req/min (safe buffer)
+# Parallel data fetching (optimized for Silver tier - 300 req/min)
+# Strategy: More workers, shorter delays → 5 req/sec target
+# Math: 8 workers × avg 0.3s delay = ~4-5 req/sec = ~270 req/min (safe buffer)
 PARALLEL_FETCHING = {
     'enabled': True,           # Enable parallel fetching by default
-    'max_workers': 4,          # 4 concurrent workers (optimized for 60 req/min)
-    'timeout': 90              # Timeout per symbol (increased for 100 stocks)
+    'max_workers': 8,          # 8 concurrent workers (Silver: 300 req/min)
+    'timeout': 60              # Timeout per symbol
 }
 
 # --- CẤU HÌNH SCORING ---
