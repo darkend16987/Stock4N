@@ -242,9 +242,10 @@ with col4:
 st.markdown("---")
 
 # Tabs
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "💼 Danh Mục Đầu Tư", "📊 Phân Tích Thị Trường",
-    "📈 Biểu Đồ", "🔬 Backtest", "🌡️ Market Breadth"
+    "📈 Biểu Đồ", "🔬 Backtest", "🌡️ Market Breadth",
+    "🔍 Lọc Giá < SMA200"
 ])
 
 # === TAB 1: Portfolio ===
@@ -731,6 +732,134 @@ with tab5:
             )
             if success:
                 st.rerun()
+
+# === TAB 6: Price Filter Scanner ===
+with tab6:
+    st.header("🔍 Lọc Cổ Phiếu: Giá < SMA200")
+
+    st.markdown("""
+    Quét **toàn bộ thị trường** chứng khoán Việt Nam và lọc ra các mã thỏa mãn:
+
+    | Điều kiện | Giá trị |
+    |-----------|---------|
+    | **Giá đóng cửa** | < SMA200 (trung bình 200 phiên) |
+    | **Thanh khoản TB 20 phiên** | >= 500.000 cổ phiếu |
+    | **PE** | < 20 (và > 0) |
+    | **PB** | < 5 (và > 0) |
+
+    > **Lưu ý**: Do giới hạn API (~60 request/phút), việc quét toàn bộ ~1.700 mã
+    > có thể mất **vài giờ**. Tiến trình được lưu tự động — nếu bị gián đoạn,
+    > bạn có thể tiếp tục (resume) mà không cần quét lại từ đầu.
+    """)
+
+    st.markdown("---")
+
+    # Scan controls
+    col_btn1, col_btn2 = st.columns(2)
+
+    with col_btn1:
+        if st.button("🚀 Bắt Đầu Quét Toàn Thị Trường", type="primary", use_container_width=True):
+            success, output = run_command(
+                "docker exec stock4n_app python src/main.py price_filter",
+                "Quét lọc giá < SMA200 (toàn thị trường)"
+            )
+            if success:
+                st.code(output, language="text")
+                st.rerun()
+
+    with col_btn2:
+        if st.button("🔄 Tải Lại Kết Quả", use_container_width=True):
+            st.rerun()
+
+    st.markdown("---")
+
+    # Show scan status / progress
+    progress_file = Path("data/price_filter_progress.json")
+    if progress_file.exists():
+        try:
+            with open(progress_file, 'r') as f:
+                progress = json.load(f)
+            processed = len(progress.get('processed_symbols', []))
+            st.info(
+                f"⏳ **Đang quét...** Đã xử lý: {processed} mã | "
+                f"Batch: {progress.get('batch_idx', 0)}/{progress.get('total_batches', '?')} | "
+                f"Kết quả tạm: {progress.get('results_count', 0)} mã khớp | "
+                f"Cập nhật: {progress.get('timestamp', '')[:19]}"
+            )
+        except Exception:
+            pass
+
+    # Show results
+    result_file = Path("data/processed/price_filter_results.csv")
+
+    if result_file.exists():
+        try:
+            df_filter = pd.read_csv(result_file)
+
+            if not df_filter.empty:
+                st.success(f"✅ Tìm thấy **{len(df_filter)} mã** thỏa mãn tất cả điều kiện!")
+
+                # Metrics
+                col_m1, col_m2, col_m3, col_m4 = st.columns(4)
+                with col_m1:
+                    st.metric("Số mã khớp", len(df_filter))
+                with col_m2:
+                    if 'PE' in df_filter.columns:
+                        st.metric("PE trung bình", f"{df_filter['PE'].mean():.1f}")
+                with col_m3:
+                    if 'PB' in df_filter.columns:
+                        st.metric("PB trung bình", f"{df_filter['PB'].mean():.1f}")
+                with col_m4:
+                    if 'Pct_Below_SMA200' in df_filter.columns:
+                        st.metric("% dưới SMA200 (TB)", f"{df_filter['Pct_Below_SMA200'].mean():.1f}%")
+
+                st.markdown("---")
+
+                # Data table
+                st.subheader("📋 Danh Sách Cổ Phiếu Lọc Được")
+                st.dataframe(
+                    df_filter,
+                    use_container_width=True,
+                    hide_index=True
+                )
+
+                # Download
+                csv = df_filter.to_csv(index=False, encoding='utf-8-sig')
+                st.download_button(
+                    "⬇️ Tải xuống CSV",
+                    csv,
+                    f"price_filter_{datetime.now().strftime('%Y%m%d')}.csv",
+                    "text/csv",
+                    key='download-price-filter'
+                )
+
+                # Chart: PE vs PB scatter
+                if 'PE' in df_filter.columns and 'PB' in df_filter.columns:
+                    st.subheader("📊 Biểu Đồ PE vs PB")
+                    fig = px.scatter(
+                        df_filter,
+                        x='PE', y='PB',
+                        size='Avg_Vol_20',
+                        color='Pct_Below_SMA200',
+                        hover_data=['Symbol', 'Close', 'SMA200'],
+                        title="PE vs PB (kích thước = thanh khoản, màu = % dưới SMA200)",
+                        labels={'PE': 'P/E', 'PB': 'P/B',
+                                'Pct_Below_SMA200': '% dưới SMA200'},
+                        color_continuous_scale='RdYlGn_r'
+                    )
+                    st.plotly_chart(fig, use_container_width=True)
+
+            else:
+                st.warning("⚠️ Không có mã nào thỏa mãn tất cả điều kiện.")
+
+            # Show scan date
+            if 'Scan_Date' in df_filter.columns and not df_filter.empty:
+                st.caption(f"Lần quét gần nhất: {df_filter['Scan_Date'].iloc[0]}")
+
+        except Exception as e:
+            st.error(f"Lỗi đọc kết quả: {e}")
+    else:
+        st.info("💡 Chưa có kết quả quét. Nhấn **'Bắt Đầu Quét Toàn Thị Trường'** để bắt đầu.")
 
 # Footer
 st.markdown("---")

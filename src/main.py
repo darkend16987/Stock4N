@@ -24,6 +24,7 @@ try:
     from modules.analysis.breadth_analyzer import MarketBreadthAnalyzer
     from modules.analysis.adaptive_params import AdaptiveParamManager
     from modules.analysis.ai_reasoner import AIReasoner
+    from modules.analysis.price_filter_scanner import PriceFilterScanner
     import config
 except ImportError as e:
     print(f"❌ Error importing modules: {e}")
@@ -215,6 +216,23 @@ def run_learning(mode='patterns', optimize_weights=False, lookback_days=365):
     print("\n" + param_manager.get_summary())
     print("\n✅ Learning completed!")
 
+def run_price_filter():
+    """Quét toàn bộ thị trường lọc cổ phiếu theo tiêu chí giá/khối lượng/PE/PB."""
+    print("🔍 [MODE] Price Filter Scanner")
+    print("Conditions: Close < SMA200, Avg Vol 20 >= 500K, PE < 20, PB < 5")
+    print("This scan covers ALL listed stocks and may take a long time due to API rate limits.")
+    print("Progress is saved automatically - you can resume if interrupted.\n")
+
+    scanner = PriceFilterScanner()
+    results = scanner.run_scan()
+
+    if not results.empty:
+        print(f"\n✅ Found {len(results)} matching stocks!")
+        print(results.to_string(index=False))
+    else:
+        print("\n⚠️  No stocks matched all criteria.")
+
+
 def run_ml_predict(mode='train', model_type='random_forest', horizon=5, threshold=0.02):
     """
     Chạy ML prediction - Train model hoặc predict trends
@@ -353,7 +371,7 @@ def main():
     parser.add_argument(
         'mode',
         choices=['ingestion', 'processing', 'analysis', 'portfolio', 'export',
-                 'backtest', 'learn', 'ml_predict', 'breadth', 'all'],
+                 'backtest', 'learn', 'ml_predict', 'breadth', 'price_filter', 'all'],
         help="Chế độ chạy"
     )
     parser.add_argument('--days', type=int, default=365, help="Backtest/Learning lookback days (default: 365)")
@@ -386,6 +404,7 @@ def main():
     elif args.mode == 'backtest': run_backtest(args.days, args.score, args.capital)
     elif args.mode == 'learn': run_learning(args.learn_mode, args.optimize_weights, args.days)
     elif args.mode == 'ml_predict': run_ml_predict(args.ml_mode, args.model_type, args.horizon, args.threshold)
+    elif args.mode == 'price_filter': run_price_filter()
     elif args.mode == 'all':
         run_ingestion()
         run_processing()
