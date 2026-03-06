@@ -2,7 +2,7 @@
  * API client for Stock4N backend REST API (port 8502)
  */
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8502'
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://stock4n-pipeline-ezwykhsfaq-as.a.run.app'
 
 export type CommandStatus = 'idle' | 'running' | 'success' | 'error'
 

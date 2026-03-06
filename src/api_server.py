@@ -23,7 +23,7 @@ import time
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-PORT = 8502
+PORT = int(os.environ.get("PORT", 8502))
 
 # Whitelist commands for security
 ALLOWED_COMMANDS = {
@@ -165,6 +165,7 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
 
     # ── POST ─────────────────────────────────────────────
     def do_POST(self):
+        global _scan_status
         # ── /scan/start ──
         if self.path == "/scan/start":
             with _scan_lock:
@@ -179,7 +180,6 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
 
         # ── /scan/stop ──
         if self.path == "/scan/stop":
-            global _scan_status
             with _scan_lock:
                 proc = _scan_process
             if proc and proc.poll() is None:
