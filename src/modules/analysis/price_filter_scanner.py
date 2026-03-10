@@ -38,9 +38,9 @@ class PriceFilterScanner:
     # Filter defaults
     DEFAULT_SMA_PERIOD = 200
     DEFAULT_VOL_PERIOD = 20
-    DEFAULT_MIN_AVG_VOL = 500_000
-    DEFAULT_MAX_PE = 20
-    DEFAULT_MAX_PB = 5
+    DEFAULT_MIN_AVG_VOL = 100_000   # Lower volume requirement
+    DEFAULT_MAX_PE = 25             # Loosen PE limit
+    DEFAULT_MAX_PB = 10             # Loosen PB limit
 
     # Batch config — tuned for Silver tier (300 req/min)
     # Each symbol = ~2 API calls (price + ratio), safe_limit = 270/min
@@ -104,7 +104,7 @@ class PriceFilterScanner:
         """Get all stock symbols from Vietnam market."""
         try:
             from vnstock import Listing
-            listing = Listing()
+            listing = Listing(source='VCI')
             df = listing.all_symbols()
             if df is not None and not df.empty:
                 symbols = df['symbol'].tolist()

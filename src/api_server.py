@@ -207,7 +207,7 @@ class APIHandler(http.server.BaseHTTPRequestHandler):
         try:
             result = subprocess.run(
                 cmd, shell=True, capture_output=True, text=True,
-                timeout=600, cwd="/app"
+                timeout=900, cwd="/app"
             )
             self._json(200, {
                 "command": cmd_key,

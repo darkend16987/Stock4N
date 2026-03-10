@@ -35,9 +35,9 @@ class VNStockLoader:
         # Get API key tier from config or env
         api_key = config.VNSTOCK_CONFIG.get('api_key') or os.environ.get('VNSTOCK_API_KEY')
         if api_key and api_key.startswith('vnstock_'):
-            # Community tier: 60 req/min
-            self.rate_limiter = RateLimiter(max_requests=60, time_window=60, buffer=5)
-            logger.info("✓ Rate limiter configured for Community tier (60 req/min)")
+            # Silverspoon tier: 300 req/min
+            self.rate_limiter = RateLimiter(max_requests=300, time_window=60, buffer=5)
+            logger.info("✓ Rate limiter configured for Silver tier (300 req/min)")
         else:
             # Guest mode: 20 req/min
             self.rate_limiter = RateLimiter(max_requests=20, time_window=60, buffer=3)
