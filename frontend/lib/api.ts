@@ -118,21 +118,21 @@ export interface PipelineCommand {
 
 export const PIPELINE_COMMANDS: PipelineCommand[] = [
   // Data Pipeline
-  { id: 'ingestion', label: 'Thu thap du lieu', description: 'Tai du lieu gia & tai chinh tu TCBS/VCI', category: 'data', icon: 'download' },
-  { id: 'processing', label: 'Xu ly du lieu', description: 'Tinh toan chi so ky thuat & co ban', category: 'data', icon: 'cpu' },
-  { id: 'export', label: 'Xuat du lieu', description: 'Export db.json cho frontend', category: 'data', icon: 'upload' },
+  { id: 'ingestion', label: 'Thu thập dữ liệu', description: 'Tải dữ liệu giá & tài chính từ TCBS/VCI', category: 'data', icon: 'download' },
+  { id: 'processing', label: 'Xử lý dữ liệu', description: 'Tính toán chỉ số kỹ thuật & cơ bản', category: 'data', icon: 'cpu' },
+  { id: 'export', label: 'Xuất dữ liệu', description: 'Export db.json cho frontend', category: 'data', icon: 'upload' },
 
   // Analysis
-  { id: 'analysis', label: 'Phan tich & Cham diem', description: 'Scoring co phieu (Fund 65% + Tech 35%)', category: 'analysis', icon: 'chart' },
-  { id: 'breadth', label: 'Market Breadth', description: 'Phan tich sentiment thi truong', category: 'analysis', icon: 'activity' },
-  { id: 'adaptive', label: 'Adaptive Params', description: 'Toi uu RSI/MA cho tung ma', category: 'analysis', icon: 'sliders' },
+  { id: 'analysis', label: 'Phân tích & Chấm điểm', description: 'Scoring cổ phiếu (Fund 65% + Tech 35%)', category: 'analysis', icon: 'chart' },
+  { id: 'breadth', label: 'Market Breadth', description: 'Phân tích sentiment thị trường', category: 'analysis', icon: 'activity' },
+  { id: 'adaptive', label: 'Adaptive Params', description: 'Tối ưu RSI/MA cho từng mã', category: 'analysis', icon: 'sliders' },
 
   // Trading
-  { id: 'portfolio', label: 'Danh muc dau tu', description: 'Phan bo von & de xuat vi the', category: 'trading', icon: 'briefcase' },
-  { id: 'backtest', label: 'Backtest', description: 'Kiem thu chien luoc tren du lieu qua khu', category: 'trading', icon: 'rewind' },
+  { id: 'portfolio', label: 'Danh mục đầu tư', description: 'Phân bổ vốn & đề xuất vị thế', category: 'trading', icon: 'briefcase' },
+  { id: 'backtest', label: 'Backtest', description: 'Kiểm thử chiến lược trên dữ liệu quá khứ', category: 'trading', icon: 'rewind' },
 
   // AI/ML
-  { id: 'learn', label: 'Pattern Learning', description: 'Hoc mau seasonality, momentum, S/R', category: 'ai', icon: 'brain' },
-  { id: 'ml_train', label: 'ML Training', description: 'Huan luyen model RandomForest/GBM', category: 'ai', icon: 'zap' },
-  { id: 'ml_predict', label: 'ML Du doan', description: 'Du doan xu huong bang ML model', category: 'ai', icon: 'target' },
+  { id: 'learn', label: 'Pattern Learning', description: 'Học mẫu seasonality, momentum, S/R', category: 'ai', icon: 'brain' },
+  { id: 'ml_train', label: 'ML Training', description: 'Huấn luyện model RandomForest/GBM', category: 'ai', icon: 'zap' },
+  { id: 'ml_predict', label: 'ML Dự đoán', description: 'Dự đoán xu hướng bằng ML model', category: 'ai', icon: 'target' },
 ]

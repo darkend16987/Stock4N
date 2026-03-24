@@ -40,6 +40,11 @@ class PatternAnalyzer:
             df = df[df['time'] >= cutoff].copy()
             df = df.sort_values('time').reset_index(drop=True)
 
+            # Drop rows with NaN in critical columns to prevent KeyError: nan
+            df = df.dropna(subset=['close'])
+            if df.empty:
+                return None
+
             return df
         except Exception as e:
             logger.error(f"Error loading price for {symbol}: {e}")
@@ -67,13 +72,13 @@ class PatternAnalyzer:
         df['quarter'] = df['time'].dt.quarter
         df['return'] = df['close'].pct_change()
 
-        # Monthly returns
+        # Monthly returns (filter out NaN values)
         monthly_returns = df.groupby('month')['return'].mean() * 100
-        monthly_returns = monthly_returns.to_dict()
+        monthly_returns = {k: v for k, v in monthly_returns.to_dict().items() if pd.notna(k) and pd.notna(v)}
 
-        # Quarterly returns
+        # Quarterly returns (filter out NaN values)
         quarterly_returns = df.groupby('quarter')['return'].mean() * 100
-        quarterly_returns = quarterly_returns.to_dict()
+        quarterly_returns = {k: v for k, v in quarterly_returns.to_dict().items() if pd.notna(k) and pd.notna(v)}
 
         # Best/worst months
         sorted_months = sorted(monthly_returns.items(), key=lambda x: x[1], reverse=True)
@@ -111,12 +116,15 @@ class PatternAnalyzer:
 
         momentum = {}
         current_price = df.iloc[-1]['close']
+        if pd.isna(current_price):
+            return None
 
         for period in periods:
             if len(df) >= period:
                 past_price = df.iloc[-period]['close']
-                momentum_pct = (current_price - past_price) / past_price * 100
-                momentum[period] = round(momentum_pct, 2)
+                if pd.notna(past_price) and past_price != 0:
+                    momentum_pct = (current_price - past_price) / past_price * 100
+                    momentum[period] = round(momentum_pct, 2)
 
         logger.info(f"{symbol} momentum: {momentum}")
         return momentum
