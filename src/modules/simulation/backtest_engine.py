@@ -67,6 +67,9 @@ class BacktestEngine:
             df = df.loc[mask].copy()
             df = df.sort_values('time').reset_index(drop=True)
 
+            # Drop rows with NaN close prices to prevent downstream errors
+            df = df.dropna(subset=['close'])
+
             return df
         except Exception as e:
             logger.error(f"Error loading price for {symbol}: {e}")

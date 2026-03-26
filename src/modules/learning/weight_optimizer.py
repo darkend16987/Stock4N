@@ -165,7 +165,18 @@ class WeightOptimizer:
         if optimization_metric not in results_df.columns:
             optimization_metric = 'sharpe_ratio'
 
-        best_result = results_df.loc[results_df[optimization_metric].idxmax()]
+        # Drop rows where the optimization metric is NaN
+        valid_results = results_df.dropna(subset=[optimization_metric])
+        if valid_results.empty:
+            logger.warning(f"All {optimization_metric} values are NaN, cannot find best weights")
+            return None
+
+        best_idx = valid_results[optimization_metric].idxmax()
+        if pd.isna(best_idx):
+            logger.warning(f"idxmax() returned NaN for {optimization_metric}")
+            return None
+
+        best_result = results_df.loc[best_idx]
 
         self.best_weights = {
             'fund_weight': best_result['fund_weight'],
