@@ -40,14 +40,19 @@ def run_processing():
     calculator = FinancialCalculator()
     calculator.run_processing(config.VN100_SYMBOLS)
 
-def run_analysis(use_adaptive=False):
-    print("🧠 [MODE] Market Analysis")
-
-    # Market breadth check (runs before individual scoring)
-    print("\n📊 Checking market breadth...")
+def get_market_filter():
+    """Market breadth filter dùng chung cho analysis (RuleGate) và portfolio (risk multiplier)."""
     breadth = MarketBreadthAnalyzer()
     market_filter = breadth.get_market_filter(config.VN100_SYMBOLS)
     print(f"  {market_filter['summary']}")
+    return market_filter
+
+def run_analysis(use_adaptive=False):
+    print("🧠 [MODE] Market Analysis")
+
+    # Market breadth check (runs before individual scoring) → chặn MUA mới khi thị trường yếu
+    print("\n📊 Checking market breadth...")
+    market_filter = get_market_filter()
 
     # Adaptive param optimization (optional)
     if use_adaptive:
@@ -61,7 +66,7 @@ def run_analysis(use_adaptive=False):
         print(f"  ✓ Saved adaptive params to {params_file}")
 
     scorer = StockScorer()
-    scorer.run_analysis()
+    scorer.run_analysis(market_filter=market_filter)
 
 def run_breadth():
     """Standalone breadth/sentiment check."""
@@ -72,7 +77,8 @@ def run_breadth():
 def run_portfolio():
     print("💼 [MODE] Portfolio Manager")
     manager = PortfolioManager()
-    manager.generate_recommendation(total_capital=100000000)
+    print("\n📊 Checking market breadth...")
+    manager.generate_recommendation(total_capital=100000000, market_filter=get_market_filter())
 
 def run_export():
     """Xuất dữ liệu sang JSON cho Web App"""

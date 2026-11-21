@@ -9,6 +9,7 @@ import config
 from modules.utils.logger import get_logger
 from modules.utils.exceptions import InsufficientDataException, MissingColumnException
 from modules.utils.validator import DataValidator
+from modules.utils.units import price_to_vnd
 
 logger = get_logger(__name__)
 
@@ -27,19 +28,35 @@ class FinancialCalculator:
         # Mapping các tên cột từ file CSV (Do vnstock trả về tiếng Việt/Anh lộn xộn)
         self.col_map = {
             'profit': ['Lợi nhuận sau thuế của Cổ đông công ty mẹ (đồng)', 'Lợi nhuận sau thuế (đồng)', 'post_tax_profit', 'net_income'],
-            'revenue': ['Doanh thu thuần (đồng)', 'net_revenue', 'revenue'],
+            # 'Doanh thu thuần' (không có "(đồng)") là tên cột thực tế của dữ liệu TCBS/KBS → trước đây
+            # không khớp nên Revenue_Growth_YoY luôn NaN
+            'revenue': ['Doanh thu thuần (đồng)', 'net_revenue', 'revenue', 'Doanh thu thuần', 'Doanh thu (đồng)'],
             'equity': ['VỐN CHỦ SỞ HỮU (đồng)', 'owners_equity', 'equity', 'vốn chủ sở hữu'],
             'assets': ['TỔNG CỘNG TÀI SẢN (đồng)', 'total_assets', 'assets'],
+            'liabilities': ['NỢ PHẢI TRẢ (đồng)', 'total_liabilities', 'liabilities', 'nợ phải trả'],
+            'charter_capital': ['Vốn góp của chủ sở hữu (đồng)', 'Cổ phiếu phổ thông (đồng)',
+                                'Vốn góp của chủ sở hữu', 'Cổ phiếu phổ thông'],
             'year': ['Năm', 'year', 'Year'],
             'quarter': ['Kỳ', 'quarter', 'Quarter', 'Quý']
         }
 
     def _find_col(self, df, keywords):
-        """Tìm tên cột chính xác trong DataFrame dựa trên từ khóa"""
-        for col in df.columns:
-            for kw in keywords:
-                if kw.lower() in col.lower():
-                    return col
+        """
+        Tìm tên cột trong DataFrame theo danh sách từ khóa (thứ tự = độ ưu tiên).
+        Ưu tiên khớp CHÍNH XÁC trước, rồi mới khớp chuỗi con.
+        """
+        cols = list(df.columns)
+        lowered = {c: str(c).strip().lower() for c in cols}
+        for kw in keywords:
+            k = kw.strip().lower()
+            for c in cols:
+                if lowered[c] == k:
+                    return c
+        for kw in keywords:
+            k = kw.strip().lower()
+            for c in cols:
+                if k in lowered[c]:
+                    return c
         return None
 
     def _get_quarter_value_safely(self, df, year_col, quarter_col, target_year, target_quarter, value_col):
@@ -180,6 +197,8 @@ class FinancialCalculator:
             # Xử lý Bảng CĐKT (Balance Sheet) - Để lấy Vốn chủ sở hữu
             bs_df = data.get('BalanceSheet')
             equity_col = None
+            liab_col = None
+            capital_col = None
             if bs_df is not None and not bs_df.empty:
                 bs_df = bs_df.copy()
                 bs_year_col = self._find_col(bs_df, self.col_map['year'])
@@ -189,6 +208,8 @@ class FinancialCalculator:
                     bs_df = bs_df.sort_values(by=[bs_year_col, bs_quarter_col], ascending=True)
 
                 equity_col = self._find_col(bs_df, self.col_map['equity'])
+                liab_col = self._find_col(bs_df, self.col_map['liabilities'])
+                capital_col = self._find_col(bs_df, self.col_map['charter_capital'])
 
             # --- BẮT ĐẦU TÍNH TOÁN ---
             metrics = {
@@ -199,7 +220,9 @@ class FinancialCalculator:
                 'ROE': None,
                 'Revenue_Growth_YoY': None,
                 'Profit_Growth_YoY': None,
-                'Net_Profit_TTM': None
+                'Net_Profit_TTM': None,
+                'Debt_Equity': None,     # Tổng nợ phải trả / Vốn chủ sở hữu
+                'Shares_Est': None       # Ước lượng = Vốn góp / mệnh giá (bỏ qua cổ phiếu quỹ)
             }
 
             # 1. Tính EPS & P/E (Dùng TTM - Trailing 12 Months)
@@ -232,6 +255,24 @@ class FinancialCalculator:
                 if metrics['Net_Profit_TTM'] and pd.notna(latest_equity) and latest_equity > 0:
                     metrics['ROE'] = round((metrics['Net_Profit_TTM'] / latest_equity) * 100, 2)
                     logger.debug(f"{symbol} ROE: {metrics['ROE']}%")
+
+                # Nợ/Vốn: dùng cùng kỳ (dòng mới nhất) của bảng cân đối
+                if liab_col and pd.notna(latest_equity) and latest_equity > 0:
+                    latest_liab = bs_df.iloc[-1][liab_col]
+                    if pd.notna(latest_liab) and latest_liab >= 0:
+                        metrics['Debt_Equity'] = round(float(latest_liab) / float(latest_equity), 2)
+
+                # P/E, P/B: số cổ phiếu ước lượng từ vốn góp / mệnh giá
+                if capital_col and pd.notna(latest_equity) and latest_equity > 0:
+                    charter = bs_df.iloc[-1][capital_col]
+                    if pd.notna(charter) and charter > 0:
+                        shares = float(charter) / config.PAR_VALUE_VND
+                        metrics['Shares_Est'] = round(shares)
+                        price_vnd = price_to_vnd(latest_price)
+                        ttm = metrics['Net_Profit_TTM']
+                        if ttm and ttm > 0:
+                            metrics['PE'] = round(price_vnd / (ttm / shares), 2)
+                        metrics['PB'] = round(price_vnd / (float(latest_equity) / shares), 2)
 
             # 3. Tính Tăng trưởng Doanh thu YoY (cải tiến)
             if rev_col and len(inc_df) >= 5:
@@ -287,6 +328,12 @@ class FinancialCalculator:
             logger.info(f"Failed: {failed_count} ({failed_count/len(symbols)*100:.1f}%)")
             logger.info(f"Output saved to: {output_path}")
             logger.info("=" * 60)
+
+            # Độ phủ dữ liệu: cột nào rỗng 100% là dấu hiệu sai tên cột / nguồn dữ liệu đổi định dạng
+            for col in ['ROE', 'PE', 'PB', 'Debt_Equity', 'Revenue_Growth_YoY', 'Profit_Growth_YoY']:
+                coverage = df_result[col].notna().mean() if col in df_result else 0.0
+                level = logger.warning if coverage == 0 else logger.info
+                level(f"Coverage {col}: {coverage:.0%}")
 
             # Hiển thị preview
             logger.info("\nPREVIEW - Top 10 Results:")

@@ -8,6 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'
 import config
 from modules.utils.logger import get_logger
 from modules.utils.validator import DataValidator
+from modules.analysis.rule_gate import RuleGate
 
 logger = get_logger(__name__)
 
@@ -27,6 +28,7 @@ class StockScorer:
         self.tech_thresholds = config.TECHNICAL_THRESHOLDS
         self.scoring_weights = config.SCORING_WEIGHTS
         self.rec_thresholds = config.RECOMMENDATION_THRESHOLDS
+        self.gate = RuleGate()
 
         logger.info(f"StockScorer initialized with weights: F={self.scoring_weights['fundamental']}, T={self.scoring_weights['technical']}")
 
@@ -171,9 +173,31 @@ class StockScorer:
             logger.error(f"Error calculating fundamental score for {symbol}: {e}")
             return 0, f"Error: {str(e)}"
 
-    def run_analysis(self):
-        """Run full analysis and generate scored recommendations"""
+    def apply_gate(self, row, total_score, recommendation, market_filter=None):
+        """
+        Áp quy tắc cứng lên khuyến nghị MUA. Chỉ hạ MUA → THEO DÕI, không bao giờ nâng.
+
+        Returns:
+            (final_recommendation, gate_result)
+        """
+        gate_input = dict(row)
+        gate_input['Total_Score'] = total_score
+        result = self.gate.evaluate(gate_input, market_filter)
+        if recommendation.startswith('MUA') and not result['passed']:
+            return 'THEO DÕI', result
+        return recommendation, result
+
+    def run_analysis(self, market_filter=None):
+        """
+        Run full analysis and generate scored recommendations
+
+        Args:
+            market_filter: output của MarketBreadthAnalyzer.get_market_filter().
+                Nếu có, thị trường yếu sẽ chặn khuyến nghị MUA mới.
+        """
         logger.info("Starting stock analysis and scoring...")
+        if market_filter is None:
+            logger.warning("Không có market_filter → bỏ qua kiểm tra breadth (các quy tắc cứng khác vẫn áp dụng)")
 
         # 1. Load metrics từ Phase 2
         metrics_path = os.path.join(self.processed_dir, "financial_metrics.csv")
@@ -210,6 +234,13 @@ class StockScorer:
             else:
                 recommendation = "THEO DÕI"
 
+            # Quy tắc cứng (ROE/PE/Nợ-Vốn/penny/breadth): chỉ hạ MUA → THEO DÕI
+            raw_recommendation = recommendation
+            recommendation, gate = self.apply_gate(row, total_score, recommendation, market_filter)
+            if recommendation != raw_recommendation:
+                logger.info(f"  ⛔ {symbol}: {raw_recommendation} → {recommendation} "
+                            f"({'; '.join(gate['reasons'])})")
+
             results.append({
                 'Symbol': symbol,
                 'Total_Score': total_score,
@@ -218,7 +249,12 @@ class StockScorer:
                 'Tech_Score': t_score,
                 'Fund_Reason': f_reason,
                 'Tech_Reason': t_reason,
-                'Price': row['Price']
+                'Price': row['Price'],
+                'Raw_Recommendation': raw_recommendation,
+                'Gate_Passed': gate['passed'],
+                'Gate_Reasons': '; '.join(gate['reasons']),
+                'Gate_Warnings': '; '.join(gate['warnings']),
+                'Sector': self.gate.sector_of(symbol),
             })
 
             logger.info(f"✓ {symbol}: Score={total_score} → {recommendation}")

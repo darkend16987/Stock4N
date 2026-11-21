@@ -76,6 +76,34 @@ VN100_SYMBOLS = [
     'DHG', 'DMC', 'IMP'
 ]
 
+# Một số mã xuất hiện ở 2 nhóm (GMD, VGI) → loại trùng, giữ nguyên thứ tự
+# (trùng làm ra dòng lặp trong báo cáo và mua 2 lần cùng 1 mã)
+VN100_SYMBOLS = list(dict.fromkeys(VN100_SYMBOLS))
+
+# --- PHÂN NGÀNH (phục vụ trần ngành, bỏ qua D/E cho nhóm tài chính) ---
+# LƯU Ý: phân loại thô, cần rà soát thủ công. Mã không có trong map → 'Khác'.
+_SECTOR_GROUPS = {
+    'Ngân hàng': ['VCB', 'BID', 'CTG', 'TCB', 'MBB', 'VPB', 'ACB', 'HDB', 'STB', 'TPB',
+                  'VIB', 'SHB', 'SSB', 'LPB', 'EIB'],
+    'Chứng khoán': ['SSI', 'VCI', 'HCM', 'AGR', 'BSI', 'FTS', 'MBS', 'VDS', 'ORS', 'CTS', 'VND'],
+    'Bảo hiểm': ['BVH'],
+    'Bất động sản': ['VIC', 'VHM', 'VRE', 'BCM', 'KDH', 'DXG', 'NVL', 'PDR', 'DIG', 'NLG',
+                     'HDC', 'CEO', 'IDC', 'KBC', 'SZC', 'IJC'],
+    'Xây dựng & Hạ tầng': ['BCG', 'CII', 'PHC'],
+    'Năng lượng & Điện': ['POW', 'NT2', 'REE', 'HDG'],
+    'Dầu khí': ['GAS', 'PLX', 'BSR', 'PVD', 'PVS'],
+    'Vật liệu & Công nghiệp': ['HPG', 'GVR', 'DCM', 'DPM', 'DGC', 'BMP', 'CSV', 'DHC', 'NKG',
+                               'PHR', 'AAA', 'VGC'],
+    'Tiêu dùng & Bán lẻ': ['VNM', 'MSN', 'MWG', 'SAB', 'PNJ', 'FRT', 'VCF', 'MSH', 'TLG', 'DGW'],
+    'Vận tải & Logistics': ['VJC', 'HVN', 'GMD', 'VSC', 'TCL', 'PVT'],
+    'Nông nghiệp & Thủy sản': ['VHC', 'ASM', 'HNG', 'HAG', 'ANV', 'BAF', 'VHG'],
+    'Công nghệ & Viễn thông': ['FPT', 'CMG', 'VGI', 'ITD', 'ELC'],
+    'Y tế & Dược': ['DHG', 'DMC', 'IMP'],
+}
+SECTOR_MAP = {sym: sector for sector, syms in _SECTOR_GROUPS.items() for sym in syms}
+# Nhóm tài chính: đòn bẩy cao là đặc thù ngành → không áp trần Nợ/Vốn
+FINANCIAL_SECTORS = {'Ngân hàng', 'Chứng khoán', 'Bảo hiểm'}
+
 # --- CẤU HÌNH THỜI GIAN ---
 TODAY = datetime.now().strftime('%Y-%m-%d')
 START_DATE = "2023-01-01"
@@ -196,7 +224,28 @@ PORTFOLIO_CONFIG = {
     'max_position_pct': 0.20,     # Max 20% mỗi vị thế (giảm từ 40% → đa dạng hóa)
     'min_position_pct': 0.05,     # Min 5% (đủ ý nghĩa)
     'max_positions': 8,           # Tối đa 8 mã (giảm từ 10 → quản lý dễ hơn)
-    'cash_reserve_pct': 0.25      # Giữ 25% tiền mặt (tăng từ 20% → an toàn hơn)
+    'cash_reserve_pct': 0.25,     # Giữ 25% tiền mặt (tăng từ 20% → an toàn hơn)
+    'max_sector_pct': 0.40,       # Tối đa 40% mỗi ngành (→ tối đa 2 mã/ngành khi mỗi mã ≤ 20%)
+    'max_correlation': 0.70,      # Bỏ mã có tương quan lợi suất > 0.7 với mã đã chọn
+    'correlation_lookback': 60,   # Số phiên tính tương quan
+}
+
+# --- QUY TẮC CỨNG (single source of truth) ---
+# Mã không thoả → không được khuyến nghị MUA. Dùng bởi RuleGate (analysis),
+# StockOptionSkill (prompt AI) và PortfolioManager.
+HARD_RULES = {
+    'min_score': RECOMMENDATION_THRESHOLDS['buy'],  # Điểm tổng tối thiểu (= ngưỡng 'buy')
+    'min_roe': 10,             # ROE tối thiểu 10%
+    'max_pe': 30,              # P/E tối đa 30x
+    'max_debt_equity': 2.0,    # Nợ phải trả / Vốn chủ sở hữu tối đa 2.0 (bỏ qua nhóm tài chính)
+    # Trần riêng theo ngành: BĐS có "người mua trả tiền trước" trong nợ phải trả nên nới nhẹ.
+    # Vẫn đủ chặt để loại các chủ đầu tư đòn bẩy cao (NVL, DXG, PDR... thường > 3).
+    'max_debt_equity_by_sector': {'Bất động sản': 2.5},
+    'min_breadth': 0.35,       # Tỷ lệ mã trên SMA10 & SMA20 tối thiểu để mua mới
+    'min_price_vnd': 10000,    # Tránh penny stock (< 10,000 VND)
+    'max_position_pct': PORTFOLIO_CONFIG['max_position_pct'],
+    'max_positions': PORTFOLIO_CONFIG['max_positions'],
+    'cash_reserve': PORTFOLIO_CONFIG['cash_reserve_pct'],
 }
 
 # Investment horizon
@@ -219,10 +268,17 @@ RISK_MANAGEMENT = {
 }
 
 # Price unit detection
+# Dữ liệu giá vnstock tính theo NGHÌN đồng (VD 29.3 = 29,300đ). Không mã nào trên HOSE
+# giá dưới 1,000đ, nên giá < 1000 chắc chắn là đơn vị nghìn đồng.
+# (Ngưỡng cũ 100 làm các mã giá 100-999 nghìn như FRT 167, PNJ 121 bị coi là 167đ/121đ
+#  → khuyến nghị mua hàng chục nghìn cổ phiếu.)
 PRICE_UNIT_CONFIG = {
-    'threshold': 100,             # If price < 100, assume it's in thousands VND
+    'threshold': 1000,            # If price < 1000, assume it's in thousands VND
     'multiplier': 1000            # Multiply by 1000 to get actual price
 }
+
+# Mệnh giá cổ phiếu VN (đồng) — ước lượng số cổ phiếu = Vốn góp / mệnh giá
+PAR_VALUE_VND = 10000
 
 # --- CẤU HÌNH DATA VALIDATION ---
 DATA_QUALITY = {
