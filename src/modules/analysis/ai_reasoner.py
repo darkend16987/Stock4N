@@ -11,6 +11,8 @@ import os
 import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+import config  # nạp .env và cung cấp config.AI_MODEL
+from modules.utils.gemini_params import generation_kwargs
 from modules.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -22,6 +24,7 @@ try:
     import google.generativeai as genai
     _GENAI_AVAILABLE = True
 except ImportError:
+    genai = None
     _GENAI_AVAILABLE = False
 
 # Import StockOptionSkill for strategy context
@@ -45,8 +48,9 @@ class AIReasoner:
         'risk_alert'       – cảnh báo rủi ro từ context
     """
 
-    MODEL = os.environ.get("AI_MODEL", "gemini-2.5-flash")
-    MAX_TOKENS = 1500
+    MODEL = config.AI_MODEL
+    # Gemini 3.x "suy nghĩ" mặc định mức medium; để dư rộng phòng token suy nghĩ ăn vào giới hạn đầu ra
+    MAX_TOKENS = 8192
 
     SYSTEM_PROMPT = """Bạn là chuyên gia phân tích cổ phiếu Việt Nam với 15 năm kinh nghiệm.
 Bạn phân tích dữ liệu định lượng kết hợp với tư duy định tính.
@@ -244,8 +248,7 @@ Cấu trúc output: Tóm tắt → Điểm mạnh → Rủi ro → Khuyến ngh�
             response = self._model.generate_content(
                 user_prompt,
                 generation_config=genai.types.GenerationConfig(
-                    max_output_tokens=self.MAX_TOKENS,
-                    temperature=0.7,
+                    **generation_kwargs(self.MODEL, self.MAX_TOKENS, temperature=0.7),
                 ),
             )
             return response.text

@@ -440,3 +440,35 @@ class TestExporterJsonSafety:
         assert 'NaN' not in text
         data = json.loads(text, parse_constant=lambda c: (_ for _ in ()).throw(ValueError(c)))
         assert data['analysis'][0]['Gate_Reasons'] is None
+
+
+class TestCircuitBreaker:
+    def test_stops_calling_api_after_consecutive_outages(self, ledger):
+        many = [{'Symbol': f'S{i:02d}', 'Total_Score': 8.0 - i * 0.1, 'Recommendation': 'MUA THĂM DÒ',
+                 'Price': 20.0, 'Sector': 'Khác', 'Fund_Score': 7, 'Tech_Score': 7} for i in range(6)]
+        llm = FakeLLM({'bull': LLMUnavailable('503 high demand')})
+        c = committee(llm, ledger, max_consecutive_api_errors=2)
+        out, verdicts = c.run(report(many), None, None, 'enforce', loader)
+        assert llm.counts['bull'] == 2                                    # chỉ 2 mã đầu thực sự gọi API
+        assert [v['status'] for v in verdicts] == ['LLM_ERROR'] * 6
+        assert 'Bỏ qua' in verdicts[-1]['error']
+        assert list(out['Recommendation']) == ['MUA THĂM DÒ'] * 6        # fail-open: không đổi gì
+
+    def test_success_resets_the_counter(self, ledger):
+        many = [{'Symbol': f'S{i:02d}', 'Total_Score': 8.0 - i * 0.1, 'Recommendation': 'MUA THĂM DÒ',
+                 'Price': 20.0, 'Sector': 'Khác', 'Fund_Score': 7, 'Tech_Score': 7} for i in range(4)]
+        base = per_symbol_llm()
+        calls = {'n': 0}
+
+        class Flaky:
+            counts = base.counts
+
+            def generate(self, system, prompt):
+                if 'ỦNG HỘ việc mua' in prompt:
+                    calls['n'] += 1
+                    if calls['n'] == 1:                                   # chỉ mã đầu bị lỗi API
+                        raise LLMUnavailable('503')
+                return base.generate(system, prompt)
+        c = committee(Flaky(), ledger, max_consecutive_api_errors=2)
+        _, verdicts = c.run(report(many), None, None, 'shadow', loader)
+        assert [v['status'] for v in verdicts] == ['LLM_ERROR', 'OK', 'OK', 'OK']
