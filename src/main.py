@@ -96,6 +96,8 @@ def run_backtest(lookback_days=365, min_score=6.0, capital=100000000):
         capital: Vốn ban đầu (mặc định 100M)
     """
     print("🔬 [MODE] Backtesting Strategy")
+    print("⚠️  Engine CŨ: dùng điểm của HÔM NAY để mua trong quá khứ (nhìn trước tương lai), không tính phí/T+2. "
+          "Kết quả KHÔNG đáng tin cho quyết định tiền thật → dùng 'backtest_v2'.")
     print(f"Parameters: Lookback={lookback_days} days, Min Score={min_score}, Capital={capital:,}")
 
     from datetime import datetime, timedelta
@@ -145,6 +147,42 @@ def run_backtest(lookback_days=365, min_score=6.0, capital=100000000):
     reporter.generate_full_report()
 
     print("\n✅ Backtest completed!")
+
+def run_backtest_v2(lookback_days=None, capital=None):
+    """
+    Backtest point-in-time (BacktestEngineV2) + kiểm định thống kê + ngưỡng nghiệm thu.
+
+    Args:
+        lookback_days: chỉ lấy N ngày gần nhất (None = toàn bộ dữ liệu giá hiện có)
+        capital: vốn ban đầu (None = config.BACKTEST_V2['initial_capital'])
+    """
+    print("🔬 [MODE] Backtest V2 (point-in-time, quy tắc HOSE)")
+    import pandas as pd
+    from modules.simulation.backtest_v2 import BacktestEngineV2
+
+    params = {'initial_capital': capital} if capital else None
+    engine = BacktestEngineV2(params=params)
+    start = None
+    if lookback_days:
+        start = engine.book.calendar[-1] - pd.Timedelta(days=lookback_days)
+
+    report, _ = engine.run_suite(start_date=start)
+    m, acc = report['metrics'], report['acceptance']
+
+    def pct(v):
+        return 'n/a' if v is None else f"{v:.1%}"
+
+    print(f"\nKỳ: {m['start']} → {m['end']} ({m['sessions']} phiên) | Benchmark: {m['benchmark']}")
+    print(f"Tổng lãi {pct(m['total_return'])} | CAGR {pct(m['cagr'])} | Max DD {pct(m['max_drawdown'])} | "
+          f"Sharpe {m['sharpe'] if m['sharpe'] is None else round(m['sharpe'], 2)}")
+    print(f"Số lệnh {m['n_trades']} | Win rate {pct(m['win_rate'])} | Profit factor {m['profit_factor']}")
+    print(f"\nNGHIỆM THU: {acc['verdict']}")
+    for c in acc['checks']:
+        print(f"  [{c['status']:>4}] {c['name']}: {c['value']} (yêu cầu {c['rule']} {c['threshold']})")
+    print("\nHẠN CHẾ:")
+    for note in report['limitations']:
+        print(f"  - {note}")
+
 
 def run_learning(mode='patterns', optimize_weights=False, lookback_days=365):
     """
@@ -377,7 +415,7 @@ def main():
     parser.add_argument(
         'mode',
         choices=['ingestion', 'processing', 'analysis', 'portfolio', 'export',
-                 'backtest', 'learn', 'ml_predict', 'breadth', 'price_filter', 'all'],
+                 'backtest', 'backtest_v2', 'learn', 'ml_predict', 'breadth', 'price_filter', 'all'],
         help="Chế độ chạy"
     )
     parser.add_argument('--days', type=int, default=365, help="Backtest/Learning lookback days (default: 365)")
@@ -408,6 +446,9 @@ def main():
     elif args.mode == 'export': run_export()
     elif args.mode == 'breadth': run_breadth()
     elif args.mode == 'backtest': run_backtest(args.days, args.score, args.capital)
+    elif args.mode == 'backtest_v2':
+        # --days không truyền → dùng toàn bộ lịch sử giá (mặc định 365 chỉ áp cho backtest cũ)
+        run_backtest_v2(args.days if '--days' in sys.argv else None, args.capital)
     elif args.mode == 'learn': run_learning(args.learn_mode, args.optimize_weights, args.days)
     elif args.mode == 'ml_predict': run_ml_predict(args.ml_mode, args.model_type, args.horizon, args.threshold)
     elif args.mode == 'price_filter': run_price_filter()

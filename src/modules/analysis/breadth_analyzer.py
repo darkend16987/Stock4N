@@ -216,7 +216,13 @@ class MarketBreadthAnalyzer:
               - sentiment: str
               - summary: str hiển thị cho user
         """
-        breadth = self.compute_breadth_snapshot(symbols)
+        return self.build_market_filter(self.compute_breadth_snapshot(symbols))
+
+    def build_market_filter(self, breadth):
+        """
+        Chuyển 1 breadth snapshot (có sentiment, signal, pct_above_both, ...) thành market filter.
+        Tách riêng để backtest dùng cùng quy tắc với bản live (breadth tính point-in-time).
+        """
         sentiment = breadth["sentiment"]
         pct_above = breadth["pct_above_both"]
         signal    = breadth["signal"]
