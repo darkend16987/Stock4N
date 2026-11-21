@@ -318,8 +318,22 @@ COMMITTEE_CONFIG = {
     'max_output_tokens': 1200,
     'max_reviews': 15,                # tối đa số mã MUA được duyệt mỗi lần chạy (4 lần gọi LLM / mã)
     'max_retries': 1,                 # thử lại khi output sai schema / bịa số / trích dẫn sai
-    'prompt_version': 'v1',
+    'prompt_version': 'v2',           # v2: PM nhận thống kê bài học (nếu đủ mẫu). Đổi prompt → tăng version
     'ledger_file': os.path.join(DATA_DIR, 'committee', 'committee_ledger.jsonl'),
+    'outcomes_file': os.path.join(DATA_DIR, 'committee', 'committee_outcomes.jsonl'),
+    'settle_horizon': 20,             # phiên; khớp tầm nhìn 1-3 tháng (TradingAgents mặc định 5 phiên là quá ngắn)
+    'lessons_min_total': 20,          # cần ít nhất ngần này quyết định đã settle mới đưa thống kê vào prompt
+    'lessons_min_group': 8,           # và mỗi nhóm hiển thị cần >= ngần này mẫu
+}
+
+# --- Tiêu chí (ĐỀ XUẤT) để chuyển hội đồng từ 'shadow' sang 'enforce' ---
+COMMITTEE_READINESS = {
+    'min_settled': 60,
+    'min_span_days': 90,
+    'min_group': 10,                  # tối thiểu số mã VETO và số mã APPROVE đã settle để so sánh
+    'min_valid_rate': 0.95,
+    'max_veto_rate': 0.40,
+    'bootstrap_resamples': 2000,
 }
 
 # --- NGƯỠNG NGHIỆM THU (ĐỀ XUẤT - tiền thật nên chặt) ---

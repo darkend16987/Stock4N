@@ -216,7 +216,9 @@ def run_committee(mode=None):
     metrics = pd.read_csv(metrics_path) if os.path.exists(metrics_path) else None
 
     print("\n📊 Checking market breadth...")
-    committee = InvestmentCommittee(client)
+    from modules.committee.memory import OutcomeStore, build_lessons
+    store = OutcomeStore()
+    committee = InvestmentCommittee(client, lessons_provider=lambda as_of: build_lessons(store.read(), as_of))
     out, verdicts = committee.run(report, metrics, get_market_filter(), mode)
 
     out.to_csv(os.path.join(config.PROCESSED_DIR, 'committee_report.csv'), index=False)
@@ -235,6 +237,39 @@ def run_committee(mode=None):
         print(f"  {v['symbol']:<6} {tag:<10} {','.join(v['risk_flags'])}")
     if mode == 'shadow':
         print("\n(shadow: chưa ảnh hưởng khuyến nghị. Ledger: " + config.COMMITTEE_CONFIG['ledger_file'] + ")")
+
+
+def run_committee_settle():
+    """
+    Đối chiếu các quyết định của hội đồng đã đủ 20 phiên với kết quả thực (so với benchmark),
+    rồi đánh giá đã đủ bằng chứng để chuyển hội đồng sang 'enforce' hay chưa.
+    """
+    print("🧾 [MODE] Committee Settlement & Readiness")
+    import json
+    from modules.committee.ledger import Ledger
+    from modules.committee.memory import OutcomeStore, evaluate_readiness, settle_pending
+    from modules.simulation.point_in_time import PriceBook
+
+    entries = Ledger().entries()
+    if not entries:
+        print("ℹ️  Ledger trống - chạy 'committee' (shadow) vài tháng trước.")
+        return
+    book = PriceBook(config.RAW_DIR, config.VN100_SYMBOLS)
+    benchmark, label = book.benchmark()
+    store = OutcomeStore()
+    new = settle_pending(entries, store, book, benchmark, label)
+    outcomes = store.read()
+    print(f"  Benchmark: {label} | settle mới: {len(new)} | tổng đã settle: {len(outcomes)}")
+
+    report = evaluate_readiness(outcomes, entries)
+    print(f"\nSẴN SÀNG ENFORCE? → {report['verdict']}")
+    for c in report['checks']:
+        print(f"  [{c['status']:>6}] {c['name']}: {c['value']} (yêu cầu {c['rule']} {c['threshold']})")
+    path = os.path.join(config.DATA_DIR, 'committee', 'committee_readiness.json')
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(report, f, ensure_ascii=False, indent=2, default=str)
+    print(f"\n  Báo cáo: {path}")
 
 
 def run_learning(mode='patterns', optimize_weights=False, lookback_days=365):
@@ -468,7 +503,7 @@ def main():
     parser.add_argument(
         'mode',
         choices=['ingestion', 'processing', 'analysis', 'portfolio', 'export',
-                 'backtest', 'backtest_v2', 'committee', 'learn', 'ml_predict', 'breadth', 'price_filter', 'all'],
+                 'backtest', 'backtest_v2', 'committee', 'committee_settle', 'learn', 'ml_predict', 'breadth', 'price_filter', 'all'],
         help="Chế độ chạy"
     )
     parser.add_argument('--days', type=int, default=365, help="Backtest/Learning lookback days (default: 365)")
@@ -505,6 +540,7 @@ def main():
         # --days không truyền → dùng toàn bộ lịch sử giá (mặc định 365 chỉ áp cho backtest cũ)
         run_backtest_v2(args.days if '--days' in sys.argv else None, args.capital)
     elif args.mode == 'committee': run_committee(args.committee_mode)
+    elif args.mode == 'committee_settle': run_committee_settle()
     elif args.mode == 'learn': run_learning(args.learn_mode, args.optimize_weights, args.days)
     elif args.mode == 'ml_predict': run_ml_predict(args.ml_mode, args.model_type, args.horizon, args.threshold)
     elif args.mode == 'price_filter': run_price_filter()
