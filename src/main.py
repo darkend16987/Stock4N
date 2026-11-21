@@ -184,6 +184,59 @@ def run_backtest_v2(lookback_days=None, capital=None):
         print(f"  - {note}")
 
 
+def run_committee(mode=None):
+    """
+    Hội đồng đầu tư LLM (Bull/Bear/Risk/PM) trên các mã đang được khuyến nghị MUA. CHỈ CÓ QUYỀN PHỦ QUYẾT.
+    shadow (mặc định): chỉ ghi committee_report.csv + ledger để forward-test, KHÔNG đổi analysis_report.csv.
+    enforce: veto hạ MUA → THEO DÕI trong analysis_report.csv (bản gốc được sao lưu).
+    """
+    print("🏛️ [MODE] Investment Committee (veto-only)")
+    import pandas as pd
+    from datetime import datetime
+    from modules.committee.committee import InvestmentCommittee
+    from modules.committee.llm import GeminiClient
+
+    mode = mode or config.COMMITTEE_CONFIG['mode']
+    report_path = os.path.join(config.PROCESSED_DIR, 'analysis_report.csv')
+    if not os.path.exists(report_path):
+        print("❌ Chưa có analysis_report.csv - chạy 'analysis' trước.")
+        return
+
+    client = GeminiClient()
+    if not client.available:
+        print("❌ Thiếu GOOGLE_API_KEY hoặc gói google-generativeai → hội đồng không chạy, khuyến nghị giữ nguyên.")
+        return
+
+    report = pd.read_csv(report_path)
+    if 'Pre_Committee_Recommendation' in report.columns:          # chạy lại: khôi phục khuyến nghị gốc
+        report['Recommendation'] = report['Pre_Committee_Recommendation']
+        report = report.drop(columns=[c for c in report.columns if c.startswith('Committee_')
+                                      or c == 'Pre_Committee_Recommendation'])
+    metrics_path = os.path.join(config.PROCESSED_DIR, 'financial_metrics.csv')
+    metrics = pd.read_csv(metrics_path) if os.path.exists(metrics_path) else None
+
+    print("\n📊 Checking market breadth...")
+    committee = InvestmentCommittee(client)
+    out, verdicts = committee.run(report, metrics, get_market_filter(), mode)
+
+    out.to_csv(os.path.join(config.PROCESSED_DIR, 'committee_report.csv'), index=False)
+    if mode == 'enforce':
+        backup = os.path.join(config.PROCESSED_DIR, f"analysis_report.pre_committee_{datetime.now():%Y%m%d_%H%M%S}.csv")
+        report.to_csv(backup, index=False)
+        out.to_csv(report_path, index=False)
+        print(f"  ✓ Đã cập nhật analysis_report.csv (bản gốc: {backup})")
+
+    ok = [v for v in verdicts if v['status'] == 'OK']
+    vetoes = [v for v in ok if v['action'] == 'VETO']
+    print(f"\nChế độ: {mode.upper()} | Đã xét {len(verdicts)} mã | hợp lệ {len(ok)} | "
+          f"lỗi/không hợp lệ {len(verdicts) - len(ok)} | VETO {len(vetoes)} | LLM calls {committee.calls}")
+    for v in verdicts:
+        tag = v['action'] if v['status'] == 'OK' else v['status']
+        print(f"  {v['symbol']:<6} {tag:<10} {','.join(v['risk_flags'])}")
+    if mode == 'shadow':
+        print("\n(shadow: chưa ảnh hưởng khuyến nghị. Ledger: " + config.COMMITTEE_CONFIG['ledger_file'] + ")")
+
+
 def run_learning(mode='patterns', optimize_weights=False, lookback_days=365):
     """
     Chạy learning module - Phân tích patterns và tối ưu weights
@@ -415,7 +468,7 @@ def main():
     parser.add_argument(
         'mode',
         choices=['ingestion', 'processing', 'analysis', 'portfolio', 'export',
-                 'backtest', 'backtest_v2', 'learn', 'ml_predict', 'breadth', 'price_filter', 'all'],
+                 'backtest', 'backtest_v2', 'committee', 'learn', 'ml_predict', 'breadth', 'price_filter', 'all'],
         help="Chế độ chạy"
     )
     parser.add_argument('--days', type=int, default=365, help="Backtest/Learning lookback days (default: 365)")
@@ -432,6 +485,8 @@ def main():
     parser.add_argument('--horizon', type=int, default=5, help="Forecast horizon in days (default: 5)")
     parser.add_argument('--threshold', type=float, default=0.02, help="Classification threshold (default: 0.02 = 2%)")
     parser.add_argument('--adaptive', action='store_true', help="Use adaptive parameter optimization in analysis")
+    parser.add_argument('--committee-mode', type=str, default=None, choices=['shadow', 'enforce'],
+                        help="Committee mode: shadow (log only, default from config) or enforce (veto downgrades BUY)")
 
     if len(sys.argv) < 2:
         parser.print_help()
@@ -449,6 +504,7 @@ def main():
     elif args.mode == 'backtest_v2':
         # --days không truyền → dùng toàn bộ lịch sử giá (mặc định 365 chỉ áp cho backtest cũ)
         run_backtest_v2(args.days if '--days' in sys.argv else None, args.capital)
+    elif args.mode == 'committee': run_committee(args.committee_mode)
     elif args.mode == 'learn': run_learning(args.learn_mode, args.optimize_weights, args.days)
     elif args.mode == 'ml_predict': run_ml_predict(args.ml_mode, args.model_type, args.horizon, args.threshold)
     elif args.mode == 'price_filter': run_price_filter()

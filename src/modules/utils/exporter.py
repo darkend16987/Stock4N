@@ -23,6 +23,17 @@ class DataExporter:
         os.makedirs(self.export_dir, exist_ok=True)
         logger.info(f"DataExporter initialized: Export to {self.export_dir}")
 
+    @classmethod
+    def _json_safe(cls, obj):
+        """Đệ quy: NaN/±inf → None để file JSON hợp lệ cho trình duyệt."""
+        if isinstance(obj, dict):
+            return {k: cls._json_safe(v) for k, v in obj.items()}
+        if isinstance(obj, (list, tuple)):
+            return [cls._json_safe(v) for v in obj]
+        if isinstance(obj, float) and (obj != obj or obj in (float('inf'), float('-inf'))):
+            return None
+        return obj
+
     def export_all(self):
         """Export all data to JSON format for web frontend"""
         logger.info("Starting data export to JSON...")
@@ -98,7 +109,8 @@ class DataExporter:
         output_file = os.path.join(self.export_dir, "db.json")
         try:
             with open(output_file, "w", encoding='utf-8') as f:
-                json.dump(data_store, f, ensure_ascii=False, indent=2)
+                # NaN/inf không phải JSON hợp lệ (JSON.parse ở frontend sẽ lỗi) → đổi thành null
+                json.dump(self._json_safe(data_store), f, ensure_ascii=False, indent=2, allow_nan=False)
 
             file_size = os.path.getsize(output_file) / 1024  # KB
 

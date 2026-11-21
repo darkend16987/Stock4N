@@ -307,6 +307,21 @@ BACKTEST_V2 = {
     'seed': 42,
 }
 
+# --- HỘI ĐỒNG ĐẦU TƯ LLM (Phase 2) - CHỈ CÓ QUYỀN PHỦ QUYẾT (veto-only) ---
+# LLM không bao giờ nâng khuyến nghị, không đặt giá/khối lượng. Nó chỉ có thể giữ nguyên hoặc hạ MUA → THEO DÕI.
+# Không thể backtest lịch sử cho LLM (không có tin tức/ngữ cảnh point-in-time) nên mặc định chạy 'shadow':
+# ghi nhật ký quyết định để đối chiếu với kết quả thực (forward-test), chưa ảnh hưởng khuyến nghị.
+COMMITTEE_CONFIG = {
+    'mode': 'shadow',                 # 'shadow' = chỉ ghi log | 'enforce' = veto hạ MUA → THEO DÕI
+    'model': os.environ.get('COMMITTEE_MODEL', 'gemini-2.5-flash'),
+    'temperature': 0.2,               # thấp: cần nhất quán, không cần sáng tạo
+    'max_output_tokens': 1200,
+    'max_reviews': 15,                # tối đa số mã MUA được duyệt mỗi lần chạy (4 lần gọi LLM / mã)
+    'max_retries': 1,                 # thử lại khi output sai schema / bịa số / trích dẫn sai
+    'prompt_version': 'v1',
+    'ledger_file': os.path.join(DATA_DIR, 'committee', 'committee_ledger.jsonl'),
+}
+
 # --- NGƯỠNG NGHIỆM THU (ĐỀ XUẤT - tiền thật nên chặt) ---
 # Thiếu dữ liệu để kết luận → INCONCLUSIVE (không được tính là PASS).
 BACKTEST_ACCEPTANCE = {
