@@ -9,6 +9,7 @@ Nguyên tắc an toàn (tiền thật):
   - LLM lỗi/không hợp lệ → KHÔNG thay đổi gì (hệ thống định lượng tự đứng được), ghi rõ trạng thái.
   - Mặc định mode 'shadow': chỉ ghi nhật ký để forward-test; 'enforce' chỉ bật sau khi có bằng chứng.
 """
+import hashlib
 import json
 import os
 import sys
@@ -62,10 +63,14 @@ ROLE_TASKS = {
 
 
 class InvestmentCommittee:
-    def __init__(self, client, cfg=None, ledger=None):
+    def __init__(self, client, cfg=None, ledger=None, lessons_provider=None):
+        """
+        lessons_provider: callable(as_of) -> str thống kê bài học (memory.build_lessons); chỉ PM nhìn thấy.
+        """
         self.client = client
         self.cfg = {**config.COMMITTEE_CONFIG, **(cfg or {})}
         self.ledger = ledger or Ledger(self.cfg['ledger_file'])
+        self.lessons_provider = lessons_provider
         self.calls = 0
 
     # ------------------------------------------------------------------ một vai trò
@@ -105,7 +110,9 @@ class InvestmentCommittee:
             debate = ("LẬP LUẬN ỦNG HỘ:\n" + json.dumps(bull, ensure_ascii=False) +
                       "\nLẬP LUẬN PHẢN BIỆN:\n" + json.dumps(bear, ensure_ascii=False) + "\n\n")
             cro = self._call_role('risk_officer', sheet, debate)
-            pm_ctx = debate + "Ý KIẾN GIÁM ĐỐC RỦI RO:\n" + json.dumps(cro, ensure_ascii=False) + "\n\n"
+            lessons = self.lessons_provider(sheet.as_of) if self.lessons_provider else ''
+            verdict['lessons_hash'] = hashlib.sha256(lessons.encode('utf-8')).hexdigest()[:12] if lessons else None
+            pm_ctx = (lessons + debate + "Ý KIẾN GIÁM ĐỐC RỦI RO:\n" + json.dumps(cro, ensure_ascii=False) + "\n\n")
             pm = self._call_role('portfolio_manager', sheet, pm_ctx)
             verdict.update({'action': pm['action'], 'confidence': pm['confidence'],
                             'risk_flags': pm['risk_flags'], 'reasons': pm['arguments'],
@@ -120,7 +127,12 @@ class InvestmentCommittee:
             verdict.update({'status': 'LLM_ERROR', 'error': f"{type(e).__name__}: {e}"})
         verdict['calls'] = self.calls - start_calls
 
-        if verdict['status'] == 'OK':
+        if verdict['status'] != 'OK':
+            # ghi cả lần thất bại để tính tỷ lệ output hợp lệ (không chặn lần chạy lại: find() chỉ lấy OK)
+            self.ledger.append({**key, 'status': verdict['status'], 'error': verdict['error'],
+                                'facts_hash': fingerprint, 'mode': self.cfg['mode'],
+                                'logged_at': pd.Timestamp.now().isoformat(timespec='seconds')})
+        else:
             facts = sheet.to_dict()
             self.ledger.append({
                 **key, 'status': 'OK', 'facts_hash': fingerprint, 'model': self.cfg['model'],

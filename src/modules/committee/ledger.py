@@ -34,6 +34,10 @@ class Ledger:
                     logger.warning(f"Ledger dòng {n} hỏng, bỏ qua")
         return entries
 
+    def entries(self):
+        """Toàn bộ bản ghi (mọi trạng thái), theo thứ tự ghi."""
+        return self._read()
+
     def find(self, as_of, symbol, prompt_version, facts_hash=None):
         """Bản ghi OK gần nhất khớp khoá (và dữ kiện nếu truyền facts_hash); None nếu chưa có."""
         match = None
