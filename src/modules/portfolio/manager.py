@@ -14,13 +14,16 @@ class PortfolioManager:
     """
     Module quản lý danh mục: Phân bổ vốn & Quản trị rủi ro.
     """
-    def __init__(self, processed_dir=config.PROCESSED_DIR):
+    def __init__(self, processed_dir=config.PROCESSED_DIR, raw_dir=config.RAW_DIR):
         self.processed_dir = processed_dir
+        self.raw_dir = raw_dir
 
         # Load config
         self.portfolio_config = config.PORTFOLIO_CONFIG
         self.risk_config = config.RISK_MANAGEMENT
         self.price_unit_config = config.PRICE_UNIT_CONFIG
+
+        self._returns_cache = {}
 
         logger.info(f"PortfolioManager initialized: Max position={self.portfolio_config['max_position_pct']*100}%, Stop loss={self.risk_config['stop_loss_pct']*100}%")
 
@@ -46,12 +49,111 @@ class PortfolioManager:
             # Already in VND
             return price
 
-    def generate_recommendation(self, total_capital=100000000):
+    # ------------------------------------------------------------------
+    # Selection helpers
+    # ------------------------------------------------------------------
+
+    def _load_returns(self, symbol):
+        """Lợi suất ngày gần nhất (correlation_lookback phiên) của 1 mã; None nếu thiếu dữ liệu."""
+        if symbol in self._returns_cache:
+            return self._returns_cache[symbol]
+
+        returns = None
+        path = os.path.join(self.raw_dir, f"{symbol}_price.csv")
+        try:
+            if os.path.exists(path):
+                df = pd.read_csv(path)
+                df['time'] = pd.to_datetime(df['time']).dt.normalize()
+                closes = df.drop_duplicates('time').sort_values('time').set_index('time')['close']
+                lookback = self.portfolio_config.get('correlation_lookback', 60)
+                returns = closes.pct_change().dropna().tail(lookback)
+        except Exception as e:
+            logger.warning(f"Cannot load returns for {symbol}: {e}")
+
+        self._returns_cache[symbol] = returns
+        return returns
+
+    def _max_correlation_with(self, symbol, selected_symbols):
+        """
+        Tương quan lợi suất cao nhất giữa `symbol` và các mã đã chọn.
+        Returns (corr, other_symbol) hoặc (None, None) nếu không đủ dữ liệu để kiểm tra.
+        """
+        r1 = self._load_returns(symbol)
+        if r1 is None or len(r1) < 20:
+            return None, None
+
+        worst, worst_sym = None, None
+        for other in selected_symbols:
+            r2 = self._load_returns(other)
+            if r2 is None:
+                continue
+            joined = pd.concat([r1, r2], axis=1, join='inner').dropna()
+            if len(joined) < 20:
+                continue
+            corr = joined.iloc[:, 0].corr(joined.iloc[:, 1])
+            if pd.notna(corr) and (worst is None or corr > worst):
+                worst, worst_sym = corr, other
+        return worst, worst_sym
+
+    def select_candidates(self, buy_list, available_cash):
+        """
+        Chọn tối đa max_positions mã từ buy_list (đã sắp theo điểm giảm dần), tôn trọng:
+          - số vị thế tối đa
+          - tối đa N mã / ngành, với N = max_sector_pct // max_position_pct
+            (mỗi mã ≤ max_position_pct → tổng 1 ngành ≤ max_sector_pct)
+          - tương quan lợi suất ≤ max_correlation với các mã đã chọn
+          - đủ tiền mua ít nhất 1 lô (100 cổ) trong mức tối đa của 1 vị thế
+
+        Returns:
+            list[pandas.Series] đã chọn
+        """
+        cfg = self.portfolio_config
+        max_positions = cfg['max_positions']
+        max_per_sector = max(1, int(cfg.get('max_sector_pct', 1.0) // cfg['max_position_pct']))
+        max_corr = cfg.get('max_correlation', 1.0)
+        max_amount = available_cash * cfg['max_position_pct']
+
+        selected, sector_count = [], {}
+
+        for _, row in buy_list.iterrows():
+            if len(selected) >= max_positions:
+                break
+
+            symbol = row['Symbol']
+            sector = row.get('Sector') if pd.notna(row.get('Sector', None)) else config.SECTOR_MAP.get(symbol, 'Khác')
+
+            price = self._detect_price_unit(row['Price'])
+            if price <= 0 or price * 100 > max_amount:
+                logger.info(f"  ⏩ {symbol}: bỏ qua - 1 lô ({price*100:,.0f} VND) vượt mức tối đa 1 vị thế ({max_amount:,.0f})")
+                continue
+
+            if sector_count.get(sector, 0) >= max_per_sector:
+                logger.info(f"  ⏩ {symbol}: bỏ qua - ngành '{sector}' đã đủ {max_per_sector} mã")
+                continue
+
+            corr, other = self._max_correlation_with(symbol, [s['Symbol'] for s in selected])
+            if corr is not None and corr > max_corr:
+                logger.info(f"  ⏩ {symbol}: bỏ qua - tương quan {corr:.2f} với {other} > {max_corr}")
+                continue
+
+            selected.append(row)
+            sector_count[sector] = sector_count.get(sector, 0) + 1
+
+        return selected
+
+    # ------------------------------------------------------------------
+    # Main
+    # ------------------------------------------------------------------
+
+    def generate_recommendation(self, total_capital=100000000, market_filter=None):
         """
         Generate portfolio allocation recommendations
 
         Args:
             total_capital: Total capital in VND (default: 100M)
+            market_filter: output của MarketBreadthAnalyzer.get_market_filter().
+                Nếu có: không mua mới khi thị trường yếu, và vốn đầu tư được nhân
+                với risk_multiplier (thị trường kém khả quan → đầu tư ít hơn).
         """
         logger.info(f"Generating portfolio recommendations with capital: {total_capital:,.0f} VND")
 
@@ -62,8 +164,22 @@ class PortfolioManager:
 
         df = pd.read_csv(report_path)
 
-        # 1. Filter BUY recommendations
+        # 0. Market regime
+        risk_multiplier = 1.0
+        if market_filter:
+            risk_multiplier = market_filter.get('risk_multiplier', 1.0)
+            logger.info(f"Market filter: {market_filter.get('sentiment')} | "
+                        f"allow_new_buys={market_filter.get('allow_new_buys')} | risk_multiplier={risk_multiplier}")
+            if not market_filter.get('allow_new_buys', True):
+                logger.warning("=" * 60)
+                logger.warning("⚠️ MARKET RISK WARNING - thị trường yếu, không mua mới")
+                logger.warning("💡 Recommendation: Hold 100% CASH")
+                logger.warning("=" * 60)
+                return
+
+        # 1. Filter BUY recommendations (đã qua RuleGate ở bước analysis), điểm cao trước
         buy_list = df[df['Recommendation'].str.contains('MUA', case=False, na=False)].copy()
+        buy_list = buy_list.drop_duplicates('Symbol').sort_values('Total_Score', ascending=False)
 
         if buy_list.empty:
             logger.warning("=" * 60)
@@ -75,18 +191,28 @@ class PortfolioManager:
 
         logger.info(f"Found {len(buy_list)} stocks with BUY recommendations")
 
-        # 2. Calculate allocation
-        total_buy_score = buy_list['Total_Score'].sum()
-
-        recommendations = []
-
         # Available cash (can configure to keep some reserve)
         cash_reserve_pct = self.portfolio_config.get('cash_reserve_pct', 0)
-        available_cash = total_capital * (1 - cash_reserve_pct)
+        available_cash = total_capital * (1 - cash_reserve_pct) * risk_multiplier
 
-        logger.info(f"Available for investment: {available_cash:,.0f} VND ({(1-cash_reserve_pct)*100:.0f}%)")
+        logger.info(f"Available for investment: {available_cash:,.0f} VND "
+                    f"({(1-cash_reserve_pct)*risk_multiplier*100:.0f}%)")
 
-        for index, row in buy_list.iterrows():
+        # 2. Select candidates (max positions, sector cap, correlation, lot affordability)
+        selected = self.select_candidates(buy_list, available_cash)
+        if not selected:
+            logger.warning("Không mã nào qua bộ lọc danh mục → Hold 100% CASH")
+            return
+
+        selected_df = pd.DataFrame(selected)
+        logger.info(f"Selected {len(selected_df)}/{len(buy_list)} stocks "
+                    f"(max {self.portfolio_config['max_positions']})")
+
+        # 3. Calculate allocation
+        total_buy_score = selected_df['Total_Score'].sum()
+        recommendations = []
+
+        for index, row in selected_df.iterrows():
             symbol = row['Symbol']
             score = row['Total_Score']
             price_raw = row['Price']
@@ -105,8 +231,8 @@ class PortfolioManager:
             max_position_pct = self.portfolio_config['max_position_pct']
             weight = min(max_position_pct, raw_weight)
 
-            # Special case: only 1 stock → max 40%, keep 60% cash
-            if len(buy_list) == 1:
+            # Special case: only 1 stock → max position, keep rest cash
+            if len(selected_df) == 1:
                 weight = max_position_pct
                 logger.info(f"Single position detected, capping at {max_position_pct*100}%")
 
@@ -123,7 +249,7 @@ class PortfolioManager:
             actual_amount = shares * price
             actual_weight = actual_amount / total_capital
 
-            # 3. Risk Management
+            # Risk Management
             stop_loss_pct = self.risk_config['stop_loss_pct']
             target_profit_pct = self.risk_config['target_profit_pct']
 
@@ -134,6 +260,7 @@ class PortfolioManager:
 
             recommendations.append({
                 'Symbol': symbol,
+                'Sector': row.get('Sector') if pd.notna(row.get('Sector', None)) else config.SECTOR_MAP.get(symbol, 'Khác'),
                 'Action': row['Recommendation'],
                 'Score': score,
                 'Entry_Price': f"{price:,.0f}",
@@ -172,7 +299,7 @@ class PortfolioManager:
             logger.info("=" * 60)
 
             logger.info("\nPORTFOLIO DETAILS:")
-            display_cols = ['Symbol', 'Action', 'Weight_%', 'Volume_Shares', 'Entry_Price', 'Stop_Loss', 'Target']
+            display_cols = ['Symbol', 'Sector', 'Action', 'Weight_%', 'Volume_Shares', 'Entry_Price', 'Stop_Loss', 'Target']
             print(df_rec[display_cols].to_string())
 
             # Risk summary

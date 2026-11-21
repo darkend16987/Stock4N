@@ -19,8 +19,8 @@
 
 Stock4N phân tích **100 mã cổ phiếu VN100** (VN30 + VNMidcap) với chiến lược **Defensive Swing Trading** (1-3 tháng), kết hợp:
 
-- **60% Fundamental Analysis**: ROE, profit growth, financial health
-- **40% Technical Analysis**: RSI, SMA trends, volume patterns
+- **65% Fundamental Analysis**: ROE, profit growth, financial health
+- **35% Technical Analysis**: RSI, SMA trends, volume patterns
 - **AI-Powered Insights**: Market breadth, pattern recognition, ML predictions
 
 **Target Audience**: Nhà đầu tư cá nhân với khẩu vị rủi ro thấp-trung bình, vốn 50-200 triệu VND.
@@ -33,7 +33,8 @@ Stock4N phân tích **100 mã cổ phiếu VN100** (VN30 + VNMidcap) với chi�
 
 ✅ **100 Stock Universe** — VN100 Index coverage (95%+ market cap)
 ✅ **Multi-Source Data** — KBS, VCI, TCBS fallback (vnstock 3.4.0)
-✅ **Dual Analysis** — 60% fundamental + 40% technical scoring
+✅ **Dual Analysis** — 65% fundamental + 35% technical scoring (source of truth: `src/config.py`)
+✅ **Hard Rules Gate** — ROE ≥ 10%, P/E ≤ 30, Nợ/Vốn ≤ 2 (trừ nhóm tài chính), giá ≥ 10,000đ, breadth thị trường; chỉ hạ khuyến nghị MUA, không bao giờ nâng
 ✅ **Smart Portfolio** — Top 8 stocks, 100M capital allocation
 ✅ **Risk Management** — -7% stop loss, +15% target (1:2 R/R)
 ✅ **Modern Dashboard** — Next.js web UI with real-time charts
@@ -162,8 +163,9 @@ This will:
 ┌─────────────────────────────────────────────────┐
 │  3. ANALYSIS (~45 sec)                          │
 │  • Market breadth check (auto)                  │
-│  • Fundamental scoring (60%)                    │
-│  • Technical scoring (40%)                      │
+│  • Fundamental scoring (65%)                    │
+│  • Technical scoring (35%)                      │
+│  • Hard rules gate (ROE/PE/D-E/penny/breadth)   │
 │  • Total score: 0-10                            │
 └──────────────────┬──────────────────────────────┘
                    │

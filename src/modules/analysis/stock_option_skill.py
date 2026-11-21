@@ -14,6 +14,7 @@ import os
 import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+import config
 from modules.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -68,16 +69,8 @@ class StockOptionSkill:
     }
 
     # ── Hard Rules (không thoả = loại ngay) ───────────
-    HARD_RULES = {
-        'min_score': 6.5,          # Điểm tổng tối thiểu
-        'min_roe': 10,             # ROE tối thiểu 10%
-        'max_pe': 30,              # P/E tối đa 30x
-        'max_debt_equity': 2.0,    # Nợ/vốn tối đa 2.0
-        'min_breadth': 0.35,       # Market breadth tối thiểu 35%
-        'max_position_pct': 0.20,  # Tối đa 20% 1 vị thế
-        'max_positions': 8,        # Tối đa 8 mã
-        'cash_reserve': 0.25,      # Giữ 25% tiền mặt
-    }
+    # Single source of truth: config.HARD_RULES (cũng được RuleGate/Portfolio dùng)
+    HARD_RULES = dict(config.HARD_RULES)
 
     # ── Scoring Preferences ───────────────────────────
     PREFERENCES = {
