@@ -20,10 +20,13 @@ class FinancialCalculator:
     Mục tiêu: Tạo ra một bản tóm tắt sức khỏe (Health Check) cho từng mã.
     """
 
-    def __init__(self, data_dir=config.RAW_DIR, output_dir=config.PROCESSED_DIR):
+    def __init__(self, data_dir=config.RAW_DIR, output_dir=config.PROCESSED_DIR, cache_raw=False):
         self.data_dir = data_dir
         self.output_dir = output_dir
         self.validator = DataValidator()
+        # cache_raw=True chỉ nên dùng khi file thô không đổi trong suốt vòng đời object (backtest)
+        self.cache_raw = cache_raw
+        self._raw_cache = {}
 
         # Mapping các tên cột từ file CSV (Do vnstock trả về tiếng Việt/Anh lộn xộn)
         self.col_map = {
@@ -136,8 +139,36 @@ class FinancialCalculator:
             logger.warning(f"Error calculating YoY growth: {e}")
             return None
 
+    @staticmethod
+    def _available_mask(df, year_col, quarter_col, as_of):
+        """
+        Mask các dòng báo cáo ĐÃ được công bố tại `as_of` (point-in-time):
+        hết quý + REPORTING_LAG_DAYS[quý]. Dòng có Năm/Quý không hợp lệ bị loại (không đoán).
+        """
+        quarter_end_md = {1: (3, 31), 2: (6, 30), 3: (9, 30), 4: (12, 31)}
+        as_of = pd.Timestamp(as_of).normalize()
+
+        def available(row):
+            try:
+                y, q = int(row[year_col]), int(row[quarter_col])
+                month, day = quarter_end_md[q]
+                published = pd.Timestamp(year=y, month=month, day=day) + pd.Timedelta(
+                    days=config.REPORTING_LAG_DAYS[q])
+                return published <= as_of
+            except (ValueError, KeyError, TypeError):
+                return False
+
+        return df.apply(available, axis=1)
+
     def load_data(self, symbol):
-        """Đọc dữ liệu thô từ CSV"""
+        """Đọc dữ liệu thô từ CSV (có thể cache khi cache_raw=True)"""
+        if self.cache_raw:
+            if symbol not in self._raw_cache:
+                self._raw_cache[symbol] = self._read_raw(symbol)
+            return {k: v.copy() for k, v in self._raw_cache[symbol].items()}
+        return self._read_raw(symbol)
+
+    def _read_raw(self, symbol):
         data = {}
         try:
             # Load Price
@@ -158,8 +189,14 @@ class FinancialCalculator:
 
         return data
 
-    def calculate_metrics(self, symbol):
-        """Tính toán các chỉ số cơ bản"""
+    def calculate_metrics(self, symbol, as_of=None):
+        """
+        Tính toán các chỉ số cơ bản.
+
+        Args:
+            as_of: nếu có (point-in-time cho backtest): chỉ dùng giá đến hết ngày as_of và các
+                báo cáo đã công bố tại as_of (xem config.REPORTING_LAG_DAYS). None = dữ liệu mới nhất.
+        """
         data = self.load_data(symbol)
 
         # 1. Kiểm tra dữ liệu tối thiểu
@@ -176,6 +213,11 @@ class FinancialCalculator:
             # Đảm bảo sort theo thời gian
             data['price']['time'] = pd.to_datetime(data['price']['time'])
             data['price'] = data['price'].sort_values('time')
+            if as_of is not None:
+                cutoff = pd.Timestamp(as_of).normalize()
+                data['price'] = data['price'][data['price']['time'].dt.normalize() <= cutoff]
+                if data['price'].empty:
+                    return None
             latest_price = data['price'].iloc[-1]['close']
 
             # Xử lý Báo cáo KQKD (Income Statement)
@@ -191,6 +233,11 @@ class FinancialCalculator:
                 logger.warning(f"Missing year/quarter columns for {symbol}")
                 return None
 
+            if as_of is not None:
+                inc_df = inc_df[self._available_mask(inc_df, year_col, quarter_col, as_of)]
+                if inc_df.empty:
+                    return None
+
             # Sort: Năm tăng dần, Kỳ (Quý) tăng dần
             inc_df = inc_df.sort_values(by=[year_col, quarter_col], ascending=True)
 
@@ -205,7 +252,11 @@ class FinancialCalculator:
                 bs_quarter_col = self._find_col(bs_df, self.col_map['quarter'])
 
                 if bs_year_col and bs_quarter_col:
+                    if as_of is not None:
+                        bs_df = bs_df[self._available_mask(bs_df, bs_year_col, bs_quarter_col, as_of)]
                     bs_df = bs_df.sort_values(by=[bs_year_col, bs_quarter_col], ascending=True)
+                elif as_of is not None:
+                    bs_df = bs_df.iloc[0:0]   # không xác định được kỳ → không dùng (tránh nhìn trước)
 
                 equity_col = self._find_col(bs_df, self.col_map['equity'])
                 liab_col = self._find_col(bs_df, self.col_map['liabilities'])

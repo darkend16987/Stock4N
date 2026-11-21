@@ -14,9 +14,15 @@ class PortfolioManager:
     """
     Module quản lý danh mục: Phân bổ vốn & Quản trị rủi ro.
     """
-    def __init__(self, processed_dir=config.PROCESSED_DIR, raw_dir=config.RAW_DIR):
+    def __init__(self, processed_dir=config.PROCESSED_DIR, raw_dir=config.RAW_DIR, returns_provider=None):
+        """
+        Args:
+            returns_provider: callable(symbol) -> pandas.Series lợi suất ngày (hoặc None). Backtest dùng
+                để cấp dữ liệu point-in-time cho bộ lọc tương quan; None = đọc file giá mới nhất.
+        """
         self.processed_dir = processed_dir
         self.raw_dir = raw_dir
+        self._returns_provider = returns_provider
 
         # Load config
         self.portfolio_config = config.PORTFOLIO_CONFIG
@@ -55,6 +61,9 @@ class PortfolioManager:
 
     def _load_returns(self, symbol):
         """Lợi suất ngày gần nhất (correlation_lookback phiên) của 1 mã; None nếu thiếu dữ liệu."""
+        if self._returns_provider is not None:
+            return self._returns_provider(symbol)
+
         if symbol in self._returns_cache:
             return self._returns_cache[symbol]
 
@@ -95,7 +104,7 @@ class PortfolioManager:
                 worst, worst_sym = corr, other
         return worst, worst_sym
 
-    def select_candidates(self, buy_list, available_cash):
+    def select_candidates(self, buy_list, available_cash, held_symbols=None, slots=None):
         """
         Chọn tối đa max_positions mã từ buy_list (đã sắp theo điểm giảm dần), tôn trọng:
           - số vị thế tối đa
@@ -104,22 +113,37 @@ class PortfolioManager:
           - tương quan lợi suất ≤ max_correlation với các mã đã chọn
           - đủ tiền mua ít nhất 1 lô (100 cổ) trong mức tối đa của 1 vị thế
 
+        Args:
+            held_symbols: các mã ĐANG nắm giữ (backtest/tái cân bằng): tính vào trần ngành và
+                bộ lọc tương quan; không được chọn lại.
+            slots: số vị thế mới tối đa (mặc định max_positions - số mã đang giữ).
+
         Returns:
             list[pandas.Series] đã chọn
         """
         cfg = self.portfolio_config
+        held_symbols = list(held_symbols or [])
         max_positions = cfg['max_positions']
+        if slots is None:
+            slots = max_positions - len(held_symbols)
+        slots = max(0, min(slots, max_positions - len(held_symbols)))
         max_per_sector = max(1, int(cfg.get('max_sector_pct', 1.0) // cfg['max_position_pct']))
         max_corr = cfg.get('max_correlation', 1.0)
         max_amount = available_cash * cfg['max_position_pct']
 
-        selected, sector_count = [], {}
+        selected = []
+        sector_count = {}
+        for held in held_symbols:
+            sec = config.SECTOR_MAP.get(held, 'Khác')
+            sector_count[sec] = sector_count.get(sec, 0) + 1
 
         for _, row in buy_list.iterrows():
-            if len(selected) >= max_positions:
+            if len(selected) >= slots:
                 break
 
             symbol = row['Symbol']
+            if symbol in held_symbols:
+                continue
             sector = row.get('Sector') if pd.notna(row.get('Sector', None)) else config.SECTOR_MAP.get(symbol, 'Khác')
 
             price = self._detect_price_unit(row['Price'])
@@ -131,7 +155,8 @@ class PortfolioManager:
                 logger.info(f"  ⏩ {symbol}: bỏ qua - ngành '{sector}' đã đủ {max_per_sector} mã")
                 continue
 
-            corr, other = self._max_correlation_with(symbol, [s['Symbol'] for s in selected])
+            corr, other = self._max_correlation_with(
+                symbol, held_symbols + [s['Symbol'] for s in selected])
             if corr is not None and corr > max_corr:
                 logger.info(f"  ⏩ {symbol}: bỏ qua - tương quan {corr:.2f} với {other} > {max_corr}")
                 continue
@@ -140,6 +165,56 @@ class PortfolioManager:
             sector_count[sector] = sector_count.get(sector, 0) + 1
 
         return selected
+
+    def compute_allocation(self, selected_df, available_cash):
+        """
+        Chia `available_cash` cho các mã đã chọn theo tỷ lệ điểm, mỗi mã ≤ max_position_pct,
+        làm tròn xuống lô 100. Dùng chung cho khuyến nghị live và backtest.
+
+        Returns:
+            list[dict]: row, symbol, score, price (VND), weight, shares, amount (VND)
+        """
+        selected_df = pd.DataFrame(selected_df)
+        if selected_df.empty:
+            return []
+
+        max_position_pct = self.portfolio_config['max_position_pct']
+        total_buy_score = selected_df['Total_Score'].sum()
+        result = []
+
+        for _, row in selected_df.iterrows():
+            symbol = row['Symbol']
+            score = row['Total_Score']
+
+            # Auto-detect price unit
+            price = self._detect_price_unit(row['Price'])
+
+            if price == 0:
+                logger.warning(f"Skipping {symbol}: Invalid price (0)")
+                continue
+
+            # Calculate weight, apply max position limit
+            raw_weight = score / total_buy_score
+            weight = min(max_position_pct, raw_weight)
+
+            # Special case: only 1 stock → max position, keep rest cash
+            if len(selected_df) == 1:
+                weight = max_position_pct
+                logger.info(f"Single position detected, capping at {max_position_pct*100}%")
+
+            amount = available_cash * weight
+
+            # Round to lot of 100 shares
+            shares = int(amount / price / 100) * 100
+
+            if shares == 0:
+                logger.warning(f"Skipping {symbol}: Insufficient capital for 1 lot (price={price:,.0f})")
+                continue
+
+            result.append({'row': row, 'symbol': symbol, 'score': score, 'price': price,
+                           'weight': weight, 'shares': shares, 'amount': shares * price})
+
+        return result
 
     # ------------------------------------------------------------------
     # Main
@@ -209,44 +284,16 @@ class PortfolioManager:
                     f"(max {self.portfolio_config['max_positions']})")
 
         # 3. Calculate allocation
-        total_buy_score = selected_df['Total_Score'].sum()
+        max_position_pct = self.portfolio_config['max_position_pct']
         recommendations = []
 
-        for index, row in selected_df.iterrows():
-            symbol = row['Symbol']
-            score = row['Total_Score']
-            price_raw = row['Price']
-
-            # Auto-detect price unit
-            price = self._detect_price_unit(price_raw)
-
-            if price == 0:
-                logger.warning(f"Skipping {symbol}: Invalid price (0)")
-                continue
-
-            # Calculate weight
-            raw_weight = score / total_buy_score
-
-            # Apply max position limit
-            max_position_pct = self.portfolio_config['max_position_pct']
-            weight = min(max_position_pct, raw_weight)
-
-            # Special case: only 1 stock → max position, keep rest cash
-            if len(selected_df) == 1:
-                weight = max_position_pct
-                logger.info(f"Single position detected, capping at {max_position_pct*100}%")
-
-            amount = available_cash * weight
-
-            # Round to lot of 100 shares
-            shares = int(amount / price / 100) * 100
-
-            if shares == 0:
-                logger.warning(f"Skipping {symbol}: Insufficient capital for 1 lot (price={price:,.0f})")
-                continue
-
-            # Actual amount and weight
-            actual_amount = shares * price
+        for alloc in self.compute_allocation(selected_df, available_cash):
+            row = alloc['row']
+            symbol = alloc['symbol']
+            score = alloc['score']
+            price = alloc['price']
+            shares = alloc['shares']
+            actual_amount = alloc['amount']
             actual_weight = actual_amount / total_capital
 
             # Risk Management

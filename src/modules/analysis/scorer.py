@@ -45,14 +45,18 @@ class StockScorer:
             logger.error(f"Error loading price data for {symbol}: {e}")
         return None
 
-    def calculate_technical_score(self, symbol):
+    def calculate_technical_score(self, symbol, price_df=None):
         """
         Tính điểm kỹ thuật (0-10)
         - Xu hướng (Trend): MA50, MA200
         - Động lượng (Momentum): RSI
         - Volume analysis
+
+        Args:
+            price_df: nếu có (backtest point-in-time) dùng DataFrame này thay vì đọc file;
+                dữ liệu phải đã được cắt đến ngày phân tích.
         """
-        df = self.load_price_data(symbol)
+        df = price_df if price_df is not None else self.load_price_data(symbol)
         if df is None or len(df) < 50:
             logger.warning(f"Insufficient price data for technical analysis: {symbol}")
             return 0, "No Data"
@@ -187,6 +191,60 @@ class StockScorer:
             return 'THEO DÕI', result
         return recommendation, result
 
+    def score_symbol(self, metrics_row, market_filter=None, price_df=None):
+        """
+        Chấm điểm 1 mã: điểm cơ bản + kỹ thuật → khuyến nghị → RuleGate.
+        Dùng CHUNG cho phân tích live (run_analysis) và backtest, để hai bên không lệch logic.
+
+        Args:
+            metrics_row: dict/Series chỉ số tài chính (Symbol, Price, ROE, PE, ...)
+            price_df: giá đã cắt đến ngày phân tích (backtest); None = đọc file mới nhất
+        """
+        symbol = metrics_row['Symbol']
+
+        f_score, f_reason = self.calculate_fundamental_score(metrics_row)
+        t_score, t_reason = self.calculate_technical_score(symbol, price_df=price_df)
+
+        # Tổng hợp với trọng số từ config
+        total_score = round(
+            f_score * self.scoring_weights['fundamental'] +
+            t_score * self.scoring_weights['technical'],
+            2
+        )
+
+        # Khuyến nghị từ config
+        if total_score >= self.rec_thresholds['strong_buy']:
+            recommendation = "MUA MẠNH"
+        elif total_score >= self.rec_thresholds['buy']:
+            recommendation = "MUA THĂM DÒ"
+        elif total_score <= self.rec_thresholds['sell']:
+            recommendation = "BÁN / CƠ CẤU"
+        else:
+            recommendation = "THEO DÕI"
+
+        # Quy tắc cứng (ROE/PE/Nợ-Vốn/penny/breadth): chỉ hạ MUA → THEO DÕI
+        raw_recommendation = recommendation
+        recommendation, gate = self.apply_gate(metrics_row, total_score, recommendation, market_filter)
+        if recommendation != raw_recommendation:
+            logger.info(f"  ⛔ {symbol}: {raw_recommendation} → {recommendation} "
+                        f"({'; '.join(gate['reasons'])})")
+
+        return {
+            'Symbol': symbol,
+            'Total_Score': total_score,
+            'Recommendation': recommendation,
+            'Fund_Score': f_score,
+            'Tech_Score': t_score,
+            'Fund_Reason': f_reason,
+            'Tech_Reason': t_reason,
+            'Price': metrics_row['Price'],
+            'Raw_Recommendation': raw_recommendation,
+            'Gate_Passed': gate['passed'],
+            'Gate_Reasons': '; '.join(gate['reasons']),
+            'Gate_Warnings': '; '.join(gate['warnings']),
+            'Sector': self.gate.sector_of(symbol),
+        }
+
     def run_analysis(self, market_filter=None):
         """
         Run full analysis and generate scored recommendations
@@ -213,51 +271,10 @@ class StockScorer:
             symbol = row['Symbol']
             logger.info(f"[{index+1}/{len(df_metrics)}] Analyzing {symbol}...")
 
-            # Tính điểm
-            f_score, f_reason = self.calculate_fundamental_score(row)
-            t_score, t_reason = self.calculate_technical_score(symbol)
+            result = self.score_symbol(row, market_filter)
+            results.append(result)
 
-            # Tổng hợp với trọng số từ config
-            total_score = round(
-                f_score * self.scoring_weights['fundamental'] +
-                t_score * self.scoring_weights['technical'],
-                2
-            )
-
-            # Khuyến nghị từ config
-            if total_score >= self.rec_thresholds['strong_buy']:
-                recommendation = "MUA MẠNH"
-            elif total_score >= self.rec_thresholds['buy']:
-                recommendation = "MUA THĂM DÒ"
-            elif total_score <= self.rec_thresholds['sell']:
-                recommendation = "BÁN / CƠ CẤU"
-            else:
-                recommendation = "THEO DÕI"
-
-            # Quy tắc cứng (ROE/PE/Nợ-Vốn/penny/breadth): chỉ hạ MUA → THEO DÕI
-            raw_recommendation = recommendation
-            recommendation, gate = self.apply_gate(row, total_score, recommendation, market_filter)
-            if recommendation != raw_recommendation:
-                logger.info(f"  ⛔ {symbol}: {raw_recommendation} → {recommendation} "
-                            f"({'; '.join(gate['reasons'])})")
-
-            results.append({
-                'Symbol': symbol,
-                'Total_Score': total_score,
-                'Recommendation': recommendation,
-                'Fund_Score': f_score,
-                'Tech_Score': t_score,
-                'Fund_Reason': f_reason,
-                'Tech_Reason': t_reason,
-                'Price': row['Price'],
-                'Raw_Recommendation': raw_recommendation,
-                'Gate_Passed': gate['passed'],
-                'Gate_Reasons': '; '.join(gate['reasons']),
-                'Gate_Warnings': '; '.join(gate['warnings']),
-                'Sector': self.gate.sector_of(symbol),
-            })
-
-            logger.info(f"✓ {symbol}: Score={total_score} → {recommendation}")
+            logger.info(f"✓ {symbol}: Score={result['Total_Score']} → {result['Recommendation']}")
 
         # Xuất báo cáo
         df_results = pd.DataFrame(results)

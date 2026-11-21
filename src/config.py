@@ -280,6 +280,47 @@ PRICE_UNIT_CONFIG = {
 # Mệnh giá cổ phiếu VN (đồng) — ước lượng số cổ phiếu = Vốn góp / mệnh giá
 PAR_VALUE_VND = 10000
 
+# --- ĐỘ TRỄ CÔNG BỐ BÁO CÁO TÀI CHÍNH (dùng cho backtest point-in-time) ---
+# Dữ liệu thô chỉ có (Năm, Quý), KHÔNG có ngày công bố. Để backtest không "biết trước" báo cáo,
+# báo cáo quý chỉ được dùng sau (hết quý + độ trễ). Đây là GIẢ ĐỊNH BẢO THỦ, chưa kiểm chứng với
+# ngày công bố thực tế của vnstock: Q1-Q3 = 45 ngày, Q4 = 90 ngày (chờ báo cáo kiểm toán năm).
+REPORTING_LAG_DAYS = {1: 45, 2: 45, 3: 45, 4: 90}
+
+# --- BACKTEST V2 (mô phỏng sát thị trường VN) ---
+# Thông số HOSE: bước giá/biên độ/T+2/phí. Phí và thuế cần đối chiếu biểu phí của công ty chứng khoán.
+BACKTEST_V2 = {
+    'initial_capital': 100_000_000,
+    'rebalance_every': 5,          # Quét tín hiệu mỗi 5 phiên (~hàng tuần)
+    'warmup_sessions': 210,        # Đủ dữ liệu cho MA dài (MA200) trước khi giao dịch
+    'lot_size': 100,
+    'price_limit': 0.07,           # Biên độ HOSE ±7% so với giá tham chiếu (phiên trước)
+    'settlement_sessions': 2,      # T+2: mua phiên N, được bán từ phiên N+2; tiền bán về sau N+2
+    'fee_rate': 0.0015,            # Phí môi giới mỗi chiều (0.15%)
+    'sell_tax_rate': 0.001,        # Thuế TNCN bán (0.10%)
+    'slippage': 0.001,             # Trượt giá mỗi chiều (0.10%)
+    'max_hold_sessions': 126,      # ~6 tháng (HOLDING_PERIOD['max_months'] * 21)
+    'risk_free_annual': 0.04,      # ƯỚC LƯỢNG lãi tiền gửi, dùng cho Sharpe; chỉnh theo thực tế
+    'bootstrap_resamples': 2000,
+    'bootstrap_block': 10,         # Block bootstrap (chuỗi lợi suất có tự tương quan)
+    'mc_resamples': 2000,
+    'walk_forward_windows': 6,
+    'seed': 42,
+}
+
+# --- NGƯỠNG NGHIỆM THU (ĐỀ XUẤT - tiền thật nên chặt) ---
+# Thiếu dữ liệu để kết luận → INCONCLUSIVE (không được tính là PASS).
+BACKTEST_ACCEPTANCE = {
+    'min_sessions': 504,                 # >= ~2 năm giao dịch
+    'min_trades': 40,                    # Ít hơn thì không đủ ý nghĩa thống kê
+    'min_sharpe_ci_lower': 0.0,          # Cận dưới KTC 95% của Sharpe phải > 0
+    'min_excess_cagr': 0.0,              # Phải thắng benchmark SAU chi phí
+    'max_drawdown': RISK_MANAGEMENT['max_drawdown_pct'],   # 10% theo cấu hình rủi ro của bạn
+    'max_mc_drawdown_p95': 0.15,         # DD ở phân vị 95 khi đảo thứ tự giao dịch
+    'min_profit_factor': 1.3,
+    'min_positive_windows_pct': 0.60,    # >= 60% cửa sổ walk-forward có lãi
+    'cost_stress_multiplier': 2.0,       # Nhân đôi phí+thuế+trượt giá vẫn phải có lãi
+}
+
 # --- CẤU HÌNH DATA VALIDATION ---
 DATA_QUALITY = {
     'min_price_rows': 30,         # Minimum 30 days of price data
