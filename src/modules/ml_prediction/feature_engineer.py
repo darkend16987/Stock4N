@@ -182,6 +182,16 @@ class FeatureEngineer:
 
         return df
 
+    _EXCLUDE_COLS = ['time', 'open', 'high', 'low', 'close', 'volume', 'future_return', 'target']
+
+    def _build_feature_frame(self, df):
+        """Toàn bộ đặc trưng (chưa có target), dùng chung cho huấn luyện và dự đoán mới nhất."""
+        df = self.create_technical_features(df)
+        lag_cols = ['return_1d', 'rsi_14', 'macd_diff', 'volume_change']
+        df = self.create_lag_features(df, lag_cols, lags=[1, 2, 3, 5])
+        rolling_cols = ['return_1d', 'volume']
+        return self.create_rolling_features(df, rolling_cols, windows=[5, 10, 20])
+
     def prepare_ml_dataset(self, symbol, horizon=5, threshold=0.02):
         """
         Tạo dataset hoàn chỉnh cho ML
@@ -197,16 +207,7 @@ class FeatureEngineer:
             logger.error(f"No data for {symbol}")
             return None
 
-        # Create technical features
-        df = self.create_technical_features(df)
-
-        # Create lag features for key indicators
-        lag_cols = ['return_1d', 'rsi_14', 'macd_diff', 'volume_change']
-        df = self.create_lag_features(df, lag_cols, lags=[1, 2, 3, 5])
-
-        # Create rolling features
-        rolling_cols = ['return_1d', 'volume']
-        df = self.create_rolling_features(df, rolling_cols, windows=[5, 10, 20])
+        df = self._build_feature_frame(df)
 
         # Create target
         df = self.create_target_variable(df, horizon=horizon, threshold=threshold)
@@ -215,9 +216,7 @@ class FeatureEngineer:
         df = df.dropna()
 
         # Store feature names (exclude target and metadata)
-        exclude_cols = ['time', 'open', 'high', 'low', 'close', 'volume',
-                       'future_return', 'target']
-        self.feature_names = [col for col in df.columns if col not in exclude_cols]
+        self.feature_names = [col for col in df.columns if col not in self._EXCLUDE_COLS]
 
         logger.info(f"{symbol}: {len(df)} samples, {len(self.feature_names)} features")
 
@@ -257,11 +256,15 @@ class FeatureEngineer:
         Returns:
             Series: Latest feature values
         """
-        df = self.prepare_ml_dataset(symbol)
+        # Lỗi cũ: gọi prepare_ml_dataset() rồi dropna() sẽ bỏ `horizon` dòng cuối (chưa có nhãn) nên
+        # "đặc trưng mới nhất" thực ra cũ hàng tuần. Nay tính đặc trưng trực tiếp trên dữ liệu đến hôm nay.
+        df = self.load_price_data(symbol)
         if df is None or df.empty:
             return None
 
-        # Get last row's features
-        latest_features = df[self.feature_names].iloc[-1]
-
-        return latest_features
+        frame = self._build_feature_frame(df)
+        names = self.feature_names or [c for c in frame.columns if c not in self._EXCLUDE_COLS]
+        latest = frame[names].iloc[-1]
+        if latest.isna().any():          # chưa đủ lịch sử cho các cửa sổ dài
+            return None
+        return latest
