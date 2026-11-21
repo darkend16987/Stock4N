@@ -7,6 +7,37 @@ from datetime import datetime
 # os.path.dirname(...) lần nữa để ra root (/app)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+def _load_dotenv(path):
+    """
+    Nạp file .env (không cần python-dotenv). Biến đã có sẵn trong môi trường (docker/shell) được ưu tiên.
+    Chạy `python src/main.py ...` trực tiếp trước đây KHÔNG đọc .env nên GOOGLE_API_KEY/AI_MODEL bị bỏ qua.
+    """
+    try:
+        with open(path, encoding='utf-8-sig') as f:
+            for raw in f:
+                line = raw.strip()
+                if not line or line.startswith('#') or '=' not in line:
+                    continue
+                if line.startswith('export '):
+                    line = line[len('export '):]
+                key, _, value = line.partition('=')
+                key, value = key.strip(), value.strip()
+                if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
+                    value = value[1:-1]
+                elif ' #' in value:
+                    value = value.split(' #', 1)[0].rstrip()
+                if key and key not in os.environ:
+                    os.environ[key] = value
+    except OSError:
+        pass
+
+
+_load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+# Mô hình Gemini dùng cho phân tích (AIReasoner) và hội đồng. Đổi bằng AI_MODEL trong .env.
+AI_MODEL = os.environ.get('AI_MODEL') or 'gemini-3.8-flash'
+
 DATA_DIR = os.path.join(BASE_DIR, "data")
 RAW_DIR = os.path.join(DATA_DIR, "raw")
 PROCESSED_DIR = os.path.join(DATA_DIR, "processed")
@@ -313,11 +344,20 @@ BACKTEST_V2 = {
 # ghi nhật ký quyết định để đối chiếu với kết quả thực (forward-test), chưa ảnh hưởng khuyến nghị.
 COMMITTEE_CONFIG = {
     'mode': 'shadow',                 # 'shadow' = chỉ ghi log | 'enforce' = veto hạ MUA → THEO DÕI
-    'model': os.environ.get('COMMITTEE_MODEL', 'gemini-2.5-flash'),
-    'temperature': 0.2,               # thấp: cần nhất quán, không cần sáng tạo
-    'max_output_tokens': 1200,
+    'model': os.environ.get('COMMITTEE_MODEL') or AI_MODEL,
+    # Chỉ áp dụng cho Gemini 2.x. Từ Gemini 3 tài liệu yêu cầu bỏ temperature/top_p/top_k nên client không gửi nữa.
+    'temperature': 0.2,
+    # Gemini 3.x mặc định "suy nghĩ" ở mức medium; chưa rõ token suy nghĩ có tính vào giới hạn đầu ra hay không
+    # (ở Gemini 2.5 thì có) nên để dư rộng, tránh JSON bị cắt giữa chừng.
+    'max_output_tokens': 8192,
     'max_reviews': 15,                # tối đa số mã MUA được duyệt mỗi lần chạy (4 lần gọi LLM / mã)
     'max_retries': 1,                 # thử lại khi output sai schema / bịa số / trích dẫn sai
+    # Lỗi tạm thời của API (503 quá tải, 504, 429): thử lại có giãn cách rồi mới coi là LLM_ERROR.
+    # Gemini 3.8 Flash từng trả 503 "high demand" liên tục khi kiểm tra (2026-11-21).
+    'api_retries': 3,
+    'retry_backoff': (5, 15, 40),     # giây, phần tử thứ i dùng cho lần thử lại thứ i
+    'request_timeout': 90,            # giây mỗi lượt gọi (tránh treo hàng chục phút)
+    'max_consecutive_api_errors': 2,  # lỗi API liên tiếp từng này mã → dừng, không gọi tiếp
     'prompt_version': 'v2',           # v2: PM nhận thống kê bài học (nếu đủ mẫu). Đổi prompt → tăng version
     'ledger_file': os.path.join(DATA_DIR, 'committee', 'committee_ledger.jsonl'),
     'outcomes_file': os.path.join(DATA_DIR, 'committee', 'committee_outcomes.jsonl'),

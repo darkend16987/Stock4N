@@ -166,13 +166,25 @@ class InvestmentCommittee:
         sector_counts = buys['Sector'].value_counts().to_dict() if 'Sector' in buys else {}
 
         verdicts = []
+        consecutive_api_errors = 0
         for _, row in buys.iterrows():
             symbol = row['Symbol']
+            if consecutive_api_errors >= self.cfg['max_consecutive_api_errors']:
+                # Cầu chì: API đang sập/quá tải → không gọi tiếp (mỗi mã có thể tốn nhiều phút chờ và thử lại)
+                verdicts.append({'symbol': symbol, 'as_of': None, 'status': 'LLM_ERROR', 'action': None,
+                                 'confidence': None, 'risk_flags': [], 'reasons': [], 'bull': None, 'bear': None,
+                                 'cro': None, 'cro_pm_disagree': None, 'cached': False, 'calls': 0,
+                                 'error': f"Bỏ qua: API lỗi liên tiếp {consecutive_api_errors} mã"})
+                continue
             merged = {**metrics.get(symbol, {}), **row.to_dict()}
             sheet = build_fact_sheet(symbol, merged, price_loader(symbol), market_filter,
                                      same_sector_in_shortlist=sector_counts.get(row.get('Sector')))
             logger.info(f"Hội đồng xét {symbol} (điểm {row['Total_Score']}, {row['Recommendation']})...")
-            verdicts.append(self.review(sheet, row['Recommendation'], float(row['Total_Score'])))
+            verdict = self.review(sheet, row['Recommendation'], float(row['Total_Score']))
+            consecutive_api_errors = consecutive_api_errors + 1 if verdict['status'] == 'LLM_ERROR' else 0
+            verdicts.append(verdict)
+        if consecutive_api_errors >= self.cfg['max_consecutive_api_errors']:
+            logger.warning("Hội đồng dừng sớm vì API Gemini lỗi liên tiếp; các mã còn lại giữ nguyên khuyến nghị")
 
         return apply_verdicts(report_df, verdicts, mode), verdicts
 

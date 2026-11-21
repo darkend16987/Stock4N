@@ -58,6 +58,26 @@ chạy lại cùng ngày không tốn thêm lượt gọi. Đây là đầu vào
 3. ≥ 95% output hợp lệ (không INVALID/LLM_ERROR); tỷ lệ VETO ≤ 40% (veto quá nhiều = phá chiến lược).
 4. Đọc tay 20 lập luận VETO ngẫu nhiên: không có lập luận dựa trên tin đồn hay dữ liệu không có trong bảng.
 
+## Mô hình: Gemini 3.8 Flash
+
+Mặc định `gemini-3.8-flash` (đổi bằng `AI_MODEL` trong `.env`; `COMMITTEE_MODEL` nếu muốn tách riêng hội đồng).
+Python giờ tự nạp `.env` (không cần python-dotenv); biến đã có trong môi trường được ưu tiên.
+Theo tài liệu Gemini 3.8 (aistudio.google.com/docs/whats-new-gemini-3.8):
+- Cần bỏ `temperature`, `top_p`, `top_k` → client không gửi chúng cho Gemini ≥ 3 (`modules/utils/gemini_params.py`);
+  Gemini 2.x vẫn dùng `temperature` 0.2. Tài liệu không nói gửi lên sẽ lỗi hay bị bỏ qua.
+- Mặc định "suy nghĩ" mức `medium`; tài liệu không nói token suy nghĩ có tính vào giới hạn đầu ra không
+  → `max_output_tokens` nâng lên 8192 để JSON không bị cắt.
+- Tài liệu không nêu rõ SDK `google-generativeai` (cũ) còn hỗ trợ; ví dụ của họ dùng `google-genai`.
+
+Kiểm tra thật ngày 2026-11-21 bằng key trong `.env`:
+- `gemini-2.5-flash` trả 404 "no longer available to new users, use gemini-3.8-flash" → bắt buộc đổi.
+- `gemini-3.8-flash` trả **503 "high demand"** ở 3/4 lần gọi và treo > 45s ở lần còn lại. Chưa có lần nào trả nội dung,
+  nên **chưa kiểm chứng được** JSON mode và SDK cũ với mô hình này. Lỗi do phía Google quá tải, không phải do code.
+- Client giờ có timeout 90s/lượt, tự thử lại 3 lần (chờ 5/15/40s) với lỗi 503/504/429, và cầu chì dừng sớm nếu
+  2 mã liên tiếp lỗi API (các mã còn lại giữ nguyên khuyến nghị).
+- Gói `google-generativeai` đã **ngừng hỗ trợ** (cảnh báo chính thức khi import, khuyên chuyển sang `google-genai`).
+  Chưa chuyển vì không kiểm chứng được lúc API quá tải; nên làm khi API ổn định.
+
 ## Chưa kiểm chứng
 
 - `GeminiClient` chưa gọi API thật (máy dev không có khoá và gói google-generativeai). `response_mime_type` có thể không
