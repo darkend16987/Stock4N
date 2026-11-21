@@ -14,6 +14,7 @@ from datetime import datetime
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 import config
+from modules.ml_prediction.purged_cv import purged_time_split
 from modules.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -84,7 +85,7 @@ class TrendClassifier:
 
         return X, y
 
-    def train(self, df, feature_names, test_size=0.2):
+    def train(self, df, feature_names, test_size=0.2, horizon=None):
         """
         Train model
 
@@ -92,9 +93,14 @@ class TrendClassifier:
             df: DataFrame with features and target
             feature_names: List of feature columns
             test_size: Test set ratio
+            horizon: số phiên của nhãn (để purge). Mặc định config.ML_VALIDATION['horizon'].
 
         Returns:
             dict: Training metrics
+
+        Có cột 'time' → chia THEO THỜI GIAN có purge (test = các ngày cuối; train kết thúc trước test ít nhất
+        `horizon` phiên). Chia ngẫu nhiên cũ làm rò rỉ (nhãn các ngày liền kề chồng lấn, các mã cùng ngày
+        chịu chung cú sốc) nên độ chính xác báo cáo bị thổi phồng; chỉ còn dùng khi không có cột 'time'.
         """
         logger.info("Training model...")
 
@@ -102,11 +108,21 @@ class TrendClassifier:
         X, y = self.prepare_data(df, feature_names)
 
         # Split train/test
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, random_state=42, stratify=y
-        )
+        if 'time' in df.columns:
+            horizon = config.ML_VALIDATION['horizon'] if horizon is None else horizon
+            train_mask, test_mask = purged_time_split(df['time'], horizon, test_size)
+            X_train, X_test = X[train_mask], X[test_mask]
+            y_train, y_test = y[train_mask], y[test_mask]
+            split = 'purged_time'
+        else:
+            logger.warning("Không có cột 'time' → chia ngẫu nhiên (RÒ RỈ, độ chính xác sẽ bị thổi phồng)")
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=test_size, random_state=42, stratify=y
+            )
+            split = 'random_leaky'
+        self.split_method = split
 
-        logger.info(f"Train samples: {len(X_train)}, Test samples: {len(X_test)}")
+        logger.info(f"Split: {split} | Train samples: {len(X_train)}, Test samples: {len(X_test)}")
 
         # Train
         self.model.fit(X_train, y_train)
@@ -124,11 +140,12 @@ class TrendClassifier:
 
         # Classification report
         logger.info("\nTest Set Classification Report:")
-        report = classification_report(y_test, y_pred_test,
+        # labels cố định: chia theo thời gian có thể làm tập test thiếu 1 lớp
+        report = classification_report(y_test, y_pred_test, labels=[-1, 0, 1],
                                        target_names=['DOWN', 'NEUTRAL', 'UP'],
-                                       output_dict=True)
-        logger.info(classification_report(y_test, y_pred_test,
-                                          target_names=['DOWN', 'NEUTRAL', 'UP']))
+                                       output_dict=True, zero_division=0)
+        logger.info(classification_report(y_test, y_pred_test, labels=[-1, 0, 1],
+                                          target_names=['DOWN', 'NEUTRAL', 'UP'], zero_division=0))
 
         # Feature importance
         if hasattr(self.model, 'feature_importances_'):
@@ -148,12 +165,13 @@ class TrendClassifier:
             'classification_report': report,
             'train_samples': len(X_train),
             'test_samples': len(X_test),
-            'n_features': len(self.feature_names)
+            'n_features': len(self.feature_names),
+            'split': split
         }
 
         return self.metrics
 
-    def train_multi_symbol(self, datasets, feature_names, test_size=0.2):
+    def train_multi_symbol(self, datasets, feature_names, test_size=0.2, horizon=None):
         """
         Train model trên nhiều symbols (pooled data)
 
@@ -179,7 +197,7 @@ class TrendClassifier:
         logger.info(f"Combined dataset: {len(combined_df)} samples")
 
         # Train on combined data
-        metrics = self.train(combined_df, feature_names, test_size)
+        metrics = self.train(combined_df, feature_names, test_size, horizon=horizon)
 
         return metrics
 

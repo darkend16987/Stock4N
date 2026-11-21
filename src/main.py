@@ -365,7 +365,51 @@ def run_price_filter():
         print("\n⚠️  No stocks matched all criteria.")
 
 
-def run_ml_predict(mode='train', model_type='random_forest', horizon=5, threshold=0.02):
+def _warn_if_ml_unvalidated():
+    """ML chỉ là thông tin tham khảo cho tới khi kiểm định ngoài mẫu cho verdict HAS_EDGE."""
+    import json
+    path = config.ML_VALIDATION['report_file']
+    verdict = None
+    if os.path.exists(path):
+        try:
+            with open(path, encoding='utf-8') as f:
+                verdict = json.load(f).get('verdict')
+        except (OSError, ValueError):
+            pass
+    if verdict != 'HAS_EDGE':
+        print(f"⚠️  ML CHƯA ĐƯỢC XÁC THỰC (kiểm định ngoài mẫu: {verdict or 'chưa chạy'}). "
+              "Chạy 'ml_validate'. Chỉ xem như thông tin tham khảo, KHÔNG dùng để ra quyết định mua/bán.")
+
+
+def run_ml_validate():
+    """Kiểm định ML ngoài mẫu (purged walk-forward, mục tiêu 20 phiên, xếp hạng chéo mã)."""
+    print("🧪 [MODE] ML Out-of-sample Validation (purged walk-forward)")
+    import pandas as pd
+    from modules.ml_prediction.research import run_validation
+
+    frames = {}
+    for symbol in config.VN100_SYMBOLS:
+        path = os.path.join(config.RAW_DIR, f"{symbol}_price.csv")
+        if os.path.exists(path):
+            frames[symbol] = pd.read_csv(path)
+    print(f"  Dữ liệu giá: {len(frames)}/{len(config.VN100_SYMBOLS)} mã")
+    report = run_validation(frames, write=True)
+
+    print(f"\nVERDICT: {report['verdict']} | {report['n_symbols']} mã | {report['n_samples']} mẫu | "
+          f"horizon {report['horizon']} phiên | AUC ngoài mẫu {report['auc_oos']}")
+    for c in report['checks']:
+        print(f"  [{c['status']:>4}] {c['name']}: {c['value']} (yêu cầu {c['rule']} {c['threshold']})")
+    for label, key in (('ML', 'ml'), ('Động lượng (baseline)', 'momentum_baseline'), ('Ngẫu nhiên', 'random_baseline')):
+        r = report[key]
+        if r.get('ic'):
+            print(f"  {label}: IC {r['ic']['mean']:+.3f} [{r['ic']['ci_lower']:+.3f}, {r['ic']['ci_upper']:+.3f}] | "
+                  f"top vượt TB {r['top_excess']['mean']:+.2%}")
+    print(f"\n  Chi phí khứ hồi: {report['round_trip_cost']:.2%} | Báo cáo: {config.ML_VALIDATION['report_file']}")
+    for note in report['caveats']:
+        print(f"  - {note}")
+
+
+def run_ml_predict(mode='train', model_type='random_forest', horizon=20, threshold=0.05):
     """
     Chạy ML prediction - Train model hoặc predict trends
 
@@ -410,7 +454,8 @@ def run_ml_predict(mode='train', model_type='random_forest', horizon=5, threshol
         metrics = classifier.train_multi_symbol(
             datasets=datasets,
             feature_names=feature_names,
-            test_size=0.2
+            test_size=0.2,
+            horizon=horizon
         )
 
         # Save model
@@ -444,6 +489,7 @@ def run_ml_predict(mode='train', model_type='random_forest', horizon=5, threshol
 
         metadata = model_manager.load_metadata('trend_classifier', 'latest')
         print(f"✓ Loaded model (trained: {metadata.get('saved_at', 'N/A')})")
+        _warn_if_ml_unvalidated()
 
         # Get latest features for all symbols
         print("\n📊 Extracting latest features...")
@@ -503,7 +549,7 @@ def main():
     parser.add_argument(
         'mode',
         choices=['ingestion', 'processing', 'analysis', 'portfolio', 'export',
-                 'backtest', 'backtest_v2', 'committee', 'committee_settle', 'learn', 'ml_predict', 'breadth', 'price_filter', 'all'],
+                 'backtest', 'backtest_v2', 'committee', 'committee_settle', 'learn', 'ml_predict', 'ml_validate', 'breadth', 'price_filter', 'all'],
         help="Chế độ chạy"
     )
     parser.add_argument('--days', type=int, default=365, help="Backtest/Learning lookback days (default: 365)")
@@ -517,8 +563,8 @@ def main():
     parser.add_argument('--model-type', type=str, default='random_forest',
                         choices=['random_forest', 'gradient_boosting'],
                         help="ML model type (default: random_forest)")
-    parser.add_argument('--horizon', type=int, default=5, help="Forecast horizon in days (default: 5)")
-    parser.add_argument('--threshold', type=float, default=0.02, help="Classification threshold (default: 0.02 = 2%)")
+    parser.add_argument('--horizon', type=int, default=20, help="Forecast horizon in sessions (default: 20)")
+    parser.add_argument('--threshold', type=float, default=0.05, help="Classification threshold (default: 0.05 = 5%)")
     parser.add_argument('--adaptive', action='store_true', help="Use adaptive parameter optimization in analysis")
     parser.add_argument('--committee-mode', type=str, default=None, choices=['shadow', 'enforce'],
                         help="Committee mode: shadow (log only, default from config) or enforce (veto downgrades BUY)")
@@ -543,6 +589,7 @@ def main():
     elif args.mode == 'committee_settle': run_committee_settle()
     elif args.mode == 'learn': run_learning(args.learn_mode, args.optimize_weights, args.days)
     elif args.mode == 'ml_predict': run_ml_predict(args.ml_mode, args.model_type, args.horizon, args.threshold)
+    elif args.mode == 'ml_validate': run_ml_validate()
     elif args.mode == 'price_filter': run_price_filter()
     elif args.mode == 'all':
         run_ingestion()

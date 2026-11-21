@@ -326,6 +326,21 @@ COMMITTEE_CONFIG = {
     'lessons_min_group': 8,           # và mỗi nhóm hiển thị cần >= ngần này mẫu
 }
 
+# --- ML (Phase 4): kiểm định ngoài mẫu có purge, mục tiêu 20 phiên, xếp hạng chéo mã ---
+# ML chỉ là THÔNG TIN THAM KHẢO cho tới khi verdict = HAS_EDGE. Không đưa vào điểm số/quy tắc cứng.
+ML_VALIDATION = {
+    'horizon': 20,                  # phiên; khớp tầm nhìn 1-3 tháng
+    'n_splits': 5,                  # số khối kiểm tra ngoài mẫu (walk-forward, mở rộng dần)
+    'min_train_dates': 250,         # số ngày tối thiểu của khối huấn luyện đầu tiên (~1 năm)
+    'min_symbols_per_date': 10,     # cần đủ mã mỗi ngày để xếp hạng chéo có nghĩa
+    'min_oos_dates': 250,           # số ngày ngoài mẫu tối thiểu để kết luận
+    'top_quantile': 0.2,            # nhóm mã được ML xếp cao nhất (20%)
+    'bootstrap_resamples': 2000,
+    'bootstrap_block': 20,          # = horizon: nhãn của các ngày liền nhau chồng lấn
+    'n_estimators': 200, 'max_depth': 6, 'min_samples_leaf': 100,   # mô hình bảo thủ, hạn chế overfit
+    'report_file': os.path.join(DATA_DIR, 'ml_models', 'validation_report.json'),
+}
+
 # --- Tiêu chí (ĐỀ XUẤT) để chuyển hội đồng từ 'shadow' sang 'enforce' ---
 COMMITTEE_READINESS = {
     'min_settled': 60,
